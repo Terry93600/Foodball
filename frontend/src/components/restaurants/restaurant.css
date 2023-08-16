@@ -1,0 +1,114 @@
+#resto {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+#resto > h2{
+    width: 100%;
+    text-align: center;
+}
+
+#resto > section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#restaurants {
+    font-size: var(--h2);
+    margin-bottom: 10px;
+    position: absolute;
+    top: -30px;
+}
+
+.resto {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: solid 3px var(--VertPrincipal);
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+/* animation */
+
+#resto > section > .resto:hover {
+    background: var(--VertPrincipal);
+    color: white;
+}
+
+#resto > section > .resto:hover > a {
+    font-size: 17px;
+    color: var(--VertPrincipal);
+    background: white;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: max-content;
+    border-radius: 10px;
+    transition-duration: 2s;
+}
+
+figure {
+    width: 100%;
+    height: 250px;
+}
+
+.resto > div  {
+    position: relative;
+}
+
+.resto > div > figure {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 10px;
+}
+
+.resto > div > figure:first-child {
+    left: 15%;
+}
+
+.resto > div > figure:nth-child(3) {
+    right: 15%;
+}
+
+.resto > div > p {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 646px) {
+    .resto {
+        max-width: 100%;
+        margin-top: 20vh;
+    } 
+    
+    #resto > h2 {
+        display: none;
+    }
+
+    #resto > section > .resto:hover,
+    #resto > section > .resto:hover > a {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .resto > div > figure:nth-child(3){
+        right: 5%;
+    }
+
+    .resto > div > figure:first-child {
+        left: 5%;
+    }
+}

@@ -1,0 +1,49 @@
+.slider {
+    height: 60vh;
+    position: relative;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.slider > figure > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .7s;
+}
+
+.slider > figure > img.active {
+    opacity: 1;
+}
+
+.suivant, .precedent {
+    color: black;
+    font-size: 3rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.suivant {
+    right: 1rem;
+    background: none;
+    border: none;
+}
+
+.precedent {
+    left: 1rem;
+    background: none;
+    border: none;
+}
+
+@media screen and (max-width: 646px) {
+    .slider {
+        display: none;
+    }
+    
+}

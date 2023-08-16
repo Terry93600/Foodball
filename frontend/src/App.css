@@ -1,0 +1,29 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img,
+i {
+  width: 100%;
+  height: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  --h1: 25px;
+  --h2: 22px;
+  --nav: 20px;
+  --VertPrincipal: #057016;
+  --VertSecondaire: #16c91f;
+}
