@@ -4,10 +4,11 @@
     align-items: center;
     background: var(--VertPrincipal);
     padding: 10px;
+    height: 100px;
+    font-family: 'Concert One', cursive;
 }
 
 .logo {
-    height: 10vh;
     width: 140px;
     background: white;
     padding: 5px;
@@ -34,9 +35,8 @@
 .nav-links a {
     color: white;
     text-decoration: none;
-    letter-spacing: 3px;
-    font-weight: bold;
-    font-size: 14px;
+    letter-spacing: 1px;
+    font-size: 18px;
 }
 
 .burger div {

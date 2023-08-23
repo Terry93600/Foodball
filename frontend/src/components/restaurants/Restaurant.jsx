@@ -17,7 +17,7 @@ const Restaurant = () => {
                 {/* <img src={city} alt="" /> */}
             </figure>
           </div>
-          <a href="/assets/html/restaurant.html"> En savoir plus </a>
+          <a href="/restaurants/restaurant">En savoir plus</a>
           </article>
     )
 }

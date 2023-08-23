@@ -19,12 +19,11 @@ const Header = () => {
         <div className="line3"></div>
     </label>
     <ul className="nav-links">
-        <li><Link to="/restaurants">Restaurant</Link></li>
-        <li><Link to="/restaurants">Date Importante</Link></li>
+        <li><Link to="/restaurants">Restaurants</Link></li>
+        <li><Link to="/restaurants">Dates Importantes</Link></li>
         <li><Link to="/restaurants">Connexion</Link></li>
     </ul>
 </nav>
-    
   );
 };
 
