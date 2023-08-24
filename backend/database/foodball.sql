@@ -1,3 +1,10 @@
+-- se connecter à Mysql: mysql -h hostname -u username -p
+-- Afficher les bases de données : SHOW DATABASES;
+-- Utiliser une base de données : USE database_name;
+-- Afficher les tabelde de la base de donnée : SHOW TABLES;
+-- afficher la structure d'une table de donnée : DESCRIBE table_name;
+-- charger un fichier sql (exemple: foodball.sql) : source database/foodball.sql;
+
 DROP DATABASE IF EXISTS foodball;
 
 CREATE DATABASE foodball;

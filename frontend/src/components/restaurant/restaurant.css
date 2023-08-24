@@ -6,6 +6,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     height: fit-content;
+    position: relative;
 }
 
 #restaurant > figure {
@@ -13,13 +14,16 @@
     height: 400px;
 }
 
-
+#restaurant > hr {
+    width: 80%;
+    margin-top: 20px;
+}
 
 #restaurant > section {
     display: flex;
     flex-wrap: wrap;
     margin-top: 40px;
-    padding-top: 20px;
+    padding-top: 40px;
     justify-content: center;
     gap: 30px;
     width: 80%;
@@ -46,4 +50,21 @@
 #restaurant > section > article:hover {
     box-shadow: 0px 0px 5px 12px rgba(0, 0, 0, 0.03);
     transition: 0.5s;
+}
+
+#restaurant > a {
+    z-index: 1;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    background: var(--VertPrincipal);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

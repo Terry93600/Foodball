@@ -28,33 +28,33 @@
 }
 
 .resto {
-    max-width: 300px;
+    height: 500px;
+    width: 250px;
+    padding: 10px;
+    margin: 20px 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border: solid 3px var(--VertPrincipal);
-    padding: 10px;
-    margin: 0 10px;
+}
+
+#resto > section > .resto > a {
+    padding: 5px;
     border-radius: 10px;
 }
 
 /* animation */
 
 #resto > section > .resto:hover {
-    background: var(--VertPrincipal);
-    color: white;
+    box-shadow: 0px 0px 5px 12px rgba(0, 0, 0, 0.03);
 }
 
 #resto > section > .resto:hover > a {
-    font-size: 17px;
-    color: var(--VertPrincipal);
-    background: white;
-    padding: 10px;
+    background: var(--VertPrincipal);
+    color: white;
     text-transform: uppercase;
-    font-weight: bold;
     width: max-content;
-    border-radius: 10px;
-    transition-duration: 2s;
+    transition-duration: 0.5s;
+    letter-spacing: 1px;
 }
 
 figure {

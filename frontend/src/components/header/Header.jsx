@@ -21,7 +21,7 @@ const Header = () => {
     <ul className="nav-links">
         <li><Link to="/restaurants">Restaurants</Link></li>
         <li><Link to="/restaurants">Dates Importantes</Link></li>
-        <li><Link to="/restaurants">Connexion</Link></li>
+        <li><Link to="/connexion">Connexion</Link></li>
     </ul>
 </nav>
   );

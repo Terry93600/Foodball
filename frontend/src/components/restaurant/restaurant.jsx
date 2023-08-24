@@ -11,6 +11,8 @@ const Restaurant = () => {
 
         <h2>Le Nom du resto</h2>
 
+        
+
         <section>
             <h3>Entrées</h3>
             <article>
@@ -70,6 +72,8 @@ const Restaurant = () => {
                 <p>$10,95</p>
             </article>   
         </section>
+
+        <hr />
 
         <section>
             <h3>Repas</h3>
@@ -131,6 +135,8 @@ const Restaurant = () => {
             </article>   
         </section>
 
+        <hr />
+
         <section>
             <h3>Dessert</h3>
             <article>
@@ -191,6 +197,8 @@ const Restaurant = () => {
             </article>   
         </section>
 
+        <hr />
+
         <section>
             <h3>Boissons</h3>
             <article>
@@ -250,6 +258,10 @@ const Restaurant = () => {
                 <p>$10,95</p>
             </article>   
         </section>
+
+        <a href="/restaurants/restaurant/réservation">
+            Reserver
+        </a>
         
     </main>
     </>
