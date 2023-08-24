@@ -36,7 +36,7 @@ const Connexion = () => {
                 </li>
             </ul>
 
-            <button type="submit">Envoyer le message</button>
+            <button type="submit">Envoyer la reservation </button>
         
         </form>
     </main>
