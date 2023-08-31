@@ -38,4 +38,3 @@ JOIN foodball.role
 ON role.id = user.role_id
 JOIN foodball.typeEvent
 ON typeEvent.id = event.typeEvent_id
-\G

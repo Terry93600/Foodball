@@ -1,4 +1,5 @@
 import "./restaurant.css";
+import { GoogleApiWrapper } from "google-maps-react";
 
 const Restaurant = () => {
     return <>
@@ -11,7 +12,7 @@ const Restaurant = () => {
 
         <h2>Le Nom du resto</h2>
 
-        
+        <GoogleApiWrapper/>
 
         <section>
             <h3>Entrées</h3>

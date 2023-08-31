@@ -4,7 +4,7 @@ const Restaurant = () => {
           <figure>
             {/* <img src={resto1} alt="" /> */}
           </figure>
-          <h3>Nom du Restaurant</h3>
+          <h3>{Restaurant.nom}</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro similique sed neque, fuga laudantium in assumenda numquam hic sunt qui, esse itaque necessitatibus mollitia id illo, eum eligendi soluta vitae.</p>
           <div>
             <figure>
@@ -23,3 +23,16 @@ const Restaurant = () => {
 }
 
 export default Restaurant
+
+
+// const Restaurant = ({ data }) => {
+//   return (
+//     <div className="restaurant">
+//       <img src={data.imageUrl} alt={data.name} />
+//       <h3>{data.name}</h3>
+//       <p>{data.description}</p>
+//     </div>
+//   );
+// };
+
+// export default Restaurant;

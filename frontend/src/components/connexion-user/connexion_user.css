@@ -1,0 +1,23 @@
+#connexion_user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#connexion_user > h2 {
+    margin : 40px 0;
+}
+
+#connexion_user > a {
+    margin: 20px 0;
+    background: var(--VertPrincipal);
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+#connexion_user > a:hover {
+    background: var(--VertSecondaire);
+}

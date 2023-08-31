@@ -4,7 +4,6 @@
 -- Afficher les tabelde de la base de donnée : SHOW TABLES;
 -- afficher la structure d'une table de donnée : DESCRIBE table_name;
 -- charger un fichier sql (exemple: foodball.sql) : source database/foodball.sql;
-
 DROP DATABASE IF EXISTS foodball;
 
 CREATE DATABASE foodball;
@@ -44,21 +43,38 @@ CREATE TABLE foodball.event(
     FOREIGN KEY(typeEvent_id) REFERENCES foodball.typeEvent(id)
 );
 
+CREATE TABLE foodball.entree(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE foodball.menu(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    entree_nom VARCHAR(50) NOT NULL,
+    entree_description VARCHAR(400),
+    entree_id INT UNSIGNED,
+    FOREIGN KEY(entree_id) REFERENCES foodball.entree(id)
+    -- FOREIGN KEY(entree_nom, entree_description) REFERENCES foodball.entree(nom, description)
+);
+
 CREATE TABLE foodball.restaurant(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
     description TEXT,
     localisation VARCHAR(50) NOT NULL,
     is_validate BOOLEAN NOT NULL,
-    menu VARCHAR(50),
     user_id INT UNSIGNED,
+    -- menu_id INT UNSIGNED,
     FOREIGN KEY(user_id) REFERENCES foodball.user(id)
+    -- FOREIGN KEY(menu_id) REFERENCES foodball.menu(id),
+    -- PRIMARY KEY(menu_id, user_id)
 );
 
 CREATE TABLE foodball.restaurantEvent(
     restaurant_id INT UNSIGNED,
     event_id INT UNSIGNED,
-    FOREIGN KEY(restaurant_id) REFERENCES foodball.restaurant(id),
+    -- FOREIGN KEY(restaurant_id) REFERENCES foodball.restaurant(id),
     FOREIGN KEY(event_id) REFERENCES foodball.event(id),
     PRIMARY KEY(restaurant_id, event_id)
 );
@@ -104,10 +120,7 @@ INSERT INTO foodball.event VALUES
 ;
 
 INSERT INTO foodball.restaurant VALUES
-( NULL, 'KFC', 'Le poulet c est trop bon', 'non', true, 'Menu', 2),
-( NULL, 'MACDO', 'Le poulet c est trop bon', 'non', true, 'Menu', 2),
-( NULL, 'BK', 'Le poulet c est trop bon', 'non', true, 'Menu', 2),
-( NULL, 'QUICK', 'Le poulet c est trop bon', 'non', true, 'Menu', 2)
+( NULL, 'KFC', 'Le poulet c est trop bon',),
 ;
 
 INSERT INTO foodball.restaurantEvent VALUES

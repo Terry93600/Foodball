@@ -3,14 +3,15 @@ import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import { getAllRestaurant } from "../../../service/api";
 import { useEffect, useState } from "react";
+import Filtre from "../outils/filtre/Filtre";
 
 const ListeRestaurant = () => {
-    const [restaurant, setRestaurant] = useState([])
+    const [restaurants, setRestaurants] = useState([])
     useEffect(() => {
       getAllRestaurant () .then(
         result => {
-          setRestaurant(result.data);
-          console.log(restaurant);
+          setRestaurants(result.data);
+          console.log(restaurants);
         }
       )
     }, [])
@@ -19,9 +20,10 @@ const ListeRestaurant = () => {
         <Carrousel/>
       <main id="resto">
         
-      <h2 id="restaurants">Restau</h2>
+      <h2 id="restaurants"></h2>
       <section>
 
+        {/* <Filtre/> */}
         <Restaurant/>
         <Restaurant/>
         <Restaurant/>

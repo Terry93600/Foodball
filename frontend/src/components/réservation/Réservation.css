@@ -1,4 +1,4 @@
-#réservation {
+#connexion {
     margin: 40px 10%;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
     padding: 10px 0;
 }
 
-#réservation > hgroup {
+#connexion > hgroup {
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
     align-items: center;
 }
 
-#réservation > ul {
+#connexion > ul {
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 5px 12px rgba(0, 0, 0, 0.03);
@@ -26,13 +26,13 @@
     width: 400px;
 }
 
-#réservation > ul > li {
+#connexion > ul > li {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-#réservation > ul > li > input {
+#connexion > ul > li > input {
     height: 25px;
     border: none;
     border-bottom: 1px solid black;
@@ -40,7 +40,7 @@
     font-size: 17px;
 }
 
-#réservation > button {
+#connexion > a {
     height: 50px;
     width: 200px;
     font-size: 20px;
