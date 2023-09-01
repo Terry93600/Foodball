@@ -6,6 +6,6 @@ const getAllRestaurant = async () => {
     const request = await fetch(requestInfos);
     const response = await request.json();
     return response;
-}
+};
 
 export { getAllRestaurant };

@@ -1,4 +1,13 @@
+import { useEffect, useState } from "react";
+
 const Restaurant = () => {
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    
+  }, []);
+    
+
     return (
         <article className="resto">
           <figure>
@@ -16,6 +25,7 @@ const Restaurant = () => {
             <figure>
                 {/* <img src={city} alt="" /> */}
             </figure>
+            <h3></h3>
           </div>
           <a href="/restaurants/restaurant">En savoir plus</a>
           </article>
