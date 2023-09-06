@@ -7,5 +7,48 @@ const getAllRestaurant = async () => {
     const response = await request.json();
     return response;
 };
-
 export { getAllRestaurant };
+
+const getAllTeam = async () => {
+    const url = "http://localhost:3000/api/team";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllTeam };
+
+const getAllTypeEvent = async () => {
+    const url = "http://localhost:3000/api/typeevent";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllTypeEvent };
+
+const getAllUser = async () => {
+    const url = "http://localhost:3000/api/user";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllUser };
+
+const getAllRole = async () => {
+    const url = "http://localhost:3000/api/role";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllRole };

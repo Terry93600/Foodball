@@ -3,18 +3,18 @@ import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import { getAllRestaurant } from "../../../service/api";
 import { useEffect, useState } from "react";
-import Filtre from "../outils/filtre/Filtre";
 
 const ListeRestaurant = () => {
     const [restaurants, setRestaurants] = useState([])
     useEffect(() => {
-      getAllRestaurant () .then(
+      getAllRestaurant().then(
         result => {
           setRestaurants(result.data);
           console.log(restaurants);
         }
       )
     }, [])
+console.log(restaurants)
     
     return <>
         <Carrousel/>
@@ -23,11 +23,9 @@ const ListeRestaurant = () => {
       <h2 id="restaurants"></h2>
       <section>
 
-        {/* <Filtre/> */}
-        <Restaurant/>
-        <Restaurant/>
-        <Restaurant/>
-        <Restaurant/>
+        {restaurants && restaurants.map((restau, index) => (
+          <Restaurant titre={restau.nom} desc={restau.description} key={index}/>
+        ))}
 
       </section>
 

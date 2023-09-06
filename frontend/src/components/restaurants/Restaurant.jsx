@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Restaurant = () => {
+const Restaurant = ({titre, desc}) => {
   const [data, setData] = useState([]);
   
   useEffect(() => {
@@ -13,8 +13,8 @@ const Restaurant = () => {
           <figure>
             {/* <img src={resto1} alt="" /> */}
           </figure>
-          <h3>{Restaurant.nom}</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro similique sed neque, fuga laudantium in assumenda numquam hic sunt qui, esse itaque necessitatibus mollitia id illo, eum eligendi soluta vitae.</p>
+          <h3>{titre}</h3>
+          <p> {desc} </p>
           <div>
             <figure>
                 {/* <img src={bayern} alt="" /> */}

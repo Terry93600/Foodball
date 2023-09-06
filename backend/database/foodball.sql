@@ -90,10 +90,10 @@ CREATE TABLE foodball.entree(
 
 CREATE TABLE foodball.menu(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    entree_nom VARCHAR(50) NOT NULL,
-    entree_description VARCHAR(400),
+    -- entree_nom VARCHAR(50) NOT NULL,
+    -- entree_description VARCHAR(400),
     entree_id INT UNSIGNED,
-    FOREIGN KEY(entree_id) REFERENCES foodball.entree(id)
+    FOREIGN KEY(entree_id) REFERENCES foodball.entree(id),
     -- FOREIGN KEY(entree_nom, entree_description) REFERENCES foodball.entree(nom, description)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE foodball.restaurant(
 
 INSERT INTO foodball.restaurant VALUES
 ( NULL, 'KFC', 'Le poulet c est trop bon', '2;48', 1),
-( NULL, 'BK', 'Le poulet c est trop bon', '2;48', 1)
+( NULL, 'BK', 'Burger', '2;48', 1)
 ;
 
 CREATE TABLE foodball.restaurantEvent(
