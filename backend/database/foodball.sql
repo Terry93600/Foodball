@@ -82,20 +82,33 @@ INSERT INTO foodball.event VALUES
 ( NULL, 1, 3, 2)
 ;
 
-CREATE TABLE foodball.entree(
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(50) NOT NULL,
-    description TEXT
-);
-
 CREATE TABLE foodball.menu(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    -- entree_nom VARCHAR(50) NOT NULL,
-    -- entree_description VARCHAR(400),
-    entree_id INT UNSIGNED,
-    FOREIGN KEY(entree_id) REFERENCES foodball.entree(id),
-    -- FOREIGN KEY(entree_nom, entree_description) REFERENCES foodball.entree(nom, description)
+    nom VARCHAR(50) NOT NULL
 );
+
+INSERT INTO foodball.menu VALUES
+(NULL, 'Kfc'),
+(NULL, 'BK'),
+(NULL, 'Macdo')
+;
+
+CREATE TABLE foodball.plat(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    description TEXT,
+    menu_id INT UNSIGNED,
+    FOREIGN KEY(menu_id) REFERENCES foodball.menu(id)
+);
+
+INSERT INTO foodball.plat VALUES
+(NULL, 'Burger kfc', 'kfc',1),
+(NULL, 'Burger BK', 'BK burger ', 2),
+(NULL, 'Burger BK XL', 'BK ', 2),
+(NULL, 'Burger BK XXL', 'BK ', 2),
+(NULL, 'Burger Macdo', 'Macdo', 3)
+;
+
 
 CREATE TABLE foodball.restaurant(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -103,15 +116,15 @@ CREATE TABLE foodball.restaurant(
     description TEXT,
     localisation VARCHAR(50) NOT NULL,
     user_id INT UNSIGNED,
-    FOREIGN KEY(user_id) REFERENCES foodball.user(id)
-    -- menu_id INT UNSIGNED,
-    -- FOREIGN KEY(menu_id) REFERENCES foodball.menu(id),
+    menu_id INT UNSIGNED,
+    FOREIGN KEY(user_id) REFERENCES foodball.user(id),
+    FOREIGN KEY(menu_id) REFERENCES foodball.menu(id)
     -- PRIMARY KEY(menu_id, user_id)
 );
 
 INSERT INTO foodball.restaurant VALUES
-( NULL, 'KFC', 'Le poulet c est trop bon', '2;48', 1),
-( NULL, 'BK', 'Burger', '2;48', 1)
+( NULL, 'KFC', 'Le poulet c est trop bon', '2;48', 1, 3),
+( NULL, 'BK', 'Burger', '2;48', 1, 2)
 ;
 
 CREATE TABLE foodball.restaurantEvent(

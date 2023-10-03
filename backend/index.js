@@ -11,6 +11,8 @@ const userRouter = require('./routes/userRouter')
 const restaurantRouter = require('./routes/restaurantRouter')
 const eventrouter = require('./routes/eventRouter')
 const restaurantEventRouter = require('./routes/restaurantEventRouter')
+const menuRouter = require('./routes/menuRouter')
+const platRouter = require('./routes/platRouter')
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
@@ -21,6 +23,8 @@ app.use(cors({
 
 app.use("/api/role", roleRouter)
 app.use("/api/typeEvent", typeEventRouter)
+app.use("/api/menu", menuRouter)
+app.use("/api/plat", platRouter)
 app.use("/api/team", teamRouter)
 app.use("/api/user", userRouter)
 app.use("/api/restaurant", restaurantRouter)

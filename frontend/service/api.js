@@ -9,6 +9,17 @@ const getAllRestaurant = async () => {
 };
 export { getAllRestaurant };
 
+const getAllPlat = async () => {
+    const url = "http://localhost:3000/api/plat";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllPlat };
+
 const getAllTeam = async () => {
     const url = "http://localhost:3000/api/team";
     const requestInfos = new Request(url, {
