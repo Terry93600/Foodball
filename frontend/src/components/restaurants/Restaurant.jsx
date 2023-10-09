@@ -18,15 +18,12 @@ const Restaurant = ({titre, desc, logo}) => {
           <div>
             <figure>
             </figure>
-
             <p>VS</p>
-
             <figure>
-                {/* <img src={city} alt="" /> */}
             </figure>
             <h3></h3>
           </div>
-          <a href="/restaurants/restaurant/{id}">En savoir plus</a>
+          <a href="/restaurants/restaurant">En savoir plus</a>
           </article>
     )
 }

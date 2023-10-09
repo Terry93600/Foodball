@@ -5,7 +5,10 @@ import Index from '../Pages/Index';
 import Restaurants from '../Pages/Restaurants';
 import Restaurant from '../Pages/Restaurant';
 import Reservation from '../Pages/Reservation';
+
 import Connexion from '../Pages/Connexion';
+import Inscription from '../Pages/Inscription';
+
 import User_connexion from '../Pages/Connexion_user';
 import Ajout_menu from '../Pages/Ajout_menu';
 
@@ -16,6 +19,8 @@ function App() {
         <Route path="/" element={<Index />} />
 
         <Route path="/connexion" element={<Connexion />} />
+        <Route path="/inscription" element={<Inscription />} />
+
         <Route path="/connexion/restaurant_name" element={<User_connexion />} />
         <Route path="/connexion/restaurant_name/ajout_menu" element={<Ajout_menu />} />
 

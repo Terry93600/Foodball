@@ -3,6 +3,7 @@ import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import { getAllRestaurant, getAllTeam } from "../../../service/api";
 import { useEffect, useState } from "react";
+import Search from "./SearchBar";
 
 const ListeRestaurant = () => {
     const [restaurants, setRestaurants] = useState([])
@@ -21,6 +22,7 @@ const ListeRestaurant = () => {
       <main id="resto">
         
       <h2 id="restaurants"></h2>
+      <Search/>
       <section>
         {restaurants && restaurants.map ((restau) => (
           <Restaurant titre={restau.nom} desc={restau.description} logo={restau.user_id} />

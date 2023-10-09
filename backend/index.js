@@ -2,9 +2,36 @@ const express = require("express")
 const app = express()
 const cors = require("cors"); 
 
+const mysql = require('mysql');
+app.use(cors());
+app.use(express.json())
+
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password : "Xetfirst93@",
+    database: "foodball"
+})
+
+app.post('api/inscription', (req, res) => {
+    const sql = "INSERT INTO inscription (`name`, `email`,`password`) VALUES (?,?,?)";
+    const values = [
+        req.body.name,
+        req.body.email,
+        req.body.password
+    ]
+    db.query(sql, [values], (err, data) => {
+        if(err) {
+            return res.json("Error");
+        }
+        return res.json(data);
+    })
+})
+
 require('dotenv').config()
 
 const roleRouter = require('./routes/roleRouter')
+const inscriptionRouter = require('./routes/inscriptionRouter')
 const typeEventRouter = require('./routes/typeEventRouter')
 const teamRouter = require('./routes/teamRouter')
 const userRouter = require('./routes/userRouter')
@@ -22,6 +49,7 @@ app.use(cors({
 
 
 app.use("/api/role", roleRouter)
+app.use("/api/inscription", inscriptionRouter)
 app.use("/api/typeEvent", typeEventRouter)
 app.use("/api/menu", menuRouter)
 app.use("/api/plat", platRouter)

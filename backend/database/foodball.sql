@@ -8,6 +8,17 @@ DROP DATABASE IF EXISTS foodball;
 
 CREATE DATABASE foodball;
 
+CREATE TABLE foodball.inscription(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+INSERT INTO foodball.inscription VALUES
+( NULL, 'terry@gmail.com', 'terry', 'terry' )
+;
+
 CREATE TABLE foodball.role(
     id TINYINT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20) NOT NULL UNIQUE
@@ -24,11 +35,13 @@ CREATE TABLE foodball.user(
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     role_id TINYINT(1) UNSIGNED,
+    inscription_id INT UNSIGNED,
+    FOREIGN KEY(inscription_id) REFERENCES foodball.inscription(id),
     FOREIGN KEY(role_id) REFERENCES foodball.role(id)
 );
 INSERT INTO foodball.user VALUES
-( NULL, 'admin@admin.com', 'Genly', 'Terry', 1),
-( NULL, 'user@user.com', 'Genly', 'Laurent', 2)
+( NULL, 'admin@admin.com', 'Genly', 'Terry', 1,1),
+( NULL, 'user@user.com', 'Genly', 'Laurent', 2,1)
 ;
 
 CREATE TABLE foodball.team(
