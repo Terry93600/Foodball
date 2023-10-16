@@ -16,8 +16,15 @@ CREATE TABLE foodball.inscription(
 );
 
 INSERT INTO foodball.inscription VALUES
-( NULL, 'terry@gmail.com', 'terry', 'terry' )
+( NULL, 't@gmail.com', 'terry', 'ter' )
 ;
+
+-- CREATE TABLE foodball.connexion(
+--     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+-- );
+-- INSERT INTO foodball.connexion VALUES
+-- ( NULL, "terry@gmail.com" )
+-- ;
 
 CREATE TABLE foodball.role(
     id TINYINT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

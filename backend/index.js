@@ -28,10 +28,25 @@ app.post('api/inscription', (req, res) => {
     })
 })
 
+app.post('/api/inscription', (req, res) => {
+    const sql = "SELECT * FROM inscription WHERE `email` = ? AND `password` = ?";
+    db.query(sql, [req.body.email,req.body.password ], (err, data) => {
+        if(err) {
+            return res.json("Error");
+        }
+        if(data.lenght > 0) {
+            return res.json("Succes");
+        } else {
+            return res.json("Faile")
+        }
+    })
+})
+
 require('dotenv').config()
 
 const roleRouter = require('./routes/roleRouter')
 const inscriptionRouter = require('./routes/inscriptionRouter')
+const connexionRouter = require('./routes/connexionRouter')
 const typeEventRouter = require('./routes/typeEventRouter')
 const teamRouter = require('./routes/teamRouter')
 const userRouter = require('./routes/userRouter')
@@ -50,6 +65,7 @@ app.use(cors({
 
 app.use("/api/role", roleRouter)
 app.use("/api/inscription", inscriptionRouter)
+app.use("/api/connexion", connexionRouter)
 app.use("/api/typeEvent", typeEventRouter)
 app.use("/api/menu", menuRouter)
 app.use("/api/plat", platRouter)
