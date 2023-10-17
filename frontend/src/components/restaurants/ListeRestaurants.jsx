@@ -1,7 +1,7 @@
 import "./restaurant.css";
 import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
-import { getAllRestaurant, getAllTeam } from "../../../service/api";
+import { getAllRestaurant } from "../../../service/api";
 import { useEffect, useState } from "react";
 import Search from "./SearchBar";
 
@@ -25,7 +25,7 @@ const ListeRestaurant = () => {
       <Search/>
       <section>
         {restaurants && restaurants.map ((restau) => (
-          <Restaurant titre={restau.nom} desc={restau.description} logo={restau.user_id} />
+          <Restaurant titre={restau.nom} desc={restau.description} team1={restau.team1} team2={restau.team2} event={restau.typeEvent} restauId={restau.id} />
         ))}
       </section>
     </main>

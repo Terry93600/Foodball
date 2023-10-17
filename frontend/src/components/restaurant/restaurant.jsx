@@ -1,6 +1,5 @@
 import ListePlat from "./Listeplats";
 import "./restaurant.css";
-import { GoogleApiWrapper } from "google-maps-react";
 
 const Plat = ({ titre, description  }) => {
     return <>
@@ -11,8 +10,6 @@ const Plat = ({ titre, description  }) => {
         </figure>
 
         <h2>Le Nom du resto</h2>
-
-        <GoogleApiWrapper/>
 
         <section>
             <h3>{titre}</h3>

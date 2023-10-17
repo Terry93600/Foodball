@@ -48,6 +48,7 @@ CREATE TABLE foodball.user(
 );
 INSERT INTO foodball.user VALUES
 ( NULL, 'admin@admin.com', 'Genly', 'Terry', 1,1),
+( NULL, 'admin@adminnnnn.com', 'Genlyyyyy', 'Terry', 1,1),
 ( NULL, 'user@user.com', 'Genly', 'Laurent', 2,1)
 ;
 
@@ -99,7 +100,8 @@ CREATE TABLE foodball.event(
 
 INSERT INTO foodball.event VALUES
 ( NULL, 1, 2, 2),
-( NULL, 1, 3, 2)
+( NULL, 1, 3, 2),
+( NULL, 4, 6, 2)
 ;
 
 CREATE TABLE foodball.menu(
@@ -129,7 +131,6 @@ INSERT INTO foodball.plat VALUES
 (NULL, 'Burger Macdo', 'Macdo', 3)
 ;
 
-
 CREATE TABLE foodball.restaurant(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50) NOT NULL,
@@ -144,7 +145,7 @@ CREATE TABLE foodball.restaurant(
 
 INSERT INTO foodball.restaurant VALUES
 ( NULL, 'KFC', 'Le poulet c est trop bon', '2;48', 1, 3),
-( NULL, 'BK', 'Burger', '2;48', 1, 2)
+( NULL, 'BK', 'Burger', '2;48', 2, 1)
 ;
 
 CREATE TABLE foodball.restaurantEvent(
@@ -156,5 +157,6 @@ CREATE TABLE foodball.restaurantEvent(
 );
 
 INSERT INTO foodball.restaurantEvent VALUES
+( 2,3),
 ( 1,1)
 ;

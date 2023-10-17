@@ -25,7 +25,9 @@ function App() {
         <Route path="/connexion/restaurant_name/ajout_menu" element={<Ajout_menu />} />
 
         <Route path="/restaurants" element={<Restaurants />} />
-        <Route path="/restaurants/restaurant" element={<Restaurant />} />
+        {/* <Route path="/restaurants/:titre " element={<Restaurant />} /> */}
+        <Route path="/restaurants/:restauId" element={<Restaurant />} />
+
         <Route path="/restaurants/restaurant/réservation" element={<Reservation />} />
       </Routes>
     </>
