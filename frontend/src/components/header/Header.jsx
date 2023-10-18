@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css'; 
-import logo from '../../assets/logo/logo.png'
+// import logo from '../../assets/logo/logo.PNG'
 
 const Header = () => {
 
@@ -9,7 +9,7 @@ const Header = () => {
     
 <nav id='header'>
       <Link to="/" className="logo">
-        <img src={logo} />
+        {/* <img src={logo} /> */}
       </Link>
     <input type="checkbox" id="menu-toggle"/>
     <label htmlFor="menu-toggle" className="burger">
@@ -19,7 +19,6 @@ const Header = () => {
     </label>
     <ul className="nav-links">
         <li><Link to="/restaurants">Restaurants</Link></li>
-        <li><Link to="/restaurants">Dates Importantes</Link></li>
         <li><Link to="/connexion">Connexion</Link></li>
     </ul>
 </nav>

@@ -11,28 +11,6 @@ const Accueil = () => {
                 <figure>
                     <img src="https://medias.paris2024.org/uploads/2022/09/Opera-ephemere-au-Trocadero-2-Avec-mention.jpg?x-oss-process=image/resize,w_1200,h_675,m_lfit/format,jpeg" alt="" />
                 </figure>
-                <nav>
-                <ul>
-                    <li>
-                        <a href="">
-                            <i className="fas fa-calendar-alt"></i>
-                            <p>Calendrier</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i className="fas fa-info-circle"></i>
-                            <p>Informations</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                        <i className="fa-solid fa-person-running"></i>
-                            <p>Match</p>
-                        </a>
-                    </li>
-                </ul>
-                </nav>
             </section>
 
             <article id="a-propos">
@@ -40,6 +18,7 @@ const Accueil = () => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia minima ipsa ea modi quod nulla enim delectus vero ipsam sequi. Nam esse vitae eum itaque, velit porro quo pariatur nesciunt!
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repudiandae id sed magnam similique nulla voluptatibus odio aspernatur fugiat sequi et illum debitis repellendus totam, quibusdam accusamus. Sunt, nobis vitae.
                 </p>
+                <a href="">En savoir plus</a>
             </article>
 
             <section id="retrouver">

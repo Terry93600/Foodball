@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect} from "react";
-// import 'bootstrap/dist/css';
 
 function filtre() {
     const [data,setData] = useState([])

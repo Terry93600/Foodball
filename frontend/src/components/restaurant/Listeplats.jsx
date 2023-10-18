@@ -1,5 +1,5 @@
 import "./restaurant.css";
-import { getAllPlat, getAllRestaurant } from "../../../service/api";
+import { getAllPlat } from "../../../service/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Plat from "./restaurant";
