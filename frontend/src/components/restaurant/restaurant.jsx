@@ -1,7 +1,7 @@
 import ListePlat from "./Listeplats";
 import "./restaurant.css";
 
-const Plat = ({ titre, description  }) => {
+const Plat = ({ titreMenu, description  }) => {
     return <>
 
     <main id="restaurant">
@@ -12,7 +12,7 @@ const Plat = ({ titre, description  }) => {
         <h2>Le Nom du resto</h2>
 
         <section>
-            <h3>{titre}</h3>
+            <h3>{titreMenu}</h3>
             <article>
                 <figure>
                     <img src="" alt="" />

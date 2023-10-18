@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 const Restaurant = ({titre, desc, team1, team2, event, restauId}) => {
   const [data, setData] = useState([]);
   
-  const lienId = restauId;
-  const url = `/restaurants/${restauId}`
+  const url = `/restaurants/${titre}`
   useEffect(() => {
     
   }, []);

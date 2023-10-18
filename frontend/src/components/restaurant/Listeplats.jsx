@@ -1,7 +1,9 @@
 import "./restaurant.css";
-import { getAllPlat } from "../../../service/api";
+import { getAllPlat, getAllRestaurant } from "../../../service/api";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Plat from "./restaurant";
+import Restaurant from "../restaurants/Restaurant";
 
 const ListePlat = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -11,7 +13,7 @@ const ListePlat = () => {
     });
   }, []);
 
-  const critere = "macdo";
+  const {critere} = useParams();
 
   const restaurantsFiltres = restaurants.filter((restaurant) =>
     restaurant.nom.toLowerCase().includes(critere.toLowerCase())
@@ -21,7 +23,7 @@ const ListePlat = () => {
     <>
       <section>
         {restaurantsFiltres.map((plat) => (
-          <Plat titre={plat.nom} description={plat.description} key={plat.id} />
+          <Plat titreMenu={plat.nom} description={plat.description} key={plat.id} />
         ))}
       </section>
     </>
