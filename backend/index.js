@@ -29,6 +29,7 @@ app.post('/api/inscription', (req, res) => {
     })
 })
 
+
 // app.post('/api/inscription', (req, res) => {
 //     const sql = "SELECT * FROM inscription WHERE `email` = ? AND `password` = ?";
 //     db.query(sql, [req.body.email,req.body.password ], (err, data) => {
