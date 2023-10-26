@@ -41,7 +41,9 @@ const ListeRestaurant = () => {
               team1={restau.team1}
               team2={restau.team2}
               event={restau.typeEvent}
+              menu_id={restau.menu_id}
               restauId={restau.id}
+              localisation={restau.localisation}
             />
           ))}
         </section>

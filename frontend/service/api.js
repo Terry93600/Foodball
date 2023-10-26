@@ -63,3 +63,14 @@ const getAllRole = async () => {
     return response;
 };
 export { getAllRole };
+
+const getAllMenu = async () => {
+    const url = "http://localhost:3000/api/menu";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllMenu };

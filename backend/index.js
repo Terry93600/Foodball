@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
-const cors = require("cors"); 
+const cors = require("cors");
+
 
 const mysql = require('mysql');
 app.use(cors());
@@ -13,7 +14,7 @@ const db = mysql.createConnection({
     database: "foodball"
 })
 
-app.post('api/inscription', (req, res) => {
+app.post('/api/inscription', (req, res) => {
     const sql = "INSERT INTO inscription (`name`, `email`,`password`) VALUES (?,?,?)";
     const values = [
         req.body.name,
@@ -28,19 +29,19 @@ app.post('api/inscription', (req, res) => {
     })
 })
 
-app.post('/api/inscription', (req, res) => {
-    const sql = "SELECT * FROM inscription WHERE `email` = ? AND `password` = ?";
-    db.query(sql, [req.body.email,req.body.password ], (err, data) => {
-        if(err) {
-            return res.json("Error");
-        }
-        if(data.lenght > 0) {
-            return res.json("Succes");
-        } else {
-            return res.json("Faile")
-        }
-    })
-})
+// app.post('/api/inscription', (req, res) => {
+//     const sql = "SELECT * FROM inscription WHERE `email` = ? AND `password` = ?";
+//     db.query(sql, [req.body.email,req.body.password ], (err, data) => {
+//         if(err) {
+//             return res.json("Error");
+//         }
+//         if(data.lenght > 0) {
+//             return res.json("Succes");
+//         } else {
+//             return res.json("Faile")
+//         }
+//     })
+// })
 
 require('dotenv').config()
 

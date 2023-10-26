@@ -1,11 +1,54 @@
+// import "./restaurant.css";
+// import { getAllRestaurant, getAllPlat } from "../../../service/api";
+// import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import Plat from "./restaurant";
+// import Restaurant from "../restaurants/Restaurant";
+
+// const ListePlat = ({menuNom}) => {
+//   const [restaurants, setRestaurants] = useState([]);
+//   useEffect(() => {
+//     getAllPlat().then((result) => {
+//       setRestaurants(result.data);
+//     });
+//   }, []);
+
+//   const { critere } = useParams();
+
+//   const restaurantsFiltres = restaurants.filter((restaurant) =>
+//     restaurant.menu_id === parseInt(critere)
+//   );
+
+//   return (
+//     <>
+//       <section id="restaurant">
+//         <h1>{menuNom}</h1>
+//         {restaurantsFiltres.map((plat) => (
+//           <Plat
+//             titreMenu={plat.nom}
+//             description={plat.description}
+//             key={plat.id}
+//             menu_id={plat.menu_id}
+//             composition={plat.composition}
+//             menuNom={plat.menu_nom}
+//           />
+//         ))}
+//       </section>
+//     </>
+//   );
+// };
+
+// export default ListePlat;
+
+
 import "./restaurant.css";
-import { getAllPlat } from "../../../service/api";
+import { getAllRestaurant, getAllPlat } from "../../../service/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Plat from "./restaurant";
 import Restaurant from "../restaurants/Restaurant";
 
-const ListePlat = () => {
+const ListePlat = ({ menuNom }) => {
   const [restaurants, setRestaurants] = useState([]);
   useEffect(() => {
     getAllPlat().then((result) => {
@@ -13,17 +56,24 @@ const ListePlat = () => {
     });
   }, []);
 
-  const {critere} = useParams();
+  const { critere } = useParams();
 
   const restaurantsFiltres = restaurants.filter((restaurant) =>
-    restaurant.nom.toLowerCase().includes(critere.toLowerCase())
+    restaurant.menu_id === parseInt(critere)
   );
 
   return (
     <>
-      <section>
+      <section id="restaurant">
         {restaurantsFiltres.map((plat) => (
-          <Plat titreMenu={plat.nom} description={plat.description} key={plat.id} />
+          <Plat
+            titreMenu={plat.nom}
+            description={plat.description}
+            key={plat.id}
+            menu_id={plat.menu_id}
+            composition={plat.composition}
+            menuNom={plat.menu_nom}
+            />
         ))}
       </section>
     </>
