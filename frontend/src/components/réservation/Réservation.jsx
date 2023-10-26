@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import './Réservation.css'
 const Réservation = () => {
 
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
+
   return (
 
     <main>
@@ -25,7 +28,7 @@ const Réservation = () => {
                     <label for="mail">E-mail :</label>
                     <input type="email" id="email" size="30" required />
                 </li>
-                <li>
+                {/* <li>
                     <label for="name">Numéro de téléphone :</label>
                     <input type="tel" placeholder="0123456789" required />
                 </li>
@@ -36,7 +39,7 @@ const Réservation = () => {
                 <li>
                     <label for="msg">Match :</label>
                     <input type="email" id="mail" name="user_mail" required/>
-                </li>
+                </li> */}
             </ul>
 
             <button type="submit">Envoyer le message</button>

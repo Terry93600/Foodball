@@ -4,7 +4,10 @@ const platController = {
     selectAll: async (req,res) => {
         try {
             const [rows, fields] = await pool.query(`
-            select * from plat
+            SELECT plat.*, menu.nom AS menu_nom
+            FROM foodball.plat
+            JOIN foodball.menu ON plat.menu_id = menu.id;           
+
             `)
             res.json({
                 data: rows

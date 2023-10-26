@@ -15,8 +15,7 @@ const Accueil = () => {
 
             <article id="a-propos">
                 <h2>A propos</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia minima ipsa ea modi quod nulla enim delectus vero ipsam sequi. Nam esse vitae eum itaque, velit porro quo pariatur nesciunt!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repudiandae id sed magnam similique nulla voluptatibus odio aspernatur fugiat sequi et illum debitis repellendus totam, quibusdam accusamus. Sunt, nobis vitae.
+                <p>Foodball est une application qui permet de rechercher des restaurants diffusant les matchs de football en direct. Que vous souhaitiez soutenir votre équipe préférée ou simplement profiter de l'ambiance sportive, Foodball vous permet de localiser rapidement les restaurants à proximité qui diffusent les matchs que vous souhaitez regarder.
                 </p>
                 <a href="">En savoir plus</a>
             </article>

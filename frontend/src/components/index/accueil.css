@@ -9,13 +9,12 @@
 
 #carrou > figure {
     width: 100%;
-    height: 500px;
+    height: 60vh;
 }
 
 #a-propos {
     width: 600px;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 0 auto;
     gap: 10px;
     display: flex;
     justify-content: space-between;
@@ -30,6 +29,7 @@
 #a-propos > p {
     font-family: none;
     font-size: 18px;
+    padding-left: 30px;
 }
 
 #a-propos > a {
@@ -37,7 +37,7 @@
     border-radius: 10px;
 }
 
-#a-propos > a:hover {
+#a-propos:hover > a {
     background: var(--VertPrincipal);
     color: white;
     text-transform: uppercase;
