@@ -18,7 +18,7 @@ const Header = () => {
         <div className="line3"></div>
     </label>
     <ul className="nav-links">
-        <li><Link to="/restaurants">Restaurantssssss</Link></li>
+        <li><Link to="/restaurants">Restaurantssss</Link></li>
         <li><Link to="/connexion">Connexion</Link></li>
     </ul>
 </nav>
