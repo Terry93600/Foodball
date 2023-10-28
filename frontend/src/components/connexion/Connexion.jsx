@@ -20,9 +20,9 @@ function Login({nom, email, id}) {
 
     const handleSubmit =(event) => {
         event.preventDefault();
-        setErrors(Validation(values));
+        // setErrors(Validation(values));
         if(errors.email === "" && errors.password === "")
-        {
+        // {
         axios.post('http://localhost:3000/api/inscription', values)
         .then(res => {
             if(res.data === "succes"){
@@ -32,7 +32,7 @@ function Login({nom, email, id}) {
             }
         })
         .catch(err => console.log(err));
-    }
+    // }
     }
 
   const url = `/connexion/${nom}`;
