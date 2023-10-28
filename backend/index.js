@@ -7,27 +7,27 @@ const mysql = require('mysql');
 app.use(cors());
 app.use(express.json())
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password : "Xetfirst93@",
-    database: "foodball"
-})
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password : "Xetfirst93@",
+//     database: "foodball"
+// })
 
-app.post('/api/inscription', (req, res) => {
-    const sql = "INSERT INTO inscription (`name`, `email`,`password`) VALUES (?,?,?)";
-    const values = [
-        req.body.name,
-        req.body.email,
-        req.body.password
-    ]
-    db.query(sql, [values], (err, data) => {
-        if(err) {
-            return res.json("Error");
-        }
-        return res.json(data);
-    })
-})
+// app.post('/api/inscription', (req, res) => {
+//     const sql = "INSERT INTO inscription (`name`, `email`,`password`) VALUES (?,?,?)";
+//     const values = [
+//         req.body.name,
+//         req.body.email,
+//         req.body.password
+//     ]
+//     db.query(sql, [values], (err, data) => {
+//         if(err) {
+//             return res.json("Error");
+//         }
+//         return res.json(data);
+//     })
+// })
 
 
 // app.post('/api/inscription', (req, res) => {
@@ -36,7 +36,7 @@ app.post('/api/inscription', (req, res) => {
 //         if(err) {
 //             return res.json("Error");
 //         }
-//         if(data.lenght > 0) {
+//         if(data.length > 0) {
 //             return res.json("Succes");
 //         } else {
 //             return res.json("Faile")
