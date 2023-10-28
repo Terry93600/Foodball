@@ -74,3 +74,14 @@ const getAllMenu = async () => {
     return response;
 };
 export { getAllMenu };
+
+const getAllInscription = async () => {
+    const url = "http://localhost:3000/api/inscription";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllInscription };

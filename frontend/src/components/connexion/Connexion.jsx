@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import './log.css'; 
 import Validation from "./ConnexionValidation";
 import axios from "axios";
 
-function Login() {
+function Login({nom, email, id}) {
     const [values, setValues] = useState({
         email:'',
         password:''
     })
 
 	const navigate = useNavigate();
-
     const [errors, setErrors] = useState({})
     const handleInput = (event) => {
         setValues(prev => ({...prev, [event.target.name]: event.target.values}))
-        // setValues({ ...values, [event.target.name]: event.target.value });
 		console.log(values);
     }
 
@@ -35,6 +34,10 @@ function Login() {
         .catch(err => console.log(err));
     }
     }
+
+  const url = `/connexion/${nom}`;
+
+
     return (
         <div>
             <div>
@@ -52,7 +55,8 @@ function Login() {
                         onChange={handleInput} />
                         {errors.password && <span>{errors.password}</span>}
                     </div>
-                    <button type="submit">Log in</button>
+                    <button type="submit" >Log in</button>
+                    <a href={url}>terry</a>
                     <p>You are agree to aour terms and police</p>
                     <Link to="/inscription">Create Account</Link>
                 </form>
