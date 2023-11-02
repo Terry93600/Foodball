@@ -23,7 +23,7 @@ function Login({nom, email, id}) {
         setErrors(Validation(values));
         if(errors.email === "" && errors.password === "")
         {
-        axios.post('http://localhost:3000/api/inscription', values)
+        axios.post('http://localhost:3000/api/utilisateur', values)
         .then(res => {
             if(res.data === "succes"){
                 navigate('/');

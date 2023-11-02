@@ -1,7 +1,8 @@
+// import bcrypt from 'bcrypt'
+
 const express = require("express")
 const app = express()
 const cors = require("cors");
-
 
 const mysql = require('mysql');
 app.use(cors());
@@ -66,7 +67,7 @@ app.use(cors({
 
 
 app.use("/api/role", roleRouter)
-app.use("/api/inscription", inscriptionRouter)
+app.use("/api/utilisateur", inscriptionRouter)
 app.use("/api/connexion", connexionRouter)
 app.use("/api/typeEvent", typeEventRouter)
 app.use("/api/menu", menuRouter)
