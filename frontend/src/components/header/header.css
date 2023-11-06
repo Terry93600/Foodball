@@ -83,12 +83,12 @@
         flex-direction: column;
         align-items: center;
         position: fixed;
-        top: 13vh;
+        top: 9.5vh;
         right: 0;
         /* background: #16c91f65; */
-        background: rgba(255, 255, 255, 0.685);
+        background: #38761d85;
         width: 100%;
-        height: 87vh;
+        height: 100vh;
         z-index: 3;
     }
 }

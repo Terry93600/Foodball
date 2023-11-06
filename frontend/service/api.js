@@ -76,7 +76,7 @@ const getAllMenu = async () => {
 export { getAllMenu };
 
 const getAllInscription = async () => {
-    const url = "http://localhost:3000/api/inscription";
+    const url = "http://localhost:3000/api/utilisateur";
     const requestInfos = new Request(url, {
         method: 'get',
     });

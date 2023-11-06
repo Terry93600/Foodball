@@ -3,7 +3,7 @@ import './App.css';
 
 import Index from '../Pages/Index';
 import Restaurants from '../Pages/Restaurants';
-import Restaurant from '../Pages/Restaurant';
+// import Restaurant from '../Pages/Restaurant';
 import Reservation from '../Pages/Reservation';
 
 import Connexion from '../Pages/Connexion';
@@ -26,7 +26,7 @@ function App() {
 
         <Route path="/restaurants" element={<Restaurants />} />
         {/* <Route path="/restaurants/:titre " element={<Restaurant />} /> */}
-        <Route path="/restaurants/:critere" element={<Restaurant />} />
+        {/* <Route path="/restaurants/:critere" element={<Restaurant />} /> */}
         {/* <Route path="/restaurants/:menu_id" element={<Restaurant />} /> */}
 
         <Route path="/restaurants/restaurant/réservation" element={<Reservation />} />

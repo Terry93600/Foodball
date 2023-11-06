@@ -1,40 +1,41 @@
-import "./restaurant.css";
-import { getAllPlat } from "../../../service/api";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Plat from "./restaurant";
-import Restaurant from "../restaurants/Restaurant";
+// import "./restaurant.css";
+// import { getAllRestaurant } from "../../../service/api";
+// import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import Plat from "./restaurant";
 
-const ListePlat = () => {
-  const [restaurants, setRestaurants] = useState([]);
-  useEffect(() => {
-    getAllPlat().then((result) => {
-      setRestaurants(result.data);
-    });
-  }, []);
+// const ListePlat = () => {
+//   const [restaurants, setRestaurants] = useState([]); // Nouvel état pour stocker les restaurants filtrés
 
-  const { critere } = useParams();
+//   console.log('restaurants', restaurants)
+  
+//   useEffect(() => {
+//     getAllRestaurant().then((result) => {
+//       setRestaurants(result.data);
+//       console.log('result.data', result.data)
+//     });
+//   }, []);
 
-  const restaurantsFiltres = restaurants.filter((restaurant) =>
-    restaurant.menu_id === parseInt(critere)
-  );
+//   console.log('restaurants', restaurants)
+//   const { critere } = useParams();
 
-  return (
-    <>
-      <section id="restaurant">
-        {restaurantsFiltres.map((plat) => (
-          <Plat
-            titreMenu={plat.nom}
-            description={plat.description}
-            key={plat.id}
-            menu_id={plat.menu_id}
-            composition={plat.composition}
-            menuNom={plat.menu_nom}
-            />
-        ))}
-      </section>
-    </>
-  );
-};
+// //   const restaurantsFiltres = restaurants.filter((restaurant) =>
+// //     restaurant.menuPdf === parseInt(critere)
+// //   );
 
-export default ListePlat;
+//   return (
+//     <>
+//       <section id="restaurant">
+//         {restaurants.map((plat, index) => (
+//           <Plat
+//             key={index}
+//             menuPdf={plat.menuPdf}
+//             nom={plat.nom}
+//             />
+//         ))}
+//       </section>
+//     </>
+//   );
+// };
+
+// export default ListePlat;

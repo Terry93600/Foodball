@@ -3,7 +3,7 @@ const inscriptionController = {
 
     selectAll: async (req,res) => {
         try {
-            const [rows, fields] = await pool.query("select * from inscription")
+            const [rows, fields] = await pool.query("select * from utilisateur")
             res.json({
                 data: rows
             })
@@ -17,7 +17,7 @@ const inscriptionController = {
     selectOne: async (req,res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("select * from inscription WHERE id = ?", [id])
+            const [rows, fields] = await pool.query("select * from utilisateur WHERE id = ?", [id])
             res.json({
                 data: rows
             })
@@ -28,7 +28,7 @@ const inscriptionController = {
     create: async (req,res) => {
         try {
             const { email, name, password } = req.body
-            const sql = "insert into inscription (email, name, password ) values (?,?,?)"
+            const sql = "insert into utilisateur (email, name, password ) values (?,?,?)"
             const [rows, fields] = await pool.query(sql, [email, name, password])
             res.json({
                 data: rows
@@ -41,7 +41,7 @@ const inscriptionController = {
         try {
             const { email, name, password } = req.body
             const { id } = req .params
-            const sql = "update inscription set email = ?, name = ?, password = ?  WHERE id =?"
+            const sql = "update utilisateur set email = ?, name = ?, password = ?  WHERE id =?"
             const [rows, fields] = await pool.query(sql, [email, name, password, id])
             res.json({
                 data: rows
@@ -53,7 +53,7 @@ const inscriptionController = {
     delete: async (req,res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("delete * from inscription WHERE id = ?", [id])
+            const [rows, fields] = await pool.query("delete * from utilisateur WHERE id = ?", [id])
             res.json({
                 data: rows
             })

@@ -2,7 +2,6 @@ import "./accueil.css"
 import burger from '../../assets/repas/burger.png'
 import indien from '../../assets/repas/indien.jpg'
 
-
 const Accueil = () => {
     return <>
         

@@ -21,9 +21,14 @@ function Login({nom, email, id}) {
     const handleSubmit =(event) => {
         event.preventDefault();
         // setErrors(Validation(values));
-        if(errors.email === "" && errors.password === "")
-        // {
-        axios.post('http://localhost:3000/api/inscription', values)
+//         if(errors.email === "" && errors.password === "")
+// <<<<<<< test
+//         {
+//         axios.post('http://localhost:3000/api/utilisateur', values)
+// =======
+//         // {
+//         axios.post('http://localhost:3000/api/inscription', values)
+// >>>>>>> main
         .then(res => {
             if(res.data === "succes"){
                 navigate('/');

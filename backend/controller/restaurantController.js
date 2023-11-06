@@ -7,10 +7,11 @@ const restaurantController = {
             select restaurant.*,
             t1.nom as team1,
             t2.nom as team2,
-            user.email, 
+            utilisateur.email, 
             role.name as role,
             typeEvent.nom as typeEvent,
-            restaurant.localisation 
+            restaurant.localisation,
+            restaurant.menuPdf
 
             FROM foodball.restaurant
             JOIN foodball.event
@@ -21,10 +22,10 @@ const restaurantController = {
             ON t1.id = event.team1_id
             JOIN foodball.team as t2
             ON t2.id = event.team2_id
-            JOIN foodball.user
-            ON user.id = restaurant.user_id
+            JOIN foodball.utilisateur
+            ON utilisateur.id = restaurant.utilisateur_id
             JOIN foodball.role 
-            ON role.id = user.role_id
+            ON role.id = utilisateur.role_id
             JOIN foodball.typeEvent
             ON typeEvent.id = event.typeEvent_id
             `)
