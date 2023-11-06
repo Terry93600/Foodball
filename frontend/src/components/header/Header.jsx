@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+// import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css'; 
 // import logo from '../../assets/logo/logo.PNG'
@@ -22,6 +22,7 @@ const Header = () => {
         <li><Link to="/connexion">Connexion</Link></li>
     </ul>
 </nav>
+
   );
 };
 

@@ -12,7 +12,8 @@ const ListeRestaurant = () => {
   useEffect(() => {
     getAllRestaurant().then((result) => {
       setRestaurants(result.data);
-      setFilteredRestaurants(result.data); // Initialisez les restaurants filtrés avec la liste complète
+      setFilteredRestaurants(result.data); 
+      console.log('result.data', result.data)
     });
   }, []);
 
@@ -31,17 +32,18 @@ const ListeRestaurant = () => {
     <>
       <Carrousel />
       <main id="resto">
-        <h2 id="restaurants"></h2>
+        <h2 id="restaurants">Restaurants</h2>
         <SearchBar onSearch={handleSearch} />
         <section>
-          {filteredRestaurants.map((restau) => (
+          {filteredRestaurants.map((restau, index) => (
             <Restaurant
+            key={index}
               titre={restau.nom}
               desc={restau.description}
               team1={restau.team1}
               team2={restau.team2}
               event={restau.typeEvent}
-              menu_id={restau.menu_id}
+              menu={restau.menuPdf}
               restauId={restau.id}
               localisation={restau.localisation}
             />

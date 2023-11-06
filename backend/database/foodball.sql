@@ -100,14 +100,16 @@ CREATE TABLE foodball.restaurant (
     nom VARCHAR(50) NOT NULL,
     description TEXT,
     localisation VARCHAR(100) NOT NULL,
-    menuPdf VARCHAR(50) NOT NULL,
+    menuPdf TEXT NOT NULL,
     utilisateur_id INT UNSIGNED, 
     FOREIGN KEY (utilisateur_id) REFERENCES foodball.utilisateur(id)
 );
 
 -- Insérer des données dans la table "restaurant"
 INSERT INTO foodball.restaurant (nom, description, localisation, menuPdf, utilisateur_id) VALUES
-('KFC', 'Le poulet c est trop bon', 'rue du général de gaule',"kojsdf.pdf", 1);
+('KFC', 'Le poulet c est trop bon', 'rue du général de gaule',"kojsdf.pdf", 1),
+('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur. ', 'BK BK BK',"https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg", 1)
+;
 
 -- Créer une table "restaurantEvent"
 CREATE TABLE foodball.restaurantEvent (
@@ -120,4 +122,6 @@ CREATE TABLE foodball.restaurantEvent (
 
 -- Insérer des données dans la table "restaurantEvent"
 INSERT INTO foodball.restaurantEvent (restaurant_id, event_id) VALUES
-(1, 1);
+(1, 1),
+(2, 2)
+;

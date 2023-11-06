@@ -1,35 +1,36 @@
 // import "./restaurant.css";
-// import { getAllPlat } from "../../../service/api";
+// import { getAllRestaurant } from "../../../service/api";
 // import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 // import Plat from "./restaurant";
-// import Restaurant from "../restaurants/Restaurant";
 
 // const ListePlat = () => {
-//   const [restaurants, setRestaurants] = useState([]);
+//   const [restaurants, setRestaurants] = useState([]); // Nouvel état pour stocker les restaurants filtrés
+
+//   console.log('restaurants', restaurants)
+  
 //   useEffect(() => {
-//     getAllPlat().then((result) => {
+//     getAllRestaurant().then((result) => {
 //       setRestaurants(result.data);
+//       console.log('result.data', result.data)
 //     });
 //   }, []);
 
+//   console.log('restaurants', restaurants)
 //   const { critere } = useParams();
 
-//   const restaurantsFiltres = restaurants.filter((restaurant) =>
-//     restaurant.menu_id === parseInt(critere)
-//   );
+// //   const restaurantsFiltres = restaurants.filter((restaurant) =>
+// //     restaurant.menuPdf === parseInt(critere)
+// //   );
 
 //   return (
 //     <>
 //       <section id="restaurant">
-//         {restaurantsFiltres.map((plat) => (
+//         {restaurants.map((plat, index) => (
 //           <Plat
-//             titreMenu={plat.nom}
-//             description={plat.description}
-//             key={plat.id}
-//             menu_id={plat.menu_id}
-//             composition={plat.composition}
-//             menuNom={plat.menu_nom}
+//             key={index}
+//             menuPdf={plat.menuPdf}
+//             nom={plat.nom}
 //             />
 //         ))}
 //       </section>
