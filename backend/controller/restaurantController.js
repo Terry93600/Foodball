@@ -1,17 +1,16 @@
 const pool = require("../service/dbConnection")
 const restaurantController = {
 
-    selectAll: async (req,res) => {
+    selectAllFoodball: async (req,res) => {
         try {
             const [rows, fields] = await pool.query(`
             select restaurant.*,
             t1.nom as team1,
             t2.nom as team2,
             utilisateur.email, 
-            role.name as role,
             typeEvent.nom as typeEvent,
             restaurant.localisation,
-            restaurant.menuPdf
+            restaurant.menu
 
             FROM foodball.restaurant
             JOIN foodball.event
@@ -39,6 +38,23 @@ const restaurantController = {
             })
         }
     },
+
+    selectAll: async (req,res) => {
+        try {
+            const [rows, fields] = await pool.query(`
+            select * from restaurant
+            `)
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                state:"error"
+            })
+        }
+    },
+
     selectOne: async (req,res) => {
         try {
             const { id } = req.params
@@ -52,9 +68,9 @@ const restaurantController = {
     },
     create: async (req,res) => {
         try {
-            const { nom, description, localisation, is_validate, menu, user_id  } = req.body
-            const sql = "insert into role (nom, description, localisation, is_validate, menu, user_id ) values (?,?,?,?,?,?)"
-            const [rows, fields] = await pool.query(sql, [nom, description, localisation, is_validate, menu, user_id ])
+            const { nom, description, localisation, menu, user_id  } = req.body
+            const sql = "insert into restaurant (nom, description, localisation, menu ) values (?,?,?,?)"
+            const [rows, fields] = await pool.query(sql, [nom, description, localisation, menu, user_id ])
             res.json({
                 data: rows
             })
@@ -64,10 +80,10 @@ const restaurantController = {
     },
     update: async (req,res) => {
         try {
-            const { nom, description, localisation, is_validate, menu, user_id  } = req.body
+            const { nom, description, localisation, menu  } = req.body
             const { id } = req .params
-            const sql = "update role set nom = ?, description = ? ,localisation = ? , is_validate = ? , menu = ? , user_id = ?  WHERE id =?"
-            const [rows, fields] = await pool.query(sql, [nom, description, localisation, is_validate, menu, user_id , id])
+            const sql = "update restaurant set nom = ?, description = ?,localisation = ?, menu = ?  WHERE id =?"
+            const [rows, fields] = await pool.query(sql, [nom, description, localisation, menu , id])
             res.json({
                 data: rows
             })

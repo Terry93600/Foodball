@@ -17,11 +17,11 @@ USE foodball;
 -- Créer une table "role"
 CREATE TABLE foodball.role (
     id TINYINT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(20) NOT NULL UNIQUE
+    nom VARCHAR(20) NOT NULL UNIQUE
 );
 
 -- Insérer des données dans la table "role"
-INSERT INTO foodball.role (name) VALUES
+INSERT INTO foodball.role (nom) VALUES
 ('admin'),
 ('restaurateur');
 
@@ -100,13 +100,13 @@ CREATE TABLE foodball.restaurant (
     nom VARCHAR(50) NOT NULL,
     description TEXT,
     localisation VARCHAR(100) NOT NULL,
-    menuPdf TEXT NOT NULL,
+    menu TEXT NOT NULL,
     utilisateur_id INT UNSIGNED, 
     FOREIGN KEY (utilisateur_id) REFERENCES foodball.utilisateur(id)
 );
 
 -- Insérer des données dans la table "restaurant"
-INSERT INTO foodball.restaurant (nom, description, localisation, menuPdf, utilisateur_id) VALUES
+INSERT INTO foodball.restaurant (nom, description, localisation, menu, utilisateur_id) VALUES
 ('KFC', 'Le poulet c est trop bon', 'rue du général de gaule',"kojsdf.pdf", 1),
 ('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur. ', 'BK BK BK',"https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg", 1)
 ;

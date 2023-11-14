@@ -43,7 +43,7 @@ const ListeRestaurant = () => {
               team1={restau.team1}
               team2={restau.team2}
               event={restau.typeEvent}
-              menu={restau.menuPdf}
+              menu={restau.menu}
               restauId={restau.id}
               localisation={restau.localisation}
             />

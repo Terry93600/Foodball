@@ -21,7 +21,7 @@ function App() {
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
 
-        <Route path="/connexion/:utilasateurName" element={<User_connexion />} />
+        <Route path="/connexion/:critere" element={<User_connexion />} />
         <Route path="/connexion/restaurant_name/ajout_menu" element={<Ajout_menu />} />
 
         <Route path="/restaurants" element={<Restaurants />} />
