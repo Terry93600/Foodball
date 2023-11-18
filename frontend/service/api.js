@@ -9,6 +9,17 @@ const getAllRestaurant = async () => {
 };
 export { getAllRestaurant };
 
+const getAllRestaurantFoodball = async () => {
+    const url = "http://localhost:3000/api/restaurant/foodball";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllRestaurantFoodball };
+
 const getAllPlat = async () => {
     const url = "http://localhost:3000/api/plat";
     const requestInfos = new Request(url, {
@@ -41,6 +52,17 @@ const getAllTypeEvent = async () => {
     return response;
 };
 export { getAllTypeEvent };
+
+const getAllEvent = async () => {
+    const url = "http://localhost:3000/api/event";
+    const requestInfos = new Request(url, {
+        method: 'get',
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+export { getAllEvent };
 
 const getAllUser = async () => {
     const url = "http://localhost:3000/api/user";
