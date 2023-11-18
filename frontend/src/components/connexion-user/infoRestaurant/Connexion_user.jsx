@@ -407,6 +407,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
                 <p>{event.team2_id}</p>
                 <p>{event.typeEvent_id}</p>
               </div>
+              
             ))}
           </div>
         )}
