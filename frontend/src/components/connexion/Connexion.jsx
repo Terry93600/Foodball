@@ -1,28 +1,24 @@
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
-=======
-import React, { useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import './log.css'; 
 import Validation from "./ConnexionValidation";
 import axios from "axios";
 
-function Login({nom, email, id}) {
-    const [values, setValues] = useState({
-        email:'',
-        password:''
-    })
+// function Login({nom, email, id}) {
+//     const [values, setValues] = useState({
+//         email:'',
+//         password:''
+//     })
 
-	const navigate = useNavigate();
-    const [errors, setErrors] = useState({})
-    const handleInput = (event) => {
-        setValues(prev => ({...prev, [event.target.name]: event.target.values}))
-		console.log(values);
-    }
+// 	const navigate = useNavigate();
+//     const [errors, setErrors] = useState({})
+//     const handleInput = (event) => {
+//         setValues(prev => ({...prev, [event.target.name]: event.target.values}))
+// 		console.log(values);
+//     }
 
-    const handleSubmit =(event) => {
-        event.preventDefault();
+    // const handleSubmit =(event) => {
+    //     event.preventDefault();
         // setErrors(Validation(values));
 //         if(errors.email === "" && errors.password === "")
 // <<<<<<< test
@@ -32,19 +28,18 @@ function Login({nom, email, id}) {
 //         // {
 //         axios.post('http://localhost:3000/api/inscription', values)
 // >>>>>>> main
-        .then(res => {
-            if(res.data === "succes"){
-                navigate('/');
-            } else {
-                alert("No record existed")
-            }
-        })
-        .catch(err => console.log(err));
+        // .then(res => {
+        //     if(res.data === "succes"){
+        //         navigate('/');
+        //     } else {
+        //         alert("No record existed")
+        //     }
+        // })
+        // .catch(err => console.log(err));
     // }
-    }
+    // }
 
-  const url = `/connexion/${nom}`;
->>>>>>> f1b8a5d74d37611a3458e56475e27b0cca97f2da
+  // const url = `/connexion/${nom}`;
 
 function Login({titre, desc, team1, team2, event, localisation, idRestau}) {
     const [data, setData] = useState([]);
@@ -73,5 +68,6 @@ function Login({titre, desc, team1, team2, event, localisation, idRestau}) {
       </article>
     );
   }
+// }
 
 export default Login

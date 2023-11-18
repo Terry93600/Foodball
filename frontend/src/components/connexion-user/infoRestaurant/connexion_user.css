@@ -1,0 +1,52 @@
+h2 {
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.formRestaurant {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 10px auto;
+    justify-content: space-between;
+    border: 1px solid var(--VertPrincipal);
+    padding: 0 20px;
+    border-radius: 10px;
+}
+
+.formRestaurant > div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    gap: 10px;
+    width: 70%;
+}
+
+.formRestaurant > div > input {
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.formRestaurant > button {
+    width: max-content;
+    margin: 10px auto;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    text-decoration: underline var(--VertPrincipal) 3px;
+    border-radius: 5px;
+}
+
+.formRestaurant > button:hover {
+    background: var(--VertPrincipal);
+    color: white;
+    width: max-content;
+    transition-duration: 1s;
+    border: none;
+    text-decoration: none;
+    padding: 10px 5px;
+}

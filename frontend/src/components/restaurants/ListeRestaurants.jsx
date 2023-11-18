@@ -2,7 +2,7 @@ import "./restaurant.css";
 import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import SearchBar from './searchbar/SearchBar';
-import { getAllRestaurant } from "../../../service/api";
+import { getAllRestaurantFoodball } from "../../../service/api";
 import { useEffect, useState } from "react";
 
 const ListeRestaurant = () => {
@@ -10,7 +10,7 @@ const ListeRestaurant = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]); // Nouvel état pour stocker les restaurants filtrés
 
   useEffect(() => {
-    getAllRestaurant().then((result) => {
+    getAllRestaurantFoodball().then((result) => {
       setRestaurants(result.data);
       setFilteredRestaurants(result.data); 
       console.log('result.data', result.data)
