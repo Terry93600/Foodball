@@ -23,6 +23,7 @@ const Eventlist = () => {
          {restaurantsFiltres.map((restau) => (
            <Connexion_user
            key={restau._id}
+           event_id={restau.id}
            team1_id={restau.team1_id}
            team2_id={restau.team2_id}
              />
@@ -33,3 +34,5 @@ const Eventlist = () => {
 };
 
 export default Eventlist;
+
+
