@@ -116,49 +116,6 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     }
   };
 
-  // Fonction pour gérer la mise à jour des événements
-  // const handleUpdateEvents = async () => {
-  //   try {
-  //     // Appel à l'API pour mettre à jour les événements associés au restaurant
-  //     const response = await axios.put(
-  //       `http://localhost:3000/api/restaurantevent/${critere}`, // Assurez-vous que l'API supporte bien cette route
-  //       { events: selectedEvents }
-  //     );
-
-  //     if (response.data.Status === "Success") {
-  //       console.log('Événements mis à jour avec succès !');
-  //       toast.success('Mise à jour des événements réussie !', {
-  //         position: "top-right",
-  //         autoClose: 3000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //       });
-  //     } else {
-  //       console.error(`Erreur lors de la mise à jour des événements: ${response.data.message}`);
-  //       toast.error(`Erreur lors de la mise à jour des événements : ${response.data.message}`, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error(`Erreur lors de la mise à jour des événements: ${error.message}`);
-  //     toast.error(`Erreur lors de la mise à jour des événements : ${error.message}`, {
-  //       position: "top-right",
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //     });
-  //   }
-  // };
-
   const handleUpdateEvents = async () => {
     try {
       // Vérifier s'il y a un input sélectionné

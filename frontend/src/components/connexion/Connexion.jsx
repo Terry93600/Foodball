@@ -4,43 +4,6 @@ import './log.css';
 import Validation from "./ConnexionValidation";
 import axios from "axios";
 
-// function Login({nom, email, id}) {
-//     const [values, setValues] = useState({
-//         email:'',
-//         password:''
-//     })
-
-// 	const navigate = useNavigate();
-//     const [errors, setErrors] = useState({})
-//     const handleInput = (event) => {
-//         setValues(prev => ({...prev, [event.target.name]: event.target.values}))
-// 		console.log(values);
-//     }
-
-    // const handleSubmit =(event) => {
-    //     event.preventDefault();
-        // setErrors(Validation(values));
-//         if(errors.email === "" && errors.password === "")
-// <<<<<<< test
-//         {
-//         axios.post('http://localhost:3000/api/utilisateur', values)
-// =======
-//         // {
-//         axios.post('http://localhost:3000/api/inscription', values)
-// >>>>>>> main
-        // .then(res => {
-        //     if(res.data === "succes"){
-        //         navigate('/');
-        //     } else {
-        //         alert("No record existed")
-        //     }
-        // })
-        // .catch(err => console.log(err));
-    // }
-    // }
-
-  // const url = `/connexion/${nom}`;
-
 function Login({titre, desc, team1, team2, event, localisation, idRestau}) {
     const [data, setData] = useState([]);
 

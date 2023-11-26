@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../src/components/header/Header";
 import { Link, useNavigate } from "react-router-dom";
-// import Validation from './InscriptionValidation'
 import axios from "axios";
 
 function Inscription() {
@@ -15,16 +14,10 @@ function Inscription() {
 	const handleInput = (event) => {
 		setValues({ ...values, [event.target.name]: event.target.value });
 		console.log(values);
-		// setValues((prev) => ({
-		// 	...prev,
-		// 	[event.target.name]: event.target.values,
-		// }));
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		// setErrors(Validation(values));
-		// if (errors.name === "" && errors.email === "" && errors.password === "") {
 		console.log(values);
 		axios
 			.post("http://localhost:3000/api/utilisateur", values)
@@ -32,7 +25,6 @@ function Inscription() {
 				navigate("/");
 			})
 			.catch((err) => console.log(err));
-		// }
 	};
 
 	return (
@@ -70,7 +62,6 @@ function Inscription() {
 						{errors.password && <span>{errors.password}</span>}
 					</div>
 					<button type="submit">Inscription</button>
-					<p>You are agree to aour terms and police</p>
 					<Link to="/">Connexion</Link>
 				</form>
 			</div>
