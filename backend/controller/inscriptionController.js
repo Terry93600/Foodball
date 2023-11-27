@@ -1,4 +1,5 @@
 const pool = require("../service/dbConnection")
+const argon2 = require('argon2');
 const inscriptionController = {
 
     selectAll: async (req,res) => {
@@ -28,8 +29,9 @@ const inscriptionController = {
     create: async (req,res) => {
         try {
             const { email, name, password } = req.body
+            const hashedPassword = await argon2.hash(password)
             const sql = "insert into utilisateur (email, name, password ) values (?,?,?)"
-            const [rows, fields] = await pool.query(sql, [email, name, password])
+            const [rows, fields] = await pool.query(sql, [email, name, hashedPassword])
             res.json({
                 data: rows
             })

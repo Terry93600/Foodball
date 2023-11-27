@@ -22,7 +22,7 @@ function Inscription() {
 		axios
 			.post("http://localhost:3000/api/utilisateur", values)
 			.then((res) => {
-				navigate("/");
+				navigate("/connexion");
 			})
 			.catch((err) => console.log(err));
 	};
