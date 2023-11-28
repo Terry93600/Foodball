@@ -108,8 +108,8 @@ CREATE TABLE foodball.restaurant (
 -- Insérer des données dans la table "restaurant"
 INSERT INTO foodball.restaurant (nom, description, localisation, menu, utilisateur_id) VALUES
 ('KFC', 'Le poulet c est trop bon', 'rue du général de gaule',"kojsdf.pdf", 1),
-('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur. ', 'BK BK BK',"https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg", 1),
-('macdo','','','',1)
+('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur. ', 'BK BK BK',"https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg", 2)
+-- ('macdo','','','',2)
 ;
 
 -- Créer une table "restaurantEvent"

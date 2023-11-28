@@ -42,7 +42,10 @@ const restaurantController = {
     selectAll: async (req,res) => {
         try {
             const [rows, fields] = await pool.query(`
-            select * from restaurant
+            SELECT restaurant.*,
+            utilisateur.email
+            FROM foodball.restaurant
+            JOIN foodball.utilisateur ON utilisateur.id = restaurant.utilisateur_id
             `)
             res.json({
                 data: rows

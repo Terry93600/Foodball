@@ -9,4 +9,7 @@ router.post("/", inscriptionController.create)
 router.put("/:id", inscriptionController.update)
 router.delete("/:id", inscriptionController.delete)
 
+router.post("/login", inscriptionController.login);
+
+
 module.exports = router

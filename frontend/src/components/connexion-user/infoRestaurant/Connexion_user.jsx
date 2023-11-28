@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Définition du composant Connexion_user
-const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData }) => {
+const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id }) => {
   const { critere } = useParams();
   const navigate = useNavigate();
 
@@ -174,6 +174,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
 
       <form onSubmit={handleSubmit} className="formRestaurant">
+        <p>{utilisateur_id} </p>
         <div>
           <label htmlFor="nom">Nom du restaurant</label>
           <input
