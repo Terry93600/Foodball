@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
+// const nodemailer = require('nodemailer');
+// const cookieParser = require("cookie-parser");
 
 const mysql = require("mysql");
 
@@ -21,7 +22,7 @@ const inscriptionRouter = require("./routes/inscriptionRouter");
 const connexionRouter = require("./routes/connexionRouter");
 const typeEventRouter = require("./routes/typeEventRouter");
 const teamRouter = require("./routes/teamRouter");
-const userRouter = require("./routes/userRouter");
+// const userRouter = require("./routes/userRouter");
 const restaurantRouter = require("./routes/restaurantRouter");
 const eventrouter = require("./routes/eventRouter");
 const restaurantEventRouter = require("./routes/restaurantEventRouter");
@@ -43,7 +44,7 @@ app.use("/api/typeEvent", typeEventRouter);
 app.use("/api/menu", menuRouter);
 app.use("/api/plat", platRouter);
 app.use("/api/team", teamRouter);
-app.use("/api/user", userRouter);
+// app.use("/api/user", userRouter);
 app.use("/api/restaurant", restaurantRouter);
 app.use("/api/event", eventrouter);
 app.use("/api/restaurantEvent", restaurantEventRouter);

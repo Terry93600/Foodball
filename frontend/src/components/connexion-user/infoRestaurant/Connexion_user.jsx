@@ -4,9 +4,10 @@ import "./connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import uploadImage from "../../restaurant/UploadImage";
 
 // Définition du composant Connexion_user
-const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id }) => {
+const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
   const { critere } = useParams();
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     description: "",
     localisation: "",
     menu: "",
+    email: "",
     utilisateur_id: 1,
   });
 
@@ -51,10 +53,11 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
         description: desc || "",
         localisation: localisation || "",
         menu: menu || "",
+        email: email || "",
         utilisateur_id: 1,
       });
     }
-  }, [critere, titre, desc, localisation, menu]);
+  }, [critere, titre, desc, localisation, menu, email]);
 
   // Fonction pour gérer la soumission du formulaire du restaurant
   const handleSubmit = async (event) => {
@@ -70,7 +73,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       const response = await axios({
         method: critere ? "put" : "post",
         url: apiUrl,
-        data: { ...values, nom: values.nom || titre, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu },
+        data: { ...values, nom: values.nom || titre, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu, email: values.email || email },
       });
 
       console.log('Valeurs envoyées à l\'API :', values);
@@ -166,6 +169,27 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       });
     }
   };
+
+  const [imageSelected, setImageSelected] = useState("");
+
+    const uploadImage = () => { 
+        const formData = new FormData();
+        formData.append("file", imageSelected);
+        formData.append("upload_preset", "tl6hgyho");
+        
+        Axios.post(
+            "http://api.cloudinary.com/v1_1/dbswf4zf2/image/upload", 
+            formData
+        ).then((response) => {
+            console.log(response);
+        });
+    };
+
+    const cloudName = "dbswf4zf2";
+    const publicId = "jvfg1624id5vxhifvt5c";
+    const format = "png";
+
+  const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}.${format}`;
   
 
   // Rendu du composant
@@ -173,10 +197,29 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     <>
       <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
 
+
       <form onSubmit={handleSubmit} className="formRestaurant">
         <p>{utilisateur_id} </p>
+
+        <div>
+            <input 
+                type="file" 
+                onChange={(event) => {
+                    setImageSelected(event.target.files[0]);
+                }} 
+            />
+            <button onClick={uploadImage}>Upload Image</button>
+            <p>{menu}</p>
+            <p>qsdfudshyfgsdyf</p>
+            <p>terry </p>
+            <img src={imageUrl} alt="Image depuis Cloudinary" />
+            <img src={menu} alt="Image depuis Cloudinary" />
+        </div>
+
         <div>
           <label htmlFor="nom">Nom du restaurant</label>
+      <uploadImage/>
+
           <input
             type="text"
             placeholder={titre}
