@@ -4,7 +4,7 @@ import "./connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import uploadImage from "../../restaurant/UploadImage";
+import UploadImage from "../../restaurant/UploadImage";
 
 // Définition du composant Connexion_user
 const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
@@ -170,28 +170,6 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     }
   };
 
-  const [imageSelected, setImageSelected] = useState("");
-
-    const uploadImage = () => { 
-        const formData = new FormData();
-        formData.append("file", imageSelected);
-        formData.append("upload_preset", "tl6hgyho");
-        
-        Axios.post(
-            "http://api.cloudinary.com/v1_1/dbswf4zf2/image/upload", 
-            formData
-        ).then((response) => {
-            console.log(response);
-        });
-    };
-
-    const cloudName = "dbswf4zf2";
-    const publicId = "jvfg1624id5vxhifvt5c";
-    const format = "png";
-
-  const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}.${format}`;
-  
-
   // Rendu du composant
   return (
     <>
@@ -201,28 +179,18 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       <form onSubmit={handleSubmit} className="formRestaurant">
         <p>{utilisateur_id} </p>
 
-        <div>
-            <input 
-                type="file" 
-                onChange={(event) => {
-                    setImageSelected(event.target.files[0]);
-                }} 
-            />
-            <button onClick={uploadImage}>Upload Image</button>
-            <p>{menu}</p>
-            <p>qsdfudshyfgsdyf</p>
-            <p>terry </p>
-            <img src={imageUrl} alt="Image depuis Cloudinary" />
-            <img src={menu} alt="Image depuis Cloudinary" />
-        </div>
-
+  
         <div>
           <label htmlFor="nom">Nom du restaurant</label>
-      <uploadImage/>
+      <UploadImage/>
+
+        {/* <figure>
+          <img src={menu} alt="" />
+        </figure> */}
 
           <input
             type="text"
-            placeholder={titre}
+            placeholder="Nom du restaurant"
             name="nom"
             defaultValue={titre}
             onChange={(e) => setValues({ ...values, nom: e.target.value })}
@@ -233,7 +201,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
           <label htmlFor="description">Description de votre restaurant</label>
           <input
             type="text"
-            placeholder={desc}
+            placeholder="description du restaurant"
             name="description"
             defaultValue={desc}
             onChange={(e) => setValues({ ...values, description: e.target.value })}

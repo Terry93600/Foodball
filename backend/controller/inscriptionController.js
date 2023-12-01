@@ -1,5 +1,5 @@
 const pool = require("../service/dbConnection");
-const argon2 = require("argon2");
+// const argon2 = require("argon2");
 const inscriptionController = {
 	selectAll: async (req, res) => {
 		try {

@@ -94,6 +94,19 @@ const restaurantController = {
             console.log(error);
         }
     },
+    cloudinary: async (req,res) => {
+        try {
+            const { menu } = req.body
+            const { id } = req .params
+            const sql = "update restaurant set menu = ?  WHERE id =?"
+            const [rows, fields] = await pool.query(sql, [ menu , id])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    },
     delete: async (req,res) => {
         try {
             const { id } = req.params
