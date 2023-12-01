@@ -45,6 +45,7 @@ const Connexion_user_list = () => {
               event={restau.typeEvent}
               menu_id={restau.menu_id}
               restauId={restau.id}
+              utilisateur_id={restau.utilisateur_id}
               localisation={restau.localisation}
             />
           ))}

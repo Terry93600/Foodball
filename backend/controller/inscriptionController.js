@@ -1,5 +1,5 @@
 const pool = require("../service/dbConnection");
-// const argon2 = require("argon2");
+const argon2 = require("argon2");
 const inscriptionController = {
 	selectAll: async (req, res) => {
 		try {
@@ -27,25 +27,66 @@ const inscriptionController = {
 		} catch (error) {
 			console.log(error);
 		}
-	},
+	},	 
+	
 	create: async (req, res) => {
 		try {
-			const { email, name, password } = req.body;
-			const hashedPassword = await argon2.hash(password);
-			const sql =
-				"insert into utilisateur (email, name, password, role_id ) values (?,?,?,2)";
-			const [rows, fields] = await pool.query(sql, [
-				email,
-				name,
-				hashedPassword,
-			]);
-			res.json({
-				data: rows,
-			});
+		  const { email, name, password } = req.body;
+		  const hashedPassword = await argon2.hash(password);
+	  
+		  // Insérer l'utilisateur dans la table utilisateur
+		  const userSql =
+			"INSERT INTO utilisateur (email, name, password, role_id) VALUES (?, ?, ?, 2)";
+		  const [userRows, userFields] = await pool.query(userSql, [
+			email,
+			name,
+			hashedPassword,
+		  ]);
+	  
+		  // Récupérer l'ID de l'utilisateur nouvellement créé
+		  const utilisateur_id = userRows.insertId;
+
+// Insérer des données dans la table restaurant en utilisant l'ID de l'utilisateur
+const restaurantSql =
+  "INSERT INTO restaurant (nom, description, localisation, menu, utilisateur_id) VALUES (?, ?, ?, ?, ?)";
+const [restaurantRows, restaurantFields] = await pool.query(restaurantSql, [
+  "Nom du restaurant",
+  "Description du restaurant",
+  "Localisation du restaurant",
+  "Menu du restaurant",
+  utilisateur_id,
+]);
+
+// Récupérer l'ID du restaurant nouvellement créé
+const restaurantId = restaurantRows.insertId;
+
+// Sélectionner l'ID d'un événement existant (ici, l'ID 1)
+const selectedEventId = 1; // Remplacez ceci par la logique permettant de sélectionner l'événement approprié
+
+// Insérer des données dans la table restaurantEvent en utilisant l'ID du restaurant et l'ID de l'événement existant
+const restaurantEventSql =
+  "INSERT INTO restaurantEvent (restaurant_id, event_id) VALUES (?, ?)";
+const [restaurantEventRows, restaurantEventFields] = await pool.query(
+  restaurantEventSql,
+  [restaurantId, selectedEventId]
+);
+
+res.json({
+	utilisateur_id: utilisateur_id, // Inclure l'ID de l'utilisateur dans la réponse
+	utilisateur: userRows,
+	restaurant: restaurantRows,
+	restaurantEvent: restaurantEventRows,
+  });
+  
 		} catch (error) {
-			console.log(error);
+		  console.error(error);
+		  res.status(500).json({
+			error:
+			  "Erreur lors de la création de l'utilisateur, du restaurant, de l'événement et de la relation restaurantEvent",
+		  });
 		}
-	},
+	  },	  
+	  
 	update: async (req, res) => {
 		try {
 			const { email, name, password } = req.body;

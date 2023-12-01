@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./log.css";
 
-function Login() {
+function Login({utilisateur_id}) {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -35,17 +35,21 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     if (validateForm()) {
       // Si la validation côté client réussit, effectuez la requête Axios
       axios
         .post("http://localhost:3000/api/utilisateur/login", values)
         .then((res) => {
-          navigate("/connexion/:critere");
+          const utilisateur_id = res.data.utilisateur_id;
+          console.log(utilisateur_id); // Log utilisateur_id to check if it's defined
+          navigate(`/info-restaurant/${utilisateur_id}`);
         })
+        
         .catch((err) => console.log(err));
     }
   };
+  
 
   return (
     <div>

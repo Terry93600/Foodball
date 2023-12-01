@@ -247,12 +247,10 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
           ))}
         </div>
 
-        {/* Bouton pour mettre à jour les événements */}
         <button type="button" onClick={handleUpdateEvents}>
           Mettre à jour les événements
         </button>
 
-        {/* Bouton pour soumettre le formulaire du restaurant */}
         <button type="submit">
           {critere ? "Modifier le restaurant" : "Ajouter le restaurant"}
         </button>

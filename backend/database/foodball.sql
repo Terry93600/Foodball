@@ -93,6 +93,7 @@ CREATE TABLE foodball.event (
 INSERT INTO foodball.event (team1_id, team2_id, typeEvent_id) VALUES
 (1, 2, 2),
 (1, 3, 2),
+(6, 4, 2),
 (4, 6, 2);
 
 -- Créer une table "restaurant"
