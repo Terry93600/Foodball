@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadImage from "../../restaurant/UploadImage";
+import connexionUser from "../../../assets/resto/connexionUser.jpg"
 
 // Définition du composant Connexion_user
 const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
@@ -173,21 +174,18 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
   // Rendu du composant
   return (
     <>
-      <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
-
+      
+      <figure className="imgConnexionUser">
+        <img src={connexionUser} alt="" />
+      </figure>
 
       <form onSubmit={handleSubmit} className="formRestaurant">
-        <p>{utilisateur_id} </p>
-
+        <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
+        
+        <h2>{titre} </h2>
   
         <div>
           <label htmlFor="nom">Nom du restaurant</label>
-      <UploadImage/>
-
-        {/* <figure>
-          <img src={menu} alt="" />
-        </figure> */}
-
           <input
             type="text"
             placeholder="Nom du restaurant"
@@ -217,15 +215,18 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
             onChange={(e) => setValues({ ...values, localisation: e.target.value })}
           />
         </div>
-        <div>
-          <label htmlFor="menu">Menu du restaurant</label>
-          <input
-            type="text"
-            placeholder="Nom du fichier PDF du menu"
-            name="menu"
-            defaultValue={menu}
-            onChange={(e) => setValues({ ...values, menu: e.target.value })}
-          />
+
+        <button type="submit">
+          {critere ? "Enregistrer les information du restaurant" : "Ajouter le restaurant"}
+        </button>
+        
+        <div id="up">
+          <figure>
+            <label>Menu actuel</label>
+            <img src={menu} alt="" />
+          </figure>
+          <p>Nouveau menu</p>
+          <UploadImage/>
         </div>
         <div className="eventSelect">
           <h2>Événements :</h2>
@@ -241,19 +242,16 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
               <label htmlFor={`event-${event.event_id}`}>
                 <p>{event.team1_nom} vs {event.team2_nom}</p>
                 <p>{event.typeEvent_nom}</p>
-                <p>{event.event_id} </p>
               </label>
             </div>
           ))}
         </div>
 
         <button type="button" onClick={handleUpdateEvents}>
-          Mettre à jour les événements
+          Enregistrer le match choisi
         </button>
 
-        <button type="submit">
-          {critere ? "Modifier le restaurant" : "Ajouter le restaurant"}
-        </button>
+
 
       </form>
       <ToastContainer />

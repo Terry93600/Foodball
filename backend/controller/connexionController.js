@@ -28,7 +28,7 @@ const connexionController = {
     create: async (req,res) => {
         try {
             const { email, password } = req.body
-            const sql = "insert into connxion (email, password ) values (?,?)"
+            const sql = "insert into connexion (email, password ) values (?,?)"
             const [rows, fields] = await pool.query(sql, [email, password])
             res.json({
                 data: rows
@@ -41,7 +41,7 @@ const connexionController = {
         try {
             const { email, password } = req.body
             const { id } = req .params
-            const sql = "update connxion set email = ?, password = ?  WHERE id =?"
+            const sql = "update connexion set email = ?, password = ?  WHERE id =?"
             const [rows, fields] = await pool.query(sql, [email, password, id])
             res.json({
                 data: rows
@@ -53,7 +53,7 @@ const connexionController = {
     delete: async (req,res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("delete * from connxion WHERE id = ?", [id])
+            const [rows, fields] = await pool.query("delete * from connexion WHERE id = ?", [id])
             res.json({
                 data: rows
             })

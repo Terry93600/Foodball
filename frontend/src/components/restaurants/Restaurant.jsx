@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
 const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu} ) => {
-  // const [data, setData] = useState([]);
-
-  // const url = `/restaurants/${titre}`;
   useEffect(() => {}, []);
 
   const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(localisation)}`;

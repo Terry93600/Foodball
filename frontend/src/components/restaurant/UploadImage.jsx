@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./restaurant.css";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
+import "./Uploadimage.css"
 
 const UploadImage = ({ menu, nom }) => {
   const [imageSelected, setImageSelected] = useState("");
@@ -78,18 +79,20 @@ const UploadImage = ({ menu, nom }) => {
   const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}.${format}`;
 
   return (
-    <div>
-      <input
-        type="file"
-        onChange={(event) => {
-          setImageSelected(event.target.files[0]);
-        }}
-      />
-      <button onClick={uploadImage}>Upload Image</button>
+    <div id="upload">
+      <div>
+        <input
+          type="file"
+          onChange={(event) => {
+            setImageSelected(event.target.files[0]);
+          }}
+        />
+        <button onClick={uploadImage}>mettre a jour le menu</button>
+      </div>
+      
       {publicId && (
         <img src={imageUrl} alt="Image depuis Cloudinary avec public ID" />
       )}
-      {/* <img src={menu} alt="Image depuis Cloudinary" /> */}
     </div>
   );
 };

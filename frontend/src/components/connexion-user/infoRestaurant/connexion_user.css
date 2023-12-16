@@ -1,19 +1,31 @@
-h2 {
-    text-align: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
 .formRestaurant {
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 60%;
     margin: 10px auto;
     justify-content: space-between;
     border: 1px solid var(--VertPrincipal);
     padding: 0 20px;
     border-radius: 10px;
+    background: rgba(245, 245, 245, 0.5);
 }
+
+h2 {
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.imgConnexionUser {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 120vh;
+    width: 100%;
+}
+
 
 .formRestaurant > div {
     display: flex;
@@ -21,6 +33,10 @@ h2 {
     margin: 10px auto;
     gap: 10px;
     width: 70%;
+}
+
+.formRestaurant > #up {
+margin: 50px auto;
 }
 
 .formRestaurant > div > input {
@@ -117,4 +133,5 @@ h2 {
     border: none;
     text-decoration: none;
     padding: 10px 5px;
+    cursor: pointer;
 }

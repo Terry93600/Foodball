@@ -1,5 +1,83 @@
-div > div > form {
+#connexion > div {
+    height: 72.4vh;
     display: flex;
+    justify-content: center;
+    /* position: relative; */
+    align-items: center;
+}
+
+#connexion > div > img {
+    position: fixed;
+    z-index: -1;
+    max-width: 100%;
+    filter: blur(2.5px);
+}
+
+#connexion > div > form {
+    display: flex;
+    position: relative;
     gap: 30px;
     flex-direction: column;
+    width: 400px;
+    background: rgba(245, 245, 245, 0.116);
+    border: 2px solid var(--VertPrincipal);
+    border-radius: 10px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+#connexion > div > form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+#connexion > div > form > div > label {
+    color: white;
+}
+
+div > div > form > div > input {
+    height: 30px;
+    border: 2px solid var(--VertPrincipal);
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#connexion > div > form > button,
+#connexion > div > form > a  {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-decoration: underline var(--VertPrincipal) 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#connexion > div > form > button:hover {
+    background: var(--VertPrincipal);
+    transition: 0.5s;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: max-content;
+    /* transition-duration: 0.5s; */
+    letter-spacing: 1px;
+}
+
+#connexion > div > form > a {
+    position: absolute;
+    text-decoration: underline var(--VertPrincipal) 2px;
+    font-size: 13px;
+    bottom: 10px;
+    right: 10px;
+} 
+
+#connexion > div > form > a:hover {
+    border: 1px solid var(--VertPrincipal);
+    text-decoration: none;
 }

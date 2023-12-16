@@ -23,7 +23,7 @@ function App() {
         <Route path="/inscription" element={<Inscription />} />
 
         {/* <Route path="/connexion/:critere" element={<User_connexion />} /> */}
-        <Route path="/infos-restaurant/:critere" element={<User_connexion />} />
+        <Route path="/info-restaurant/:critere" element={<User_connexion />} />
         <Route path="/connexion/restaurant_name/ajout_menu" element={<Ajout_menu />} />
 
         <Route path="/restaurants" element={<Restaurants />} />

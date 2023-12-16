@@ -18,13 +18,11 @@ const ListeRestaurant = () => {
   }, []);
 
   const handleSearch = (searchTerm) => {
-    // Utilisez la méthode .filter() pour filtrer les restaurants en fonction du terme de recherche
     const filtered = restaurants.filter((restau) => {
       return Object.values(restau).some((value) =>
         value.toString().toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
-
     setFilteredRestaurants(filtered); // Mettez à jour les restaurants filtrés
   };
 
