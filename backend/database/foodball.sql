@@ -37,7 +37,7 @@ CREATE TABLE foodball.utilisateur (
 
 -- Insérer des données dans la table "utilisateur"
 INSERT INTO foodball.utilisateur (email, name, password, role_id) VALUES
-('t@gmail.com', 'terry', 'ter', 1),
+('alphavladitore@gmail.com', 'terry', 'ter', 1),
 ('123@gmail.com', '123', '123', 2),
 ('ter@gmail.com', 'terry', 'ter', 2);
 

@@ -1,0 +1,137 @@
+.formRestaurant {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 60%;
+    margin: 10px auto;
+    justify-content: space-between;
+    border: 1px solid var(--VertPrincipal);
+    padding: 0 20px;
+    border-radius: 10px;
+    background: rgba(245, 245, 245, 0.5);
+}
+
+h2 {
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.imgConnexionUser {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 120vh;
+    width: 100%;
+}
+
+
+.formRestaurant > div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    gap: 10px;
+    width: 70%;
+}
+
+.formRestaurant > #up {
+margin: 50px auto;
+}
+
+.formRestaurant > div > input {
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.formRestaurant > .eventSelect {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formRestaurant > .eventSelect > div {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 5px 10px;
+    width: 300px;
+    height: fit-content;
+    border: solid 2px var(--VertPrincipal);
+    border-radius: 10px;
+}
+
+.formRestaurant .eventSelect .event-checkbox {
+    display: none;
+  }
+
+  .formRestaurant .eventSelect .event-checkbox + label::before {
+    content: "";
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    font-size: 16px;
+    border: 2px solid green;
+    background-color: white; 
+    border-radius: 4px;
+  }
+
+  .formRestaurant .eventSelect .event-checkbox:hover + label::before {
+    background: var(--VertPrincipal);
+  }
+
+  .formRestaurant .eventSelect .event-checkbox:checked + label::before {
+    background-color: green;
+  }
+
+.formRestaurant > .eventSelect > div:hover {
+    /* background: var(--VertPrincipal); */
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.3);
+    transition: 1s;
+}
+
+.formRestaurant > .eventSelect > div:has(input:checked) {
+    border-radius: 10px;
+}
+
+.formRestaurant > .eventSelect > div > label {
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formRestaurant > button {
+    width: max-content;
+    margin: 10px auto;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition-duration: 1s;
+    text-decoration: underline var(--VertPrincipal) 3px;
+    border-radius: 5px;
+}
+
+.formRestaurant > button:hover {
+    background: var(--VertPrincipal);
+    color: white;
+    width: max-content;
+    transition-duration: 1s;
+    border: none;
+    text-decoration: none;
+    padding: 10px 5px;
+    cursor: pointer;
+}

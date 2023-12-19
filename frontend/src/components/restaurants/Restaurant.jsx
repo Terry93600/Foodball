@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu} ) => {
+const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, restauId} ) => {
   useEffect(() => {}, []);
 
   const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(localisation)}`;
@@ -26,7 +26,10 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu} ) =>
       <p>{event}</p>
       <a href={googleMapsLink} target="_blank" rel="noopener noreferrer" className="map">
           {localisation}
-        </a>
+      </a>
+
+      <a href={`réservation/${titre}`}>Réservation</a>
+      
         <img src={menu} alt="" className="menuMobile"/>
 
       <button onClick={openModal}>En savoir plus</button>

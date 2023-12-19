@@ -1,12 +1,14 @@
+import Connexion_user_list from "../src/components/connexion-user copy/infoRestaurant/Connexion_user_list";
 import Footer from "../src/components/footer/Footer";
 import Header from "../src/components/header/Header";
-import Réservation from "../src/components/réservation/Réservation";
+import ListeReservation from "../src/components/réservation/ListeReservation"
 
 
 const Reservation = () => {
     return <>
         <Header />
-        <Réservation />
+        <ListeReservation />
+        <Connexion_user_list/>
         <Footer/>
     </>
 }

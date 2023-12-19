@@ -27,11 +27,9 @@ function App() {
         <Route path="/connexion/restaurant_name/ajout_menu" element={<Ajout_menu />} />
 
         <Route path="/restaurants" element={<Restaurants />} />
-        {/* <Route path="/restaurants/:titre " element={<Restaurant />} /> */}
-        {/* <Route path="/restaurants/:critere" element={<Restaurant />} /> */}
-        {/* <Route path="/restaurants/:menu_id" element={<Restaurant />} /> */}
 
-        <Route path="/restaurants/restaurant/réservation" element={<Reservation />} />
+        {/* <Route path="/restaurants/réservation" element={<Reservation />} /> */}
+        <Route path="/réservation/:critere" element={<Reservation />} />
       </Routes>
     </UserProvider>
   );
