@@ -11,5 +11,7 @@ router.delete("/:id", inscriptionController.delete)
 
 router.post("/login", inscriptionController.login);
 
+// router.post('/logout', inscriptionController.logout);
+
 
 module.exports = router

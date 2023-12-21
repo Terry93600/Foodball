@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Connexion_user from "./Connexion_user";
-import { getAllRestaurant, getAllEvent } from "../../../../service/api";
+import { getAllRestaurant, getAllEvent, getAllRestaurantFoodball } from "../../../../service/api";
 
 const Connexion_user_list = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -12,7 +12,7 @@ const Connexion_user_list = () => {
     const fetchData = async () => {
       try {
         const [restaurantsResponse, eventsResponse] = await Promise.all([
-          getAllRestaurant(),
+          getAllRestaurantFoodball(),
           getAllEvent(),
         ]);
 

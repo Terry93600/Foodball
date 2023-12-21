@@ -155,6 +155,23 @@ res.json({
 
 		// console.log(rows);
 	}
+	// logout: async (req, res) => {
+	// 	try {
+	// 		// Ajoutez ici la logique de déconnexion appropriée, telle que l'invalidation du jeton de session, la suppression du jeton d'authentification, etc.
+	// 		// Par exemple, si vous utilisez des jetons d'authentification JWT, vous pouvez simplement ne rien faire côté serveur et gérer l'expiration du jeton côté client.
+	
+	// 		res.status(200).json({
+	// 			status: 200,
+	// 			message: "Déconnexion réussie",
+	// 		});
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 		res.status(500).json({
+	// 			status: 500,
+	// 			message: "Erreur lors de la déconnexion",
+	// 		});
+	// 	}
+	// }
 };
 
 module.exports = inscriptionController;

@@ -75,7 +75,7 @@ const UploadImage = ({ menu, nom }) => {
   };
 
   const cloudName = "dbswf4zf2";
-  const format = "png";
+  const format = "jpg";
   const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/${publicId}.${format}`;
 
   return (

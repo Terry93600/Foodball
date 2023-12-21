@@ -26,7 +26,7 @@ const Header = () => {
         {/* <li><Link to={`/infos-restaurant/${user.id}`}>Infos</Link></li> */}
         {/* <li><Link to={`/connexion`}>Connexion</Link></li> */}
          {
-          user ? <li><Link to="/deconnexion">Déconnexion</Link></li> : <li><Link to="/connexion">Connexion</Link></li> 
+          user ? <li><Link to="/connexion">Déconnexion</Link></li> : <li><Link to="/connexion">Connexion</Link></li> 
         }
     </ul>
 </nav>

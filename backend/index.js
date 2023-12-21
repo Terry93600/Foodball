@@ -9,39 +9,8 @@ const mysql = require("mysql");
 app.use(cors());
 app.use(express.json());
 
-// app.post('/send-email', (req, res) => {
-// 	const { name, email, message } = req.body;
-  
-// 	// Configurer le transporteur
-// 	const transporter = nodemailer.createTransport({
-// 	  service: 'gmail',
-// 	  auth: {
-// 		user: 'foodballofficiel@gmail.com',
-// 		pass: 'iwdr smju ygfm lkpd',
-// 	  },
-// 	});
-  
-// 	// Options du mail
-// 	const mailOptions = {
-// 	  from: 'foodballofficiel@gmail.com',
-// 	  to: 'alphavladitore@gmail.com',
-// 	  subject: 'Nouveau message du formulaire de contact',
-// 	  text: `Nom: ${name}\nEmail: ${email}\nMessage: ${message}`,
-// 	};
-  
-// 	// Envoyer l'email
-// 	transporter.sendMail(mailOptions, (error, info) => {
-// 		if (error) {
-// 			console.error(error);
-// 			return res.status(500).send(error.toString());
-// 		}
-// 		res.status(200).send('Email envoyé : ' + info.response);
-// 	});
-	
-//   });
-
 app.post('/send-email', (req, res) => {
-	const { name, email, message } = req.body;
+	const { name, email, message, team1, team2 } = req.body;
   
 	// Configurer le transporteur
 	const transporter = nodemailer.createTransport({
@@ -57,7 +26,7 @@ app.post('/send-email', (req, res) => {
 	  from: 'foodballofficiel@gmail.com',
 	  to: email, // Utiliser l'adresse e-mail provenant du formulaire
 	  subject: 'Nouveau message du formulaire de contact',
-	  text: `Nom: ${name}\nEmail: ${email}\nMessage: ${message} Bonjour votre Réservation au nom de ${name} à bien été envoyer pour le match: `,
+	  text: `Nom: ${name}\nEmail: ${email}\nMessage: ${message} Votre Réservation au nom de ${name} à bien été envoyer pour le match: ${team1} - ${team2} `,
 	};
   
 	// Envoyer l'e-mail
