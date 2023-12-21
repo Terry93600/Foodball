@@ -8,7 +8,7 @@ import { UserContext } from "../../context/UserProvider"
 import connexion from "../../assets/resto/connexion.jpg"
 
 function Login() {
-  // const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -55,8 +55,9 @@ function Login() {
   axios
     .post("http://localhost:3000/api/utilisateur/login", values)
     .then((res) => {
-      const utilisateur_id = res.data.utilisateur_id;
-      console.log(utilisateur_id);
+      const utilisateur_id = res.data.data.id;
+      // console.log(res.data);
+      setUser(res.data.data);
       navigate(`/info-restaurant/${utilisateur_id}`);
     })
     .catch((err) => {

@@ -24,10 +24,10 @@ const Header = () => {
     <ul className="nav-links">
         <li><Link to="/restaurants">Restaurants</Link></li>
         {/* <li><Link to={`/infos-restaurant/${user.id}`}>Infos</Link></li> */}
-        <li><Link to={`/connexion`}>Connexion</Link></li>
-        {/* {
+        {/* <li><Link to={`/connexion`}>Connexion</Link></li> */}
+         {
           user ? <li><Link to="/deconnexion">Déconnexion</Link></li> : <li><Link to="/connexion">Connexion</Link></li> 
-        } */}
+        }
     </ul>
 </nav>
 

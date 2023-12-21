@@ -1,5 +1,7 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const getAllRestaurant = async () => {
-    const url = "http://localhost:3000/api/restaurant";
+    const url = `${apiUrl}/restaurant`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -10,7 +12,7 @@ const getAllRestaurant = async () => {
 export { getAllRestaurant };
 
 const getAllRestaurantFoodball = async () => {
-    const url = "http://localhost:3000/api/restaurant/foodball";
+    const url = `${apiUrl}restaurant/foodball`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -21,7 +23,7 @@ const getAllRestaurantFoodball = async () => {
 export { getAllRestaurantFoodball };
 
 const getAllPlat = async () => {
-    const url = "http://localhost:3000/api/plat";
+    const url = `${apiUrl}plat`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -32,7 +34,7 @@ const getAllPlat = async () => {
 export { getAllPlat };
 
 const getAllTeam = async () => {
-    const url = "http://localhost:3000/api/team";
+    const url = `${apiUrl}team`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -43,7 +45,7 @@ const getAllTeam = async () => {
 export { getAllTeam };
 
 const getAllTypeEvent = async () => {
-    const url = "http://localhost:3000/api/typeevent";
+    const url = `${apiUrl}typeevent`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -54,7 +56,7 @@ const getAllTypeEvent = async () => {
 export { getAllTypeEvent };
 
 const getAllEvent = async () => {
-    const url = "http://localhost:3000/api/event";
+    const url = `${apiUrl}event`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -65,7 +67,7 @@ const getAllEvent = async () => {
 export { getAllEvent };
 
 const getAllUser = async () => {
-    const url = "http://localhost:3000/api/user";
+    const url = `${apiUrl}user`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -76,7 +78,7 @@ const getAllUser = async () => {
 export { getAllUser };
 
 const getAllRole = async () => {
-    const url = "http://localhost:3000/api/role";
+    const url = `${apiUrl}role`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -87,7 +89,7 @@ const getAllRole = async () => {
 export { getAllRole };
 
 const getAllMenu = async () => {
-    const url = "http://localhost:3000/api/menu";
+    const url = `${apiUrl}menu`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
@@ -98,7 +100,7 @@ const getAllMenu = async () => {
 export { getAllMenu };
 
 const getAllInscription = async () => {
-    const url = "http://localhost:3000/api/utilisateur";
+    const url = `${apiUrl}utilisateur`;
     const requestInfos = new Request(url, {
         method: 'get',
     });
