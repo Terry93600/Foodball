@@ -48,10 +48,8 @@ function Login() {
       return;
     }
 
-  // Réinitialiser les erreurs si les champs sont remplis
   setErrors({});
 
-  // Si la validation côté client réussit, effectuez la requête Axios
   axios
     .post("http://localhost:3000/api/utilisateur/login", values)
     .then((res) => {

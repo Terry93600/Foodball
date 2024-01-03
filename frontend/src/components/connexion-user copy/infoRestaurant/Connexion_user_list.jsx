@@ -13,7 +13,7 @@ const Connexion_user_list = () => {
       try {
         const [restaurantsResponse, eventsResponse] = await Promise.all([
           getAllRestaurantFoodball(),
-          getAllEvent(),
+          // getAllEvent(),
         ]);
 
         setRestaurants(restaurantsResponse.data);

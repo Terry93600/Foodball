@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Header from "../src/components/header/Header";
 import { Link, useNavigate } from "react-router-dom";
+import "./inscription.css";
 import axios from "axios";
+import inscription from "../src/assets/resto/inscription.jpg"
 
 function Inscription() {
 	const [values, setValues] = useState({
@@ -28,9 +30,13 @@ function Inscription() {
 	};
 
 	return (
-		<div>
+
+		<div id="inscription">
+        <Header />
 			<div>
+				<img src={inscription} alt="" />
 				<form action="" onSubmit={handleSubmit}>
+				<h2>inscription</h2>
 					<div>
 						<label htmlFor="name">Name</label>
 						<input
@@ -62,7 +68,6 @@ function Inscription() {
 						{errors.password && <span>{errors.password}</span>}
 					</div>
 					<button type="submit">Inscription</button>
-					<Link to="/">Connexion</Link>
 				</form>
 			</div>
 		</div>

@@ -1,4 +1,8 @@
-#connexion > div {
+#inscription {
+    height: 100%;
+}
+
+#inscription > div {
     height: 85vh;
     display: flex;
     justify-content: center;
@@ -6,38 +10,45 @@
     align-items: center;
 }
 
-#connexion > div > img {
+#inscription > div > img {
     position: fixed;
     z-index: -1;
     max-width: 100%;
-    filter: blur(2.5px);
+    height: 100%;
+    filter: blur(1px);
 }
 
-#connexion > div > form {
+#inscription > div > form {
     display: flex;
     position: relative;
     gap: 30px;
     flex-direction: column;
-    width: 400px;
+    width: 500px;
     background: rgba(245, 245, 245, 0.116);
     border: 2px solid var(--VertPrincipal);
     border-radius: 10px;
-    height: 300px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 15px;
 }
 
-#connexion > div > form > div {
+#inscription > div > form > h2 {
+    position: absolute;
+    top: -50px;
+}
+
+#inscription > div > form > div {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
 }
 
-#connexion > div > form > div > label {
+#inscription > div > form > div > label {
     color: white;
+    font-size: 1.2rem;
 }
 
 div > div > form > div > input {
@@ -45,21 +56,22 @@ div > div > form > div > input {
     border: 2px solid var(--VertPrincipal);
     border-radius: 5px;
     padding-left: 10px;
+    font-size: 1rem;
 }
 
-#connexion > div > form > button,
-#connexion > div > form > a  {
+#inscription > div > form > button,
+#inscription > div > form > a  {
     border: none;
     background: none;
     color: white;
-    font-size: 15px;
+    font-size: 1.3rem;
     letter-spacing: 1px;
     text-decoration: underline var(--VertPrincipal) 5px;
     padding: 5px 10px;
     border-radius: 5px;
 }
 
-#connexion > div > form > button:hover {
+#inscription > div > form > button:hover {
     background: var(--VertPrincipal);
     transition: 0.5s;
     cursor: pointer;
@@ -69,7 +81,7 @@ div > div > form > div > input {
     letter-spacing: 1px;
 }
 
-#connexion > div > form > a {
+#inscription > div > form > a {
     position: absolute;
     text-decoration: underline var(--VertPrincipal) 2px;
     font-size: 13px;
@@ -77,7 +89,7 @@ div > div > form > div > input {
     right: 10px;
 } 
 
-#connexion > div > form > a:hover {
+#inscription > div > form > a:hover {
     border: 1px solid var(--VertPrincipal);
     text-decoration: none;
 }

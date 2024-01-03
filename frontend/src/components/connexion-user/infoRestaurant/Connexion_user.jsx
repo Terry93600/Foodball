@@ -12,21 +12,16 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
   const { critere } = useParams();
   const navigate = useNavigate();
 
-  // État local pour gérer les événements sélectionnés
   const [selectedEvents, setSelectedEvents] = useState([]);
 
-  // Gestion du changement de l'état des événements sélectionnés
   const handleCheckboxChange = (eventId) => {
-    // Si l'événement est déjà sélectionné, le retirer
     if (selectedEvents.includes(eventId)) {
       setSelectedEvents([]);
     } else {
-      // Sinon, l'ajouter à la liste
       setSelectedEvents([eventId]);
     }
   };
 
-  // État local pour gérer les valeurs du formulaire du restaurant
   const [values, setValues] = useState({
     nom: "",
     description: "",
@@ -36,10 +31,8 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     utilisateur_id: 1,
   });
 
-  // Utilisation de useEffect pour charger les données existantes lors de la modification
   useEffect(() => {
     if (critere) {
-      // Fetch existing restaurant data if editing
       axios
         .get(`http://localhost:3000/api/restaurant/${critere}`)
         .then((res) => {
@@ -48,7 +41,6 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
         })
         .catch((err) => console.log(err));
     } else {
-      // If critere doesn't exist, initialize with default values for creation
       setValues({
         nom: titre || "",
         description: desc || "",
@@ -60,7 +52,6 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     }
   }, [critere, titre, desc, localisation, menu, email]);
 
-  // Fonction pour gérer la soumission du formulaire du restaurant
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -170,8 +161,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       });
     }
   };
-
-  // Rendu du composant
+  
   return (
     <>
       

@@ -152,8 +152,6 @@ res.json({
 				message: "Error",
 			});
 		}
-
-		// console.log(rows);
 	}
 	// logout: async (req, res) => {
 	// 	try {

@@ -33,6 +33,10 @@
     list-style: none;
 }
 
+.nav-links > li > a {
+    font-size: 1.3rem;
+}
+
 .nav-links a {
     color: white;
     padding: 5px 10px;

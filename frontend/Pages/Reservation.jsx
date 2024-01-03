@@ -8,7 +8,7 @@ const Reservation = () => {
     return <>
         <Header />
         <ListeReservation />
-        <Connexion_user_list/>
+        <Connexion_user_list />
         <Footer/>
     </>
 }

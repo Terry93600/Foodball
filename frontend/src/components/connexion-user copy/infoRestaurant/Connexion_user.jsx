@@ -22,21 +22,51 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // // const handleSubmit = async (e) => {
+  // //   e.preventDefault();
+
+  // //   try {
+  // //     await axios.post('http://localhost:3000/send-email', {
+  // //       name: formData.name,
+  // //       email: formData.email,
+  // //       message: formData.message,
+  // //       team1: formData.team1,
+  // //       team2: formData.team2,
+  // //     });
+  // //     alert('Email envoyé avec succès!');
+  // //   } catch (error) {
+  // //     console.error(error);
+  // //     alert("Une erreur s'est produite lors de l'envoi de l'e-mail.");
+  // //   }
+  // // };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       await axios.post('http://localhost:3000/send-email', {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        team1: formData.team1,
-        team2: formData.team2,
+        emails: [
+          {
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            team1: formData.team1,
+            team2: formData.team2,
+          },
+          // Ajoutez ici un deuxième objet pour le deuxième e-mail avec des propriétés différentes
+          {
+            name: 'terrygenly.tg@gmail.com', // Remplacez par le nom pour le deuxième e-mail
+            email: email, // Remplacez par l'e-mail pour le deuxième e-mail
+            message: 'Message pour le deuxième e-mail',
+            team1: 'Team 3', // Remplacez par l'équipe pour le deuxième e-mail
+            team2: 'Team 4', // Remplacez par l'équipe pour le deuxième e-mail
+          },
+        ],
       });
-      alert('Email envoyé avec succès!');
+      alert('E-mails envoyés avec succès!');
     } catch (error) {
       console.error(error);
-      alert("Une erreur s'est produite lors de l'envoi de l'e-mail.");
+      alert("Une erreur s'est produite lors de l'envoi des e-mails.");
     }
   };
   
@@ -44,25 +74,26 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
   // Rendu du composant
   return (
     <>
-       <form onSubmit={handleSubmit}>
-      <div>
-        <p>{email}</p>
-      </div>
-      <div>
-        <label>Nom:</label>
-        <input type="text" name="name" onChange={handleChange} />
-      </div>
-      <div>
-        <label>Message:</label>
-        <textarea name="message" onChange={handleChange} />
+      <section className="formReservation">
+        <form onSubmit={handleSubmit} >
+        <div>
+          <label>Votre nom et prénom pour la reservation :</label>
+          <input type="text" name="name" onChange={handleChange} />
         </div>
-        <article>
-          <h2>{team1}</h2>
-          <p>-</p>
-          <h2>{team2}</h2>
-        </article>
-      <button type="submit">Envoyer</button>
-    </form>
+        <div>
+          <label>Votre email:</label>
+          <input type="email" onChange={handleChange} />
+          </div>
+          <article>
+            <h2>{team1}</h2>
+            <p>-</p>
+            <h2>{team2}</h2>
+          </article>
+        <button type="submit">Envoyer</button>
+        </form>
+      </section>
+      <p>terry</p>
+      
       <ToastContainer />
       
     </>
