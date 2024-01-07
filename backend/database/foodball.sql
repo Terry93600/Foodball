@@ -10,6 +10,7 @@ DROP DATABASE IF EXISTS foodball;
 
 -- Créer une nouvelle base de données
 CREATE DATABASE foodball;
+-- CREATE DATABASE foodball CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Utiliser la base de données nouvellement créée
 USE foodball;
@@ -109,10 +110,9 @@ CREATE TABLE foodball.restaurant (
 
 -- Insérer des données dans la table "restaurant"
 INSERT INTO foodball.restaurant (nom, description, localisation, menu, utilisateur_id) VALUES
-('KFC', 'Le poulet c est trop bon', 'rue du général de gaule',"kojsdf.pdf", 1),
-('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur. ', 'BK BK BK',"https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg", 2),
-('macdo','','','',3)
-;
+('KFC', 'Succombez à l\authentique plaisir du poulet.', 'rue du général de gaule', 'kojsdf.pdf', 1),
+('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur.', 'Rond-Point Du 6 Juin 1944, 77270 Villeparisis', 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg', 2);
+
 
 -- Créer une table "restaurantEvent"
 CREATE TABLE foodball.restaurantEvent (
@@ -128,3 +128,60 @@ INSERT INTO foodball.restaurantEvent (restaurant_id, event_id) VALUES
 (1, 1),
 (2, 2)
 ;
+
+
+
+
+
+
+
+
+
+
+
+-- CREATE TABLE foodball.role (
+--     id TINYINT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     nom VARCHAR(20) NOT NULL UNIQUE
+-- );
+-- CREATE TABLE foodball.utilisateur (
+--     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     email VARCHAR(50) NOT NULL UNIQUE,
+--     name VARCHAR(50) NOT NULL,
+--     password VARCHAR(100) NOT NULL,
+--     role_id TINYINT(1) UNSIGNED,
+--     FOREIGN KEY (role_id) REFERENCES foodball.role(id)
+-- );
+-- CREATE TABLE foodball.team (
+--     id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     nom VARCHAR(30) NOT NULL UNIQUE,
+--     logo VARCHAR(50) NOT NULL UNIQUE
+-- );
+-- CREATE TABLE foodball.typeEvent (
+--     id TINYINT(2) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     nom VARCHAR(30) NOT NULL UNIQUE
+-- );
+-- CREATE TABLE foodball.event (
+--     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     team1_id TINYINT UNSIGNED,
+--     team2_id TINYINT UNSIGNED,
+--     typeEvent_id TINYINT(2) UNSIGNED,
+--     FOREIGN KEY (team1_id) REFERENCES foodball.team(id),
+--     FOREIGN KEY (team2_id) REFERENCES foodball.team(id),
+--     FOREIGN KEY (typeEvent_id) REFERENCES foodball.typeEvent(id)
+-- );
+-- CREATE TABLE foodball.restaurant (
+--     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     nom VARCHAR(50) ,
+--     description TEXT,
+--     localisation VARCHAR(100) ,
+--     menu TEXT ,
+--     utilisateur_id INT UNSIGNED, 
+--     FOREIGN KEY (utilisateur_id) REFERENCES foodball.utilisateur(id)
+-- );
+-- CREATE TABLE foodball.restaurantEvent (
+--     restaurant_id INT UNSIGNED,
+--     event_id INT UNSIGNED,
+--     FOREIGN KEY (restaurant_id) REFERENCES foodball.restaurant(id),
+--     FOREIGN KEY (event_id) REFERENCES foodball.event(id),
+--     PRIMARY KEY (restaurant_id, event_id)
+-- );

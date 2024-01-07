@@ -20,11 +20,9 @@
     margin: 0 auto;
 }
 
-#restaurants {
-    font-size: var(--h2);
-    margin-bottom: 10px;
-    position: absolute;
-    top: -30px;
+#pageResto {
+    width: 100%;
+    height: 70vh;
 }
 
 .resto {
@@ -34,8 +32,11 @@
     margin: 20px 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     box-shadow: 10px 5px 2px 2px rgba(0, 0, 0, 0.103);
     gap: 10px;
+    border: 3px solid var(--VertPrincipal);
+    position: relative;
 }
 
 .resto > div {
@@ -67,23 +68,41 @@
 
 .resto > div > p {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+}
+
+.team {
+    display: flex;
+    justify-content: center;
+}
+
+.googleMap > p {
+    width: 20%;
+}
+
+.googleMap > a {
+    width: 80%;
+}
+.googleMap > p,
+.googleMap + a,
+.PopUpMenu{
+    text-decoration: underline 2px;
 }
 
 .PopUpMenu {
-    background: var(--VertPrincipal);
-    color: white;
     text-transform: uppercase;
     width: max-content;
     transition-duration: 0.5s;
     letter-spacing: 1px;
+    border: none;
+    background: none;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .pop-up {
     background: rgba(0, 0, 0, 0.8);
     position: fixed;
-    /* display: none; */
     z-index: 1;
     top: 0;
     left: 0;
@@ -96,7 +115,8 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    height: 80vh;
+    height: 95vh;
+    width: 100%;
     align-items: center;
     position: relative;
     background: var(--VertSecondaire);
@@ -112,42 +132,14 @@
     font-size: 25px;
 }
 
-.pop-up > div > section {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    top: 90px;
-    left: 10px;
-    margin-top: 20px;
-}
-
-.pop-up > div > section > article, 
-.pop-up > div > section > p {
-    width: 40%;
-    height: auto;
-    background: white;
-    padding: 10px;
-    align-items: center;
-    border-radius: 10px;
-} 
-
-.pop-up > div > section > article {
-    display: flex;
-    justify-content: space-around;
-}
-
 .pop-up > div > figure {
     width: 100%;
     background: red;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80%;
+    height: 100%;
     margin-top: 20px;
-}
-
-.pop-up > div > figure > img {
-    border-radius: 10px;
 }
 
 .croix {
@@ -163,6 +155,8 @@
 
 #resto > section > .resto:hover {
     box-shadow: 0px 0px 5px 12px #61914a4b;
+    /* border: 5px solid var(--VertPrincipal); */
+    border: none;
 }
 
 #resto > section > .resto:hover > a {
@@ -178,40 +172,44 @@
     text-decoration: underline var(--VertPrincipal) 3px;
 }
 
+#resto > section > .resto:hover > .team {
+    border: 3px solid var(--VertPrincipal);
+}
+
+.resto:hover > .googleMap > p {
+    text-decoration: none;
+}
+
+.resto:hover > .googleMap > a {
+    text-decoration: underline var(--VertPrincipal) solid 4px;
+}
+
 .menuMobile {
     display: none;
-}
+} 
 
 @media screen and (max-width: 646px) {
     .resto {
         max-width: 100%;
-        align-items: center;
     } 
-
+    #resto {
+        padding-top: 80px;
+    }
     #resto > h2 {
-        position: fixed;
-        top: 27px;
-        left: 50%;
         z-index: 3;
-        color: white;
         width: auto;
     }
-
     .menuMobile {
-        display: block;
         width: 100%;
         height: 300px;
     }
-
     .resto > .map {
         background: var(--VertPrincipal);
         color: white;
     }
-
     .resto > div  {
         justify-content: center;
     }
-
     .pop-up > div > section {
         display: flex;
         flex-direction: column;
@@ -221,19 +219,16 @@
     .pop-up > div > section  > article {
         width: 100%;
     }
-
     .pop-up > div > section > p {
         width: 100%;
     }
-
+    .menuMobile {
+        display: block;
+    }
     #resto > section > .resto:hover,
-    .resto > p,
-    .resto > button,
     #resto > section > .resto:hover > a {
         display: none;
     }
-
-
 }
 
 @media screen and (max-width: 350px) {

@@ -6,8 +6,6 @@ const cookieParser = require("cookie-parser");
 
 const mysql = require("mysql");
 
-app.use(cors());
-app.use(express.json());
 
 // app.post('/send-email', (req, res) => {
 // 	const { name, email, message, team1, team2 } = req.body;
@@ -123,7 +121,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin: ["https://front.foodball.fr","http://localhost:5173"],
 	}),
 );
 

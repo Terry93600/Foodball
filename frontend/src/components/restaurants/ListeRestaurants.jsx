@@ -4,6 +4,8 @@ import Restaurant from "./Restaurant";
 import SearchBar from './searchbar/SearchBar';
 import { getAllRestaurantFoodball } from "../../../service/api";
 import { useEffect, useState } from "react";
+import pageResto from "../../assets/pageResto.jpg"
+
 
 const ListeRestaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -28,9 +30,12 @@ const ListeRestaurant = () => {
 
   return (
     <>
-      <Carrousel />
+      {/* <Carrousel /> */}
+      <figure id="pageResto">
+        <img src={pageResto} alt="" />
+      </figure>
       <main id="resto">
-        <h2 id="restaurants">Restaurants</h2>
+      <h2 id="restaurants">Restaurants</h2>
         <SearchBar onSearch={handleSearch} />
         <section>
           {filteredRestaurants.map((restau, index) => (
