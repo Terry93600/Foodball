@@ -8,7 +8,7 @@ import UploadImage from "../../restaurant/UploadImage";
 import connexionUser from "../../../assets/resto/connexionUser.jpg"
 
 // Définition du composant Connexion_user
-const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
+const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
   const { critere } = useParams();
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
   useEffect(() => {
     if (critere) {
       axios
-        .get(`http://localhost:3000/api/restaurant/${critere}`)
+        .get(``)
         .then((res) => {
           const existingData = res.data;
           setValues(existingData);
@@ -42,7 +42,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
         .catch((err) => console.log(err));
     } else {
       setValues({
-        nom: titre || "",
+        nom: nom || "",
         description: desc || "",
         localisation: localisation || "",
         menu: menu || "",
@@ -50,29 +50,27 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
         utilisateur_id: 1,
       });
     }
-  }, [critere, titre, desc, localisation, menu, email]);
+  }, [critere, nom, desc, localisation, menu, email]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     console.log('Valeurs avant la soumission :', values);
-
+  
     try {
-      const apiUrl = critere
-        ? `http://localhost:3000/api/restaurant/${critere}`
-        : `http://localhost:3000/api/restaurant`;
-
+      const apiUrl = `http://localhost:3000/api/restaurant/${critere}`;
+  
       const response = await axios({
-        method: critere ? "put" : "post",
+        method: "put",
         url: apiUrl,
-        data: { ...values, nom: values.nom || titre, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu, email: values.email || email },
+        data: { ...values, nom: values.nom || nom, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu, email: values.email || email },
       });
-
+  
       console.log('Valeurs envoyées à l\'API :', values);
-
+  
       if (response.data.Status === "Success") {
         console.log(
-          `Données ${critere ? "mises à jour" : "ajoutées"} à l'API restaurant`
+          `Données mises à jour à l'API restaurant`
         );
         toast.success('Mise à jour réussie !', {
           position: "top-right",
@@ -110,6 +108,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       });
     }
   };
+  
 
   const handleUpdateEvents = async () => {
     try {
@@ -172,7 +171,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
       <form onSubmit={handleSubmit} className="formRestaurant">
         <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
         
-        <h2>{titre} </h2>
+        <h2>{nom} </h2>
   
         <div>
           <label htmlFor="nom">Nom du restaurant</label>
@@ -180,10 +179,11 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
             type="text"
             placeholder="Nom du restaurant"
             name="nom"
-            defaultValue={titre}
+            value={values.nom}
             onChange={(e) => setValues({ ...values, nom: e.target.value })}
             required
           />
+
         </div>
         <div>
           <label htmlFor="description">Description de votre restaurant</label>

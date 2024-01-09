@@ -51,8 +51,9 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./Réservation.css";
 
-const Reservation = ({ email,team1,team2, localisation, event }) => {
+const Reservation = ({ email,team1,team2, localisation, event, nom, desc }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
@@ -82,31 +83,34 @@ const Reservation = ({ email,team1,team2, localisation, event }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <p>{email} terr</p>
-      </div>
-      <div>
-        <label>Nom:</label>
-        <input type="text" name="name" onChange={handleChange} />
-      </div>
-      {/* <div>
-        <label>Email:</label>
-        <input type="email" name="email" onChange={handleChange} />
-      </div> */}
-      <div>
-        <label>Votre email :</label>
-        <input type="email" name="additionalEmail" onChange={handleChange} />
-      </div>
-      <div>
-        <label>Message:</label>
-        <textarea name="message" onChange={handleChange} />
-      </div>
-      <dir>
+    <div className='formReservation'>
+      <h2>Formulaire de réservation</h2>
+        <form onSubmit={handleSubmit} >
+        <h2>{nom}</h2>
+        <p>{desc} </p>
+        <p>Adresse: {localisation} </p>
         <p>{team1} - {team2} </p>
-      </dir>
-      <button type="submit">Envoyer</button>
-    </form>
+
+          <div>
+            <label>Nom et prénom :</label>
+            <input type="text" name="name" onChange={handleChange} placeholder='Nom et Prénom' />
+          </div>
+          {/* <div>
+            <label>Email:</label>
+            <input type="email" name="email" onChange={handleChange} />
+          </div> */}
+          <div>
+            <label>Votre email :</label>
+            <input type="email" name="additionalEmail" onChange={handleChange} placeholder='Votre email'/>
+          </div>
+          {/* <div>
+            <label>Message:</label>
+            <textarea name="message" onChange={handleChange} />
+          </div> */}
+          <button type="submit">Envoyer</button>
+        </form>
+      </div>
+     
   );
 };
 

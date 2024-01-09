@@ -67,9 +67,11 @@ const ListeReservation = () => {
           email={reservation.email}
           utilisateur_id={reservation.utilisateur_id}
           team1={reservation.team1}
-            team2={reservation.team2}
+          team2={reservation.team2}
           event={reservation.typeEvent}
           localisation={reservation.localisation}
+          nom={reservation.nom}
+          desc={reservation.description}
         />
       ))}
     </>

@@ -37,7 +37,7 @@ const Connexion_user_list = () => {
           <Connexion_user
             key={restau._id}
             idRestau={restau.id}
-            titre={restau.nom}
+            nom={restau.nom}
             email={restau.email}
             utilisateur_id={restau.utilisateur_id}
             desc={restau.description}

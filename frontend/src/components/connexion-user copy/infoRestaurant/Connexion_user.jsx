@@ -1,135 +1,151 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UploadImage from "../../restaurant/UploadImage";
-import connexionUser from "../../../assets/resto/connexionUser.jpg"
+import connexionUser from "../../../assets/resto/connexionUser.jpg";
 
-// Définition du composant Connexion_user
-const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email, emailresto }) => {
+const Connexion_user = ({ nom, desc, localisation, menu, eventsData, utilisateur_id, email }) => {
+  const { critere } = useParams();
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
-    additionalEmail: '', // Ajouter un champ pour l'e-mail supplémentaire
-    message: '',
+  const [values, setValues] = useState({
+    nom: "",
+    description: "",
+    localisation: "",
+    menu: "",
+    email: "",
+    utilisateur_id: 1,
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    if (critere) {
+      axios
+        .get(`http://localhost:3000/api/restaurant/${critere}`)
+        .then((res) => {
+          const existingData = res.data;
+          setValues(existingData);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setValues({
+        nom: nom || "",
+        description: desc || "",
+        localisation: localisation || "",
+        menu: menu || "",
+        email: email || "",
+        utilisateur_id: 1,
+      });
+    }
+  }, [critere, nom, desc, localisation, menu, email]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    console.log('Valeurs avant la soumission :', values);
 
     try {
-      await axios.post(`http://localhost:3000/send-email?additionalEmail=${formData.additionalEmail}`, formData);
-      alert("Email sent successfully!");
+      const apiUrl = critere
+        ? `http://localhost:3000/api/restaurant/${critere}`
+        : `http://localhost:3000/api/restaurant`;
+
+      const response = await axios({
+        method: critere ? "put" : "post",
+        url: apiUrl,
+        data: { ...values, nom: values.nom || nom, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu, email: values.email || email },
+      });
+
+      console.log('Réponse de l\'API :', response.data);
+
+      if (response.data && response.data.Status === "Success") {
+        console.log(
+          `Données ${critere ? "mises à jour" : "ajoutées"} à l'API restaurant`
+        );
+        toast.success('Mise à jour réussie !', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        navigate("/");
+      } else {
+        const errorMessage = response.data && response.data.message ? response.data.message : 'Erreur inconnue';
+        console.error(`Erreur lors de l'appel à l'API restaurant: ${errorMessage}`);
+        toast.error(`Erreur lors de la mise à jour : ${errorMessage}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
     } catch (error) {
-      console.error(error);
-      alert("An error occurred while sending the email.");
+      console.error(
+        `Erreur lors de l'appel à l'API restaurant: ${error.message}`
+      );
+      toast.error(`Erreur lors de la mise à jour : ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input type="text" name="name" onChange={handleChange} />
+    <>
+      <figure className="imgConnexionUser">
+        <img src={connexionUser} alt="" />
+      </figure>
 
-        {/* <label>Email:</label>
-        <input type="email" name="email" onChange={handleChange} /> */}
-        <label>Votre email :</label>
-        <input type="email" name="additionalEmail" onChange={handleChange} />
+      <form onSubmit={handleSubmit} className="formRestaurant">
+        <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2>
 
-        <label>Message:</label>
-        <textarea name="message" onChange={handleChange}></textarea>
-      
-        <p>{email} </p>
+        <div>
+          <label htmlFor="nom">Nom du restaurant</label>
+          <input
+            type="text"
+            placeholder="Nom du restaurant"
+            name="nom"
+            value={values.nom}
+            onChange={(e) => setValues({ ...values, nom: e.target.value })}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description de votre restaurant</label>
+          <input
+            type="text"
+            placeholder="Description du restaurant"
+            name="description"
+            value={values.description}
+            onChange={(e) => setValues({ ...values, description: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="localisation">Localisation du restaurant</label>
+          <input
+            type="text"
+            placeholder="Localisation du restaurant"
+            name="localisation"
+            value={values.localisation}
+            onChange={(e) => setValues({ ...values, localisation: e.target.value })}
+          />
+        </div>
 
-        <button type="submit">Send Email</button>
+        <button type="submit">
+          {critere ? "Enregistrer les informations du restaurant" : "Ajouter le restaurant"}
+        </button>
       </form>
-    </div>
+      <ToastContainer />
+    </>
   );
 }
 
 export default Connexion_user;
-
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-// import "./connexion_user.css";
-// import { useNavigate, useParams } from "react-router-dom";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import UploadImage from "../../restaurant/UploadImage";
-// import connexionUser from "../../../assets/resto/connexionUser.jpg"
-
-// // Définition du composant Connexion_user
-// const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email }) => {
-
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: email , // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
-//     message: '',
-//     team1: team1,
-//     team2: team2,
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       await axios.post('http://localhost:3000/api/send-email', {
-//         name: formData.name,
-//         email: formData.email,
-//         message: formData.message,
-//         team1: formData.team1,
-//         team2: formData.team2,
-//       });
-//       alert('Email envoyé avec succès!');
-//     } catch (error) {
-//       console.error(error);
-//       alert("Une erreur s'est produite lors de l'envoi de l'e-mail.");
-//     }
-//   };
-//   return (
-//     <>
-//       <section className="formReservation">
-//       <form onSubmit={handleSubmit}>
-//   <div>
-//     <label>Votre nom et prénom pour la reservation :</label>
-//     <input type="text" name="name" onChange={handleChange} />
-//   </div>
-//   <div>
-//     <label>Votre email:</label>
-//     <input
-//       type="email"
-//       name="email"
-//       value={formData.email}
-//       onChange={handleChange}
-//       required
-//     />
-//   </div>
-//   <article>
-//     <h2>{team1}</h2>
-//     <p>-</p>
-//     <h2>{team2}</h2>
-//   </article>
-//   <button type="submit">Envoyer</button>
-// </form>
-//       </section>
-//       <p>{email} </p>
-      
-//       <ToastContainer />
-      
-//     </>
-//   );
-// }
-
-// export default Connexion_user;
