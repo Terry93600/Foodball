@@ -30,6 +30,7 @@ function App() {
 
         {/* <Route path="/restaurants/réservation" element={<Reservation />} /> */}
         <Route path="/réservation/:critere" element={<Reservation />} />
+        
       </Routes>
     </UserProvider>
   );

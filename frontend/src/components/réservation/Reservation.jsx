@@ -61,7 +61,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Reservation = ({ email }) => {
+const Reservation = ({ email  }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
@@ -76,22 +76,18 @@ const Reservation = ({ email }) => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:3000/send-email', {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      });
-      alert('Email envoyé avec succès!');
+      await axios.post("http://localhost:3000/send-email", formData);
+      alert("Email sent successfully!");
     } catch (error) {
       console.error(error);
-      alert("Une erreur s'est produite lors de l'envoi de l'e-mail.");
+      alert("An error occurred while sending the email: " + error.message);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <p>{email}</p>
+        {/* <p>{email} terr</p> */}
       </div>
       <div>
         <label>Nom:</label>

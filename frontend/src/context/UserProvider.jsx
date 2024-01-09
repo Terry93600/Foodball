@@ -1,25 +1,44 @@
-import { createContext, useState } from "react";
+// import { createContext, useState } from "react";
 
+// const UserContext = createContext();
+
+// const UserProvider = ({children}) => {
+//     const [user, setUser] = useState(null);
+    
+//     return <UserContext.Provider value={{user, setUser}}>
+//         {children}
+//     </UserContext.Provider>
+// }
+
+// export { UserContext, UserProvider }
+
+import { createContext, useState, useContext } from "react";
+
+// Création d'un contexte React appelé UserContext
 const UserContext = createContext();
 
-const UserProvider = ({children}) => {
+// Création d'un composant UserProvider pour gérer l'état de l'utilisateur
+const UserProvider = ({ children }) => {
+    // Initialisation de l'état de l'utilisateur à l'aide du hook useState
     const [user, setUser] = useState(null);
 
-    // const [user, setUser] = useState(
-    //     {
-    //         id: 2,
-    //         email: "123@gmail.com",
-    //         name: "123",
-    //         password: "ter",
-    //         role_id: 2,
-    //         role: "restaurateur"
-    //     }
-    // );
-    
+    // Fonction de déconnexion
+    const logout = () => {
+        setUser(null);
+    };
 
-    return <UserContext.Provider value={{user, setUser}}>
-        {children}
-    </UserContext.Provider>
-}
+    // Fourniture de l'état de l'utilisateur et de la fonction de déconnexion
+    return (
+        <UserContext.Provider value={{ user, setUser, logout }}>
+            {children}
+        </UserContext.Provider>
+    );
+};
 
-export { UserContext, UserProvider }
+// Un hook personnalisé pour utiliser le contexte de l'utilisateur
+const useUser = () => {
+    return useContext(UserContext);
+};
+
+// Exportation du contexte et du composant pour les utiliser dans d'autres parties de l'application
+export { UserContext, UserProvider, useUser };

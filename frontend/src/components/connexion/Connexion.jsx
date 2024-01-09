@@ -54,8 +54,10 @@ function Login() {
     .post("http://localhost:3000/api/utilisateur/login", values)
     .then((res) => {
       const utilisateur_id = res.data.data.id;
-      // console.log(res.data);
-      setUser(res.data.data);
+      // setUser(res.data.data);
+      const token = res.data.data.token; // Ajout de cette ligne pour récupérer le token
+        setUser({ ...res.data.data, token }); // Stocker le token dans le contexte global
+        console.log(token);
       navigate(`/info-restaurant/${utilisateur_id}`);
     })
     .catch((err) => {
