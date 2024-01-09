@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Connexion_user from "./Connexion_user";
-import { getAllRestaurantFoodball } from "../../../../service/api";
+import { getAllRestaurantFoodball, getAllUser } from "../../../../service/api";
 
 const Connexion_user_list = () => {
   const [restaurants, setRestaurants] = useState([]);

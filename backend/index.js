@@ -9,11 +9,44 @@ const mysql = require("mysql");
 app.use(cors());
 app.use(express.json());
 
+// app.post('/send-email', async (req, res) => {
+//   try {
+//     // const { name, email, message, team1, team2 } = req.body;
+//     console.log(req.body);
+//     const { name, email, message } = req.body;
+//     // Configurer le transporteur
+//     const transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         user: 'foodballofficiel@gmail.com',
+//         pass: 'iwdr smju ygfm lkpd',
+//       },
+//     });
+
+//     // Options du mail
+//     const mailOptions = {
+//       from: 'foodballofficiel@gmail.com',
+//       to: "foodballofficiel@gmail.com",
+//       subject: 'Sujet de e-mail',
+//       // text: `Corps du message de l'e-mail pour ${name}, équipe 1: ${team1}, équipe 2: ${team2}`,
+//       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+
+//     res.status(200).json({ success: true, message: "Email sent successfully." });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, error: error.toString() });
+//   }
+// });
+  
+
 app.post('/send-email', async (req, res) => {
   try {
-    // const { name, email, message, team1, team2 } = req.body;
-    console.log(req.body);
-    const { name, email, message } = req.body;
+    const { name, email, team1, team2, event, localisation } = req.body;
+    const { additionalEmail } = req.query; // Récupérer l'email supplémentaire depuis la requête
+
     // Configurer le transporteur
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -26,10 +59,9 @@ app.post('/send-email', async (req, res) => {
     // Options du mail
     const mailOptions = {
       from: 'foodballofficiel@gmail.com',
-      to: "foodballofficiel@gmail.com",
-      subject: 'Sujet de e-mail',
-      // text: `Corps du message de l'e-mail pour ${name}, équipe 1: ${team1}, équipe 2: ${team2}`,
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      to: `${email},${additionalEmail}`, // Envoyer à l'e-mail du formulaire et à l'e-mail supplémentaire
+      subject: 'Réservation',
+      text: `La réservation sur le site Foodball : \nName: ${name}\nMatch: ${team1} - ${team2} ${event}\nAdresse : ${localisation} \n\n GARDEZ LE MAIL pour le montrer lors de votre arrivé au restaurant !!!`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -40,7 +72,6 @@ app.post('/send-email', async (req, res) => {
     res.status(500).json({ success: false, error: error.toString() });
   }
 });
-  
 
 require("dotenv").config();
 // const db = mysql.createConnection({

@@ -11,9 +11,10 @@ import connexionUser from "../../../assets/resto/connexionUser.jpg"
 const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email, emailresto }) => {
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+    name: '',
+    email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
+    additionalEmail: '', // Ajouter un champ pour l'e-mail supplémentaire
+    message: '',
   });
 
   const handleChange = (e) => {
@@ -24,7 +25,7 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3001/send-email", formData);
+      await axios.post(`http://localhost:3000/send-email?additionalEmail=${formData.additionalEmail}`, formData);
       alert("Email sent successfully!");
     } catch (error) {
       console.error(error);
@@ -38,11 +39,15 @@ const Connexion_user = ({ titre, desc, team1, team2, event, localisation, idRest
         <label>Name:</label>
         <input type="text" name="name" onChange={handleChange} />
 
-        <label>Email:</label>
-        <input type="email" name="email" onChange={handleChange} />
+        {/* <label>Email:</label>
+        <input type="email" name="email" onChange={handleChange} /> */}
+        <label>Votre email :</label>
+        <input type="email" name="additionalEmail" onChange={handleChange} />
 
         <label>Message:</label>
         <textarea name="message" onChange={handleChange}></textarea>
+      
+        <p>{email} </p>
 
         <button type="submit">Send Email</button>
       </form>
