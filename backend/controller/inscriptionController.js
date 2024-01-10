@@ -298,58 +298,65 @@ res.json({
 		}
     },
     // ...
-
-login: async (req, res) => {
-	let rows;
-	try {
-	  const { email, password } = req.body;
-	  rows = await pool.query(
-		"SELECT utilisateur.*, role.nom FROM foodball.utilisateur JOIN foodball.role ON role.id = utilisateur.role_id WHERE utilisateur.email = ?",
-		[email, password],
-	  );
-  
-	  if (rows[0].length === 0) {
-		return res.status(403).json({
-		  status: 403,
-		  message: "Forbidden",
-		});
-	  } else {
-		// Vérifier le hash
-		const verifyHash = await argon2.verify(rows[0][0].password, password);
-  
-		if (!verifyHash) {
-		  return res.status(403).json({
-			status: 403,
-			message: "Forbidden",
-		  });
-		}
-  
-		const user = rows.shift().shift();
-		const utilisateur_id = user.id; // Récupérer l'ID de l'utilisateur
-  
-		// Générer le token
-		const token = generateToken(user);
-  
-		return res.status(200).json({
-		  status: 200,
-		  message: "OK",
-		  data: { utilisateur_id, user, token },
-		});
-	  }
-	} catch (error) {
-	  return res.status(400).json({
-		status: 400,
-		message: "Error",
-	  });
-	}
-  }
-  
-  // ...
-  
-
-	  
-	  
+	login: async (req, res) => {
+		let rows;
+		try {
+			const { email, password } = req.body;
+			rows = await pool.query(
+				"SELECT utilisateur.*, role.nom FROM foodball.utilisateur JOIN foodball.role ON role.id = utilisateur.role_id WHERE utilisateur.email = ?",
+				[email]
+			);
 	
+			console.log('Rows:', rows);
+	
+			if (rows[0].length === 0) {
+				console.log('User not found or invalid ID');
+				return res.status(403).json({
+					status: 403,
+					message: "Forbidden",
+				});
+			// ...
+
+} else {
+    // Vérifier le hash
+    const verifyHash = await argon2.verify(rows[0][0].password, password);
+
+    if (!verifyHash) {
+        console.log('Password verification failed');
+        return res.status(403).json({
+            status: 403,
+            message: "Forbidden",
+        });
+    }
+
+    // Afficher l'ID de l'utilisateur dans la console
+    console.log('Utilisateur ID:', rows[0][0].id);
+
+    // Créer un token JWT sans modification de l'utilisateur_id
+    const token = jwt.sign(
+        { utilisateur_id: rows[0][0].id },
+        "jwtSecretKey",
+        { expiresIn: "1h" }
+    );
+
+    console.log('Login successful. Sending token.');
+    return res.status(200).json({
+        status: 200,
+        message: "OK",
+        userData: {
+            utilisateur_id: rows[0][0].id,
+            token: token
+        }
+    });
+}
+		} catch (error) {
+			console.error('Error during login:', error);
+			return res.status(400).json({
+				status: 400,
+				message: "Error",
+			});
+		}
+	}
 	  
 };
 
