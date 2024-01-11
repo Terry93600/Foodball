@@ -1,45 +1,18 @@
 footer {
     background: black;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 0 50px;
-    position: relative;
-    margin-top: 10px;
-}
-
-footer > ul {
+    height: 100px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-footer > ul > li > a {
-    text-decoration: underline var(--VertPrincipal) 2px;
-}
-
-footer > ul > li:hover > a {
-    text-decoration: underline white 2px;
-    color: var(--VertPrincipal);
-}
-
-footer > h2,
-footer > ul > li > a,
-footer > p {
-    color: white;
-}
-
-footer > p {
+    align-items: center;
+    /* justify-content: center; */
+    justify-content: space-between;
     position: absolute;
-    bottom: 10px;
+    position: static;
+    padding: 10px;
 }
 
-@media screen and (max-width: 768px) {
-    footer {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        gap: 10px;
-    }
+footer > p,
+footer > h2 {
+    color: white;
 }
