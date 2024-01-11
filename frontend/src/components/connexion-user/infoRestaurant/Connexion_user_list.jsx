@@ -1,19 +1,22 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+// import { useEffect, useState, useContext } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
 // import Connexion_user from "./Connexion_user";
 // import { getAllRestaurant, getAllEvent } from "../../../../service/api";
+// import { UserContext } from "../../../context/UserProvider";
 
 // const Connexion_user_list = () => {
+//   const { user } = useContext(UserContext);
 //   const [restaurants, setRestaurants] = useState([]);
 //   const [events, setEvents] = useState([]);
 //   const { critere } = useParams();
+//   const navigate = useNavigate();
 
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
 //         const [restaurantsResponse, eventsResponse] = await Promise.all([
 //           getAllRestaurant(),
-//           getAllEvent(),
+//           getAllEvent()
 //         ]);
 
 //         setRestaurants(restaurantsResponse.data);
@@ -22,13 +25,14 @@
 //         console.error("Erreur lors de la récupération des données :", error.message);
 //       }
 //     };
+
 //     if (!user.token) {
 //       // L'utilisateur n'est pas authentifié, redirigez-le vers la page de connexion
 //       navigate('/connexion');
+//     } else {
+//       fetchData();
 //     }
-    
-//     fetchData();
-//   }, []);
+//   }, [user.token, navigate]);
 
 //   const restaurantsFiltres = restaurants.filter(
 //     (restaurant) => restaurant.utilisateur_id === parseInt(critere)
@@ -61,7 +65,6 @@
 
 // export default Connexion_user_list;
 
-
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Connexion_user from "./Connexion_user";
@@ -80,7 +83,7 @@ const Connexion_user_list = () => {
       try {
         const [restaurantsResponse, eventsResponse] = await Promise.all([
           getAllRestaurant(),
-          getAllEvent(),
+          getAllEvent()
         ]);
 
         setRestaurants(restaurantsResponse.data);

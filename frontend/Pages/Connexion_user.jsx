@@ -8,7 +8,7 @@ const User_connexion = () => {
     return <>
         <Header />
         <Connexion_user_list/>
-        <Connexion_user_list_copy/>
+        {/* <Connexion_user_list_copy/> */}
         <Footer/>
     </>
 }
