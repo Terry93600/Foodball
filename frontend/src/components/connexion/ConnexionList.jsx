@@ -1,3 +1,5 @@
+// import "./restaurant.css";
+// import Carrousel from "../outils/carroussel/Carroussel";
 import Login from "./Connexion";
 import SearchBar from '../restaurants/searchbar/SearchBar';
 import { getAllRestaurant } from "../../../service/api";

@@ -44,14 +44,18 @@ try {
   }
 
   // Exemple de stockage du token et de l'ID utilisateur dans le contexte utilisateur
-  const { utilisateur_id, token } = userData;
-  setUser({ utilisateur_id, token });
+  const { utilisateur_id, token, role } = userData;
+  setUser({ utilisateur_id, token, role });
 
   // Console log de l'ID côté client
   console.log('Utilisateur ID côté client:', utilisateur_id);
 
   // Utilisation du hook navigate pour rediriger vers la page appropriée
-  navigate(`/info-restaurant/${utilisateur_id}`);
+  if (role === 'admin') {
+    navigate('/admin');
+  } else {
+    navigate(`/info-restaurant/${utilisateur_id}`);
+  }
 
 } catch (error) {
   console.error(error);
