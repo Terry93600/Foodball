@@ -87,21 +87,38 @@ update: async (req, res) => {
     }
   },  
 
+  // delete: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const sql = "DELETE FROM restaurantEvent WHERE id = ?";
+  //     const [rows, fields] = await pool.query(sql, [id]);
+  //     res.json({
+  //       data: rows,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({
+  //       error: "Internal Server Error",
+  //     });
+  //   }
+  // },
+
   delete: async (req, res) => {
     try {
-      const { id } = req.params;
-      const sql = "DELETE FROM restaurantEvent WHERE id = ?";
-      const [rows, fields] = await pool.query(sql, [id]);
-      res.json({
-        data: rows,
-      });
+        const { id } = req.params;
+        const sql = "DELETE FROM restaurantEvent WHERE restaurant_id = ?";
+        const [rows, fields] = await pool.query(sql, [id]);
+        res.json({
+            data: rows,
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: "Internal Server Error",
-      });
+        console.error(error);
+        res.status(500).json({
+            error: "Internal Server Error",
+        });
     }
-  },
+}
+
 };
 
 module.exports = restaurantEventController;

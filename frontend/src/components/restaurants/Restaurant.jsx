@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, restauId} ) => {
+const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, restauId, utilisateur_id} ) => {
   useEffect(() => {}, []);
 
   const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(localisation)}`;
@@ -35,9 +35,7 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, rest
         </a>
       </div>
       
-
-      <a href={`réservation/${titre}`}>Réservation</a>
-      
+      <a href={`réservation/${utilisateur_id}`}>Réservation</a>
 
       <button onClick={openModal} className="PopUpMenu">Menu</button>
       <img src={menu} alt="" className="menuMobile" />

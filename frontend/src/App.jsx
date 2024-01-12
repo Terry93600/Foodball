@@ -3,7 +3,7 @@ import './App.css';
 
 import Index from '../Pages/Index';
 import Restaurants from '../Pages/Restaurants';
-// import Restaurant from '../Pages/Restaurant';
+import ConnectAdmin from '../Pages/ConnexionAdmin';
 import Reservation from '../Pages/Reservation';
 
 import Connexion from '../Pages/Connexion';
@@ -20,6 +20,7 @@ function App() {
         <Route path="/" element={<Index />} />
 
         <Route path="/connexion" element={<Connexion />} />
+        <Route path="/admin" element={<ConnectAdmin />} />
         <Route path="/inscription" element={<Inscription />} />
 
         {/* <Route path="/connexion/:critere" element={<User_connexion />} /> */}
