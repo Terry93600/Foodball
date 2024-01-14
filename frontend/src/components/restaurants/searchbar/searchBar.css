@@ -30,8 +30,8 @@
     font-weight: bold;
 }
 
-@media screen and (max-width: 646px) {
+/* @media screen and (max-width: 646px) {
     #searchBar {
         margin-top: 10vh;
     }
-}
+} */

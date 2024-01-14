@@ -1,4 +1,4 @@
-#resto {
+/* #resto {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -154,14 +154,13 @@ margin-bottom: 15px;
     left: 20px;
     font-size: 50px;
     color: white;
-}
+} */
 
 
 /* animation */
-
+/* 
 #resto > section > .resto:hover {
     box-shadow: 0px 0px 5px 12px #61914a4b;
-    /* border: 5px solid var(--VertPrincipal); */
     border: none;
 }
 
@@ -308,4 +307,4 @@ margin-bottom: 15px;
     .resto > div > figure:first-child {
         left: 5%;
     }
-}
+} */

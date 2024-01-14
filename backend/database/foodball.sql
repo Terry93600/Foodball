@@ -39,8 +39,8 @@ CREATE TABLE foodball.utilisateur (
 -- Insérer des données dans la table "utilisateur"
 INSERT INTO foodball.utilisateur (email, name, password, role_id) VALUES
 ('alphavladitore@gmail.com', 'terry', 'ter', 1),
-('123@gmail.com', '123', '123', 2),
-('ter@gmail.com', 'terry', 'ter', 2);
+('burgerking@gmail.com', '123', '123', 2),
+('Kfc@gmail.com', 'terry', 'ter', 2);
 
 -- Créer une table "team"
 CREATE TABLE foodball.team (
@@ -110,8 +110,8 @@ CREATE TABLE foodball.restaurant (
 
 -- Insérer des données dans la table "restaurant"
 INSERT INTO foodball.restaurant (nom, description, localisation, menu, utilisateur_id) VALUES
-('KFC', 'Succombez à l\authentique plaisir du poulet.', 'rue du général de gaule', 'kojsdf.pdf', 1),
-('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur.', 'Rond-Point Du 6 Juin 1944, 77270 Villeparisis', 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1698934085/ijpjtrz19evbfvoo36vh.jpg', 2);
+('KFC', 'Succombez à l\authentique plaisir du poulet.', '176 Av. Gallieni, 93140 Bondy', 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246809/w4ubmnwkcj2ael14zxrc.png', 3),
+('Burger King', 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur.', 'Rond-Point Du 6 Juin 1944, 77270 Villeparisis', 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246787/fxv8viqcnlbykdgvw5iv.png', 2);
 
 
 -- Créer une table "restaurantEvent"

@@ -90,6 +90,7 @@ margin-bottom: 15px;
 }
 .googleMap > p,
 .googleMap + a,
+.googleMap + a + a,
 .PopUpMenu{
     text-decoration: underline 2px;
 }
@@ -210,13 +211,15 @@ margin-bottom: 15px;
 }
 
 .menuMobile,
-.resto > .menuMobile + a {
+.resto > .menuMobile + a,
+.googleMap + a + a {
     display: none;
 } 
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 700px) {
     .resto {
-        max-width: 100%;
+        width: 100%;
+        margin: 10px 20px;
     } 
     #resto {
         padding-top: 80px;
@@ -226,8 +229,8 @@ margin-bottom: 15px;
         width: auto;
     }
     .menuMobile {
-        width: 100%;
-        height: 300px;
+        width: 400px;
+        height: 400px;
     }
     .resto > .map {
         background: var(--VertPrincipal);
@@ -252,51 +255,14 @@ margin-bottom: 15px;
         display: block;
     }
     #resto > section > .resto:hover,
-    #resto > section > .resto:hover > a {
+    #resto > section > .resto:hover > a,
+    .PopUpMenu + a,
+    .PopUpMenu,
+    #pageResto {
         display: none;
     }
-}
-
-@media screen and (max-width: 646px) {
-    .resto {
-        max-width: 100%;
-    } 
-    #resto {
-        padding-top: 80px;
-    }
-    #resto > h2 {
-        z-index: 3;
-        width: auto;
-    }
-    .menuMobile {
-        width: 100%;
-        height: 300px;
-    }
-    .resto > .map {
-        background: var(--VertPrincipal);
-        color: white;
-    }
-    .resto > div  {
-        justify-content: center;
-    }
-    .pop-up > div > section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    .pop-up > div > section  > article {
-        width: 100%;
-    }
-    .pop-up > div > section > p {
-        width: 100%;
-    }
-    .menuMobile {
+    .googleMap + a{
         display: block;
-    }
-    #resto > section > .resto:hover,
-    #resto > section > .resto:hover > a {
-        display: none;
     }
 }
 

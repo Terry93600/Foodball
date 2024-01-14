@@ -36,10 +36,11 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, rest
       </div>
       
       <a href={`réservation/${utilisateur_id}`}>Réservation</a>
+      {/* <a href={`réservation/${utilisateur_id}`}>Réservation et menu</a> */}
 
       <button onClick={openModal} className="PopUpMenu">Menu</button>
-      <img src={menu} alt="" className="menuMobile" />
-      <a href={menu} >Voir le menu en plus</a>
+      {/* <img src={menu} alt="" className="menuMobile" /> */}
+      {/* <a href={menu} >Voir le menu en plus</a> */}
       
 
       {isModalOpen && (

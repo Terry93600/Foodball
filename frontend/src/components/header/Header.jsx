@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './header.css'; 
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserProvider';
-import logo from '../../assets/logo/logo.jpg'
+import logo from '../../assets/logo/logo-terry.png'
 
 const Header = () => {
   const { user, logout } = useContext(UserContext);

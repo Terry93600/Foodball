@@ -7,7 +7,7 @@ const Reservation = () => {
     return <>
         <Header />
         <ListeReservation />
-        <Footer/>
+        {/* <Footer/> */}
     </>
 }
 

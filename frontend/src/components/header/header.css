@@ -11,7 +11,8 @@
 }
 
 .logo {
-    width: 140px;
+    /* width: 80px; */
+    height: 100%;
     background: white;
     padding: 5px;
     border-radius: 20px;

@@ -21,10 +21,13 @@ li {
   list-style: none;
 }
 
+h2 {
+  font-size: var(--h2);
+}
+
 :root {
-  --h1: 25px;
-  --h2: 1.7rem;
-  --nav: 20px;
+  --h1: 1.5rem;
+  --h2: 1.2rem;
   --VertPrincipal: #38761d;
   --VertSecondaire: #60914a;
 }
