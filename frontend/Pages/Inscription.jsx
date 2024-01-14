@@ -55,7 +55,8 @@ function Inscription() {
     setErrors({});
 
     axios
-      .post("http://localhost:3000/api/utilisateur", values)
+      .post("https://back.foodball.fr/api/utilisateur", values)
+      // .post("http://localhost:3000/api/utilisateur", values)
       .then((res) => {
         navigate("/connexion");
       })
