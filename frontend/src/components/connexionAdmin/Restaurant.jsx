@@ -60,7 +60,7 @@ const Restaurant = ({ titre, desc, team1, team2, event, localisation, menu, rest
   };
 
   const handleDelete = () => {
-    const apiUrl = `http://localhost:3000/api/restaurantevent/${restauId}`;
+    const apiUrl = `${apiUrl}restaurantevent/${restauId}`;
 
     const requestOptions = {
       method: 'DELETE',

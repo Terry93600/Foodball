@@ -23,7 +23,7 @@ const UploadImage = ({nom, restauId, key}) => {
 
   const loadRestaurantData = () => {
     // Effectuer une requête pour récupérer les données du restaurant
-    Axios.get(`http://localhost:3000/api/restaurant/${restauId}`)
+    Axios.get(`${apiUrl}utilisateur/api/restaurant/${restauId}`)
       .then((response) => {
         setRestaurantData(response.data);
       })
@@ -70,8 +70,8 @@ const UploadImage = ({nom, restauId, key}) => {
 
     // Déterminer l'URL en fonction de la méthode (POST ou PUT)
     const apiUrl = method === "put"
-      ? `http://localhost:3000/api/restaurant/${restauId}/cloudinary`
-      : "http://localhost:3000/api/restaurant";
+      ? `${apiUrl}restaurant/${restauId}/cloudinary`
+      : `${apiUrl}restaurant`;
 
     // Envoyer l'URL de Cloudinary au backend
     Axios({

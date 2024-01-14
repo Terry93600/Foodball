@@ -4,7 +4,7 @@ import React, { useEffect} from "react";
 function filtre() {
     const [data,setData] = useState([])
     useEffect(()=> {
-        axios.get('http://localhost:3000/api/team')
+        axios.get(`${apiUrl}team`)
         .then(res=> setData(res.data))
         .catch(err => console.log(err))
     }, [])

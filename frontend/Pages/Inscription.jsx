@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import inscription from "../src/assets/resto/inscription.jpg";
 
 function Inscription() {
+  // const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
@@ -55,8 +56,7 @@ function Inscription() {
     setErrors({});
 
     axios
-      .post("https://back.foodball.fr/api/utilisateur", values)
-      // .post("http://localhost:3000/api/utilisateur", values)
+      .post(`${apiUrl}utilisateur`, values)
       .then((res) => {
         navigate("/connexion");
       })
@@ -102,10 +102,10 @@ function Inscription() {
             />
             {errors.password && <span>{errors.password}</span>}
           </div>
+      <ToastContainer />
           <button type="submit">Inscription</button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 }

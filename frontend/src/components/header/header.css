@@ -33,6 +33,7 @@
 
 .nav-links li {
     list-style: none;
+    color: white;
 }
 
 .nav-links > li > a {

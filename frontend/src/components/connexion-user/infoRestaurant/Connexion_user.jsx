@@ -35,7 +35,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
   useEffect(() => {
     if (critere) {
       axios
-        .get(`http://localhost:3000/api/restaurant/${restauId}`)
+        .get(`${apiUrl}restaurant/${restauId}`)
         .then((res) => {
           const existingData = res.data;
           setValues(existingData);
@@ -57,7 +57,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
     event.preventDefault();
   
     try {
-      const apiUrl = `http://localhost:3000/api/restaurant/${restauId}`;
+      const apiUrl = `${apiUrl}api/restaurant/${restauId}`;
   
       const response = await axios({
         method: "put",

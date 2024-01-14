@@ -47,13 +47,6 @@
     color: white;
 }
 
-div > div > form > div > input {
-    height: 30px;
-    border: 2px solid var(--VertPrincipal);
-    border-radius: 5px;
-    padding-left: 10px;
-}
-
 #connexion > div > form > button,
 #connexion > div > form > a  {
     border: none;

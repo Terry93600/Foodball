@@ -49,6 +49,10 @@
 #resto > section > .resto > a {
     padding: 5px;
     border-radius: 10px;
+    height: 50px;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
 }
 
 .resto > div > figure {
@@ -67,7 +71,7 @@
 }
 
 .resto > div > p {
-    text-align: center;
+    width: auto;
 }
 
 .team {
@@ -221,6 +225,21 @@ margin-bottom: 15px;
         width: 100%;
         margin: 10px 20px;
     } 
+    .map {
+        border-left: var(--VertPrincipal) solid 2px;
+        border-right: var(--VertPrincipal) solid 2px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #resto > section > .resto > a {
+        justify-content: center;
+        text-decoration: none;
+        border: 2px solid var(--VertPrincipal);
+        width: 200px; 
+        margin: 0 auto;
+    }
     #resto {
         padding-top: 80px;
     }
@@ -235,9 +254,6 @@ margin-bottom: 15px;
     .resto > .map {
         background: var(--VertPrincipal);
         color: white;
-    }
-    .resto > div  {
-        justify-content: center;
     }
     .pop-up > div > section {
         display: flex;
