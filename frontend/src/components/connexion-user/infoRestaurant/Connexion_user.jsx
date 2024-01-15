@@ -205,7 +205,6 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
             onChange={(e) => setValues({ ...values, localisation: e.target.value })}
           />
         </div>
-
         <button type="submit">
           {critere ? "Enregistrer les information du restaurant" : "Ajouter le restaurant"}
         </button>
