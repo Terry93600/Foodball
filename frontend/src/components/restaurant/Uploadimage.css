@@ -19,6 +19,10 @@
     border-radius: 5px;
 }
 
+#upload > div > input {
+    border: none;
+}
+
 #upload > div > button:hover {
     background: var(--VertPrincipal);
     color: white;

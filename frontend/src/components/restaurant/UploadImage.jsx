@@ -94,18 +94,17 @@ const UploadImage = ({nom, restauId, key}) => {
 
   return (
     <div id="upload">
-      <p>terry{restauId} </p>
-    <div>
-      <input
-        type="file"
-        onChange={handleImageChange}
-      />
-      <button onClick={uploadImage}>Mettre à jour le menu</button>
-    </div>
+      <div>
+        <input
+          type="file"
+          onChange={handleImageChange}
+        />
+        <button onClick={uploadImage}>Mettre à jour le menu</button>
+      </div>
     
-    {publicId && (
-      <img src={imageUrl} alt="Image depuis Cloudinary avec public ID" />
-    )}
+      {publicId && (
+        <img src={imageUrl} alt="Image depuis Cloudinary avec public ID" />
+      )}
   </div>
 );
 };

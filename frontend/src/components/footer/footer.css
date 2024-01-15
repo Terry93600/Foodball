@@ -8,7 +8,7 @@ footer {
     /* justify-content: center; */
     justify-content: space-between;
     position: absolute;
-    position: static;
+    
     padding: 10px;
 }
 

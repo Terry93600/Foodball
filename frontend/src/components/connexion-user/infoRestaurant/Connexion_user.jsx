@@ -211,12 +211,11 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
         </button>
         
         <div id="up">
+          <label>Menu actuel</label>
           <figure>
-            <label>Menu actuel</label>
             <img src={menu} alt="" />
           </figure>
           <p>Nouveau menu</p>
-          {/* <UploadImage/> */}
           <UploadImageWrapper/>
         </div>
         

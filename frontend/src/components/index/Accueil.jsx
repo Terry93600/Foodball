@@ -1,16 +1,44 @@
-import "./accueil.css"
-import ailier from "../../assets/image index/ailier.jpg"
-import but from "../../assets/image index/but.jpg"
-import centre from "../../assets/image index/centre.jpg"
-import echec from "../../assets/image index/echec.jpg"
-import equipe from "../../assets/image index/equipe.jpg"
-import tactique from "../../assets/image index/tactique.jpg"
-import vestiaire from "../../assets/image index/vestiaire.jpg"
-import placement from "../../assets/image index/placement.jpg"
-import win from "../../assets/image index/win.jpg"
+import "./accueil.css";
+import ailier from "../../assets/image index/ailier.jpg";
+import but from "../../assets/image index/but.jpg";
+import centre from "../../assets/image index/centre.jpg";
+import echec from "../../assets/image index/echec.jpg";
+import equipe from "../../assets/image index/equipe.jpg";
+import tactique from "../../assets/image index/tactique.jpg";
+import vestiaire from "../../assets/image index/vestiaire.jpg";
+import placement from "../../assets/image index/placement.jpg";
+import win from "../../assets/image index/win.jpg";
+import inscription from "../../assets/resto/inscription.jpg";
+import client from "../../assets/humains/pexels-elif-tekkaya-5616321.jpg";
+import React, { useEffect } from "react";
 
 
 const Accueil = () => {
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const articles = document.querySelectorAll("#index > section > section > article");
+    
+          articles.forEach((article) => {
+            const articleTop = article.getBoundingClientRect().top;
+            const articleBottom = article.getBoundingClientRect().bottom;
+    
+            if (articleTop < window.innerHeight && articleBottom > 0) {
+              article.classList.add("visible");
+            } else {
+              article.classList.remove("visible");
+            }
+          });
+        };
+    
+        window.addEventListener("scroll", handleScroll);
+    
+        // Nettoyez l'écouteur d'événements lorsque le composant est démonté
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
+      }, []);
+
     return <>
         
         <main id="index">
@@ -23,10 +51,12 @@ const Accueil = () => {
 
             <section >
                 <h2>Alors comme trouvrer le chemin du filet ?</h2>
-                <p>Il y aura 2 moyen de trouver le chemin du filet, si vous êtes plutôt une personne qui préfère être sur le terrain prenez le chemin de le role client mais si vous êtes plutôt stratège prenais le role des restaurateur</p>
+                <p>Il y aura 2 moyen de trouver le chemin du filet, si vous êtes plutôt une personne qui préfère être sur le terrain prenez le chemin de le role <span>client</span>  mais si vous êtes plutôt stratège prenais le role des <span>restaurateur</span></p>
+
                 <section>
+                    <h2>Client</h2>
                     <figure>
-                        <img src="" alt="" />
+                        <img src={client} alt="" />
                     </figure>
                     <article>
                         <p>Il faut tous d'abors commencée à attaquer avec votre ailié qui se trouve en haut à droite qui fait un appel en profondeur, il se nomme RESTAURANTS</p>
@@ -53,9 +83,11 @@ const Accueil = () => {
                         </figure>
                     </article>
                 </section>
+                
                 <section>
+                    <h2>Restaurateur</h2>
                     <figure>
-                        <img src="" alt="" />
+                        <img src={inscription} alt="" />
                     </figure>
                     <article>
                         <p>
@@ -81,7 +113,6 @@ const Accueil = () => {
                             <img src={tactique} alt="" />
                         </figure>
                     </article>
-
                     <article>
                         <p>
                             C'est le jour de match vous expliquez vos tactiques a vos joueurs pour la dernière fois en remplissant toutes les informations du formulaire. ils ENREGISTRENT chaques informations avant de sortir du vestiare et LE MATCHE COMMENCE !!!
