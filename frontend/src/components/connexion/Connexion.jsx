@@ -8,6 +8,8 @@ import { UserContext } from "../../context/UserProvider"
 import connexion from "../../assets/resto/connexion.jpg"
 
 function Login() {
+  const Url = import.meta.env.VITE_API_URL;
+  
   const { user, setUser } = useContext(UserContext);
   const [values, setValues] = useState({
     email: "",
@@ -36,7 +38,7 @@ const handleSubmit = async (event) => {
   setErrors({});
 
 try {
-  const response = await axios.post("http://localhost:3000/api/utilisateur/login", values);
+  const response = await axios.post(`${Url}utilisateur/login`, values);
   const { userData } = response.data;
 
   if (!userData || !userData.token) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./connexion_user.css";
+import "./Connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +10,7 @@ import connexionUser from "../../../assets/resto/connexionUser.jpg"
 
 // Définition du composant Connexion_user
 const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email, restauId }) => {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const Url = import.meta.env.VITE_API_URL;
   
   const { critere } = useParams();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
   useEffect(() => {
     if (critere) {
       axios
-        .get(`${apiUrl}restaurant/${restauId}`)
+        .get(`${Url}restaurant/${restauId}`)
         .then((res) => {
           const existingData = res.data;
           setValues(existingData);
@@ -59,7 +59,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
     event.preventDefault();
   
     try {
-      const apiUrl = `http://localhost:3000/api/restaurant/${restauId}`;
+      const apiUrl = `${Url}restaurant/${restauId}`;
   
       const response = await axios({
         method: "put",
@@ -124,7 +124,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
   
       // Appel à l'API pour mettre à jour la table restaurantEvent
       const response = await axios.put(
-        `http://localhost:3000/api/restaurantevent/${idRestau}`,
+        `${Url}restaurantevent/${idRestau}`,
         { restaurant_id: idRestau, event_id: selectedEventId }
       );
   

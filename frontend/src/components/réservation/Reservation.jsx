@@ -6,6 +6,8 @@ import "./Réservation.css";
 import terrain from "../../assets/1137.jpg"
 
 const Reservation = ({ email, team1, team2, localisation, event, nom, desc, menu }) => {
+  const Url = import.meta.env.VITE_API_URL;
+
   const [formData, setFormData] = useState({
     name: '',
     email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide

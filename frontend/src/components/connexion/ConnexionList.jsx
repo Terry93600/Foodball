@@ -50,7 +50,6 @@ const Connexion_user_list = () => {
             />
           ))}
               </section>
-              
       </main>
     </>
   );

@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import UploadImageWrapper from "./UploadImageListe";
 import "./Uploadimage.css"
 
-const UploadImage = ({nom, restauId, key}) => {
+const UploadImage = ({ nom, restauId, key }) => {
+  const Url = import.meta.env.VITE_API_URL;
+  
   const [imageSelected, setImageSelected] = useState("");
   const [publicId, setPublicId] = useState("");
   const [restaurantData, setRestaurantData] = useState(null);
@@ -23,7 +25,7 @@ const UploadImage = ({nom, restauId, key}) => {
 
   const loadRestaurantData = () => {
     // Effectuer une requête pour récupérer les données du restaurant
-    Axios.get(`http://localhost:3000/api/restaurant/${restauId}`)
+    Axios.get(`${Url}restaurant/${restauId}`)
       .then((response) => {
         setRestaurantData(response.data);
       })
@@ -70,8 +72,8 @@ const UploadImage = ({nom, restauId, key}) => {
 
     // Déterminer l'URL en fonction de la méthode (POST ou PUT)
     const apiUrl = method === "put"
-      ? `http://localhost:3000/api/restaurant/${restauId}/cloudinary`
-      : "http://localhost:3000/api/restaurant";
+      ? `${Url}restaurant/${restauId}/cloudinary`
+      : `${Url}restaurant`;
 
     // Envoyer l'URL de Cloudinary au backend
     Axios({

@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect} from "react";
 
 function filtre() {
+  const Url = import.meta.env.VITE_API_URL;
+
     const [data,setData] = useState([])
     useEffect(()=> {
-        axios.get('http://localhost:3000/api/team')
+        axios.get(`${apiUrl}team`)
         .then(res=> setData(res.data))
         .catch(err => console.log(err))
     }, [])
