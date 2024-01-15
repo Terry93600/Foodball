@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');  // Ajout du module JWT
 
 const mysql = require("mysql");
 
-
 app.use(cors());
 app.use(express.json());  
 

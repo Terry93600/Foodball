@@ -10,7 +10,7 @@ import React from "react";
 
 const Index = () => {
     const images = [barça, chaise, liverpool, national];
-  
+
     return (
       <>
         <Header />
@@ -20,6 +20,5 @@ const Index = () => {
       </>
     );
   };
-  
 
 export default Index;

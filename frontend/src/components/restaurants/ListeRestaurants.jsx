@@ -1,4 +1,5 @@
 import "./restaurant.css";
+import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import SearchBar from './searchbar/SearchBar';
 import { getAllRestaurantFoodball } from "../../../service/api";

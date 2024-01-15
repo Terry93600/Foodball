@@ -7,9 +7,8 @@
 
 #searchBar > input {
     width: 230px;
-    height: 60px;
+    height: 40px;
     font-size: 17px;
-    padding: 20px;
     border: solid var(--VertSecondaire) 2px;
 }
 

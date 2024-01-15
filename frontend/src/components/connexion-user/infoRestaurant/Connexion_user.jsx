@@ -9,7 +9,9 @@ import UploadImageWrapper from "../../restaurant/UploadImageListe";
 import connexionUser from "../../../assets/resto/connexionUser.jpg"
 
 // Définition du composant Connexion_user
-const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email,restauId }) => {
+const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email, restauId }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
   const { critere } = useParams();
   const navigate = useNavigate();
 
@@ -57,7 +59,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
     event.preventDefault();
   
     try {
-      const apiUrl = `${apiUrl}api/restaurant/${restauId}`;
+      const apiUrl = `http://localhost:3000/api/restaurant/${restauId}`;
   
       const response = await axios({
         method: "put",

@@ -38,7 +38,7 @@ const Reservation = ({ email, team1, team2, localisation, event, nom, desc, menu
 
     try {
       // Ajouter l'e-mail supplémentaire à la requête
-      await axios.post(`${apiUrl}utilisateursend-email?additionalEmail=${formData.additionalEmail}`, formData);
+      await axios.post(`http://localhost:3000/send-email?additionalEmail=${formData.additionalEmail}`, formData);
       toast.success("Email envoyé avec succès !");
     } catch (error) {
       console.error(error);

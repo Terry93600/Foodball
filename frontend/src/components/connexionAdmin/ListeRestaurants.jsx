@@ -30,6 +30,7 @@ const ListeRestaurant = () => {
 
   return (
     <>
+      {/* <Carrousel /> */}
       <figure id="pageResto">
         <img src={pageResto} alt="" />
       </figure>

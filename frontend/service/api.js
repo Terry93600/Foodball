@@ -1,7 +1,7 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const getAllRestaurant = async () => {
-    const url = `${apiUrl}utilisateur`;
+    const url = `${apiUrl}restaurant`;
     const requestInfos = new Request(url, {
         method: 'get',
     });

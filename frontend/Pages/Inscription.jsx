@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import inscription from "../src/assets/resto/inscription.jpg";
 
 function Inscription() {
-  // const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",

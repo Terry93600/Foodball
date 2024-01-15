@@ -36,7 +36,7 @@ const handleSubmit = async (event) => {
   setErrors({});
 
 try {
-  const response = await axios.post(`${apiUrl}utilisateur/login`, values);
+  const response = await axios.post("http://localhost:3000/api/utilisateur/login", values);
   const { userData } = response.data;
 
   if (!userData || !userData.token) {
