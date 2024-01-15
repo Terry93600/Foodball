@@ -88,7 +88,7 @@ try {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter Password" 
               name="password"
               onChange={handleInput}
             />
