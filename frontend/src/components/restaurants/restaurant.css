@@ -9,6 +9,7 @@
 #resto > h2{
     width: 100%;
     text-align: center;
+    margin: 10px auto;
 }
 
 #resto > section {

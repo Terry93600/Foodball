@@ -8,6 +8,8 @@ import terrain from "../../assets/1137.jpg"
 const Reservation = ({ email, team1, team2, localisation, event, nom, desc, menu }) => {
   const Url = import.meta.env.VITE_API_URL;
 
+  const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(localisation)}`;
+
   const [formData, setFormData] = useState({
     name: '',
     email: email || '', // Utiliser l'e-mail passé en tant que prop, ou une chaîne vide
@@ -51,15 +53,14 @@ const Reservation = ({ email, team1, team2, localisation, event, nom, desc, menu
   return (
     <>
       <ToastContainer />
-      <figure id='terrain-vert'>
-        <img src={terrain} alt="" />
-      </figure>
       <div className='formReservation'>
         <form onSubmit={handleSubmit} >
           <h2>Formulaire de réservation</h2>
           <h2>{nom}</h2>
           <p>{desc} </p>
-          <p>Adresse: {localisation} </p>
+          <p>Adresse : <a href={googleMapsLink} target="_blank" rel="noopener noreferrer" className="map">
+        {localisation}
+        </a></p>
           <p>{team1} - {team2} </p>
           <h2>Menu du restaurant </h2>
           <figure>

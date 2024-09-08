@@ -4,14 +4,11 @@ import "./Connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import UploadImage from "../../restaurant/UploadImage";
 import UploadImageWrapper from "../../restaurant/UploadImageListe";
-import connexionUser from "../../../assets/resto/connexionUser.jpg"
+import connexionUser from "../../../assets/resto/connexionUser.jpg";
 
-// Définition du composant Connexion_user
 const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau, menu, team1_id, eventsData, utilisateur_id, email, restauId }) => {
   const Url = import.meta.env.VITE_API_URL;
-  
   const { critere } = useParams();
   const navigate = useNavigate();
 
@@ -57,72 +54,54 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       const apiUrl = `${Url}restaurant/${restauId}`;
   
-      const response = await axios({
-        method: "put",
-        url: apiUrl,
-        data: { ...values, nom: values.nom || nom, description: values.description || desc, localisation: values.localisation || localisation, menu: values.menu || menu, email: values.email || email },
-      });
-  
-      console.log('Valeurs envoyées à l\'API :', values);
-  
-      if (response.data.Status === "Success") {
-        console.log(
-          `Données mises à jour à l'API restaurant`
-        );
-        toast.success('Mise à jour réussie !', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        navigate("/");
-      } else {
-        console.error(
-          `Erreur lors de l'appel à l'API restaurant: ${response.data.message}`
-        );
-        toast.error(`Erreur lors de la mise à jour : ${response.data.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
-    } catch (error) {
-      console.error(
-        `Erreur lors de l'appel à l'API restaurant: ${error.message}`
-      );
-      toast.error(`Erreur lors de la mise à jour : ${error.message}`, {
+      // Afficher un message indiquant que l'envoi est en cours
+      toast.success('Donnée mise a jour', {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
       });
+  
+      const response = await axios({
+        method: "put",
+        url: apiUrl,
+        data: { 
+          ...values, 
+          nom: values.nom || nom, 
+          description: values.description || desc, 
+          localisation: values.localisation || localisation, 
+          menu: values.menu || menu, 
+          email: values.email || email 
+        },
+      });
+  
+      console.log('Valeurs envoyées à l\'API :', values);
+  
+      if (response.data.Status === "Success") {
+        console.log('Données mises à jour à l\'API restaurant');
+      } else {
+        console.error(`Erreur lors de l'appel à l'API restaurant: ${response.data.message}`);
+      }
+    } catch (error) {
+      console.error(`Erreur lors de l'appel à l'API restaurant: ${error.message}`);
     }
   };
-  
 
   const handleUpdateEvents = async () => {
     try {
-      // Vérifier s'il y a un input sélectionné
       if (selectedEvents.length === 0) {
         console.error("Aucun input sélectionné.");
         return;
       }
   
-      // Supposons que vous ne permettez qu'un seul input sélectionné
       const selectedEventId = selectedEvents[0];
   
-      // Appel à l'API pour mettre à jour la table restaurantEvent
       const response = await axios.put(
         `${Url}restaurantevent/${idRestau}`,
         { restaurant_id: idRestau, event_id: selectedEventId }
@@ -130,48 +109,22 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
   
       if (response.data.Status === "Success") {
         console.log('Événements mis à jour avec succès !');
-        toast.success('Mise à jour des événements réussie !', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
       } else {
         console.error(`Erreur lors de la mise à jour des événements: ${response.data.message}`);
-        toast.error(`Erreur lors de la mise à jour des événements : ${response.data.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
       }
     } catch (error) {
       console.error(`Erreur lors de la mise à jour des événements: ${error.message}`);
-      toast.error(`Erreur lors de la mise à jour des événements : ${error.message}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
     }
   };
-  
+
   return (
     <>
-      
       <figure className="imgConnexionUser">
         <img src={connexionUser} alt="" />
       </figure>
 
       <form onSubmit={handleSubmit} className="formRestaurant">
         <h2>Information : {nom} </h2>
-        {/* <h2>{critere ? "Modifier le restaurant" : "Ajouter un restaurant"}</h2> */}
         <p>Veuillez remplir ou modifier ce formulaire selon vos informations</p>
   
         <div>
@@ -183,7 +136,6 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
             defaultValue={nom}
             onChange={(e) => setValues({ ...values, nom: e.target.value })}
           />
-
         </div>
         <div>
           <label htmlFor="description">Description de votre restaurant</label>
@@ -206,7 +158,7 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
           />
         </div>
         <button type="submit">
-          {critere ? "Enregistrer les information du restaurant" : "Ajouter le restaurant"}
+          {critere ? "Enregistrer les informations du restaurant" : "Ajouter le restaurant"}
         </button>
         
         <div id="up">
@@ -240,7 +192,6 @@ const Connexion_user = ({ nom, desc, team1, team2, event, localisation, idRestau
         <button type="button" onClick={handleUpdateEvents}>
           Enregistrer le match choisi
         </button>
-
       </form>
       <ToastContainer />
     </>
