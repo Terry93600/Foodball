@@ -8,13 +8,16 @@
     margin-top: none;
 }
 
+#reservation {
+    height: 100%;
+    padding-bottom: 50px;
+}
+
 .formReservation {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* margin-top: 100px; */
-    background: var(--VertPrincipal);
     height: 100%;
     padding-top: 100px;
     padding: 50px;
@@ -24,13 +27,13 @@
     margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
-    /* border: 3px solid var(--VertPrincipal); */
+    border: 3px solid var(--VertPrincipal);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.918);
+    background: rgba(21, 150, 4, 0.171);
 }
 
 .formReservation > form > div {
