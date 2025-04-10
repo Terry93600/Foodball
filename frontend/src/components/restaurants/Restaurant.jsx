@@ -19,7 +19,7 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, rest
     <article className="resto">
 
       <h3>{titre}</h3>
-      <p>{desc} </p>
+      {/* <p>{desc} </p> */}
 
       <div className="team">
         <h3>{team1}</h3>
@@ -29,7 +29,7 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, rest
 
       <p>{event}</p>
       <div className="googleMap">
-        <p>adresse :</p>
+        <p>adresse : </p>
         <a href={googleMapsLink} target="_blank" rel="noopener noreferrer" className="map">
         {localisation}
         </a>

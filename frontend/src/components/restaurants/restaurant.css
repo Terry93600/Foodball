@@ -28,7 +28,7 @@
 
 .resto {
     height: auto;
-    width: 400px;
+    width: 300px;
     padding: 10px;
     margin: 20px 0;
     display: flex;
@@ -36,6 +36,7 @@
     justify-content: space-between;
     box-shadow: 10px 5px 2px 2px rgba(0, 0, 0, 0.103);
     gap: 10px;
+    border-radius: 20px;
     border: 3px solid var(--VertPrincipal);
     position: relative;
 }
@@ -81,17 +82,21 @@
     margin-top: 15px;
 }
 
+.team > h3 {
+    text-align: center;
+}
+
 .team + p {
 text-align: center;
 margin-bottom: 15px;
 }
 
 .googleMap > p {
-    width: 20%;
+    width: 30%;
 }
 
 .googleMap > a {
-    width: 80%;
+    width: 70%;
 }
 .googleMap > p,
 .googleMap + a,
@@ -172,12 +177,10 @@ margin-bottom: 15px;
 }
 
 #resto > section > .resto:hover > a {
-    background: var(--VertPrincipal);
-    color: white;
     text-transform: uppercase;
     width: max-content;
     transition-duration: 0.5s;
-    letter-spacing: 1px;
+    box-shadow: 10px 5px 2px 2px #38761d75;
 }
 
 #resto > section > .resto:hover > p > a {
