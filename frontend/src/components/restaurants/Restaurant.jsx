@@ -10,6 +10,7 @@ const Restaurant = ( {titre, desc, team1, team2, event, localisation, menu, rest
     setModalOpen(true);
   };
 
+  
   const closeModal = () => {
     setModalOpen(false);
   };

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -78,6 +79,7 @@ const eventrouter = require("./routes/eventRouter");
 const restaurantEventRouter = require("./routes/restaurantEventRouter");
 const menuRouter = require("./routes/menuRouter");
 const platRouter = require("./routes/platRouter");
+const footballRouter = require('./routes/footballRouter');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -99,6 +101,7 @@ app.use("/api/team", teamRouter);
 app.use("/api/restaurant", restaurantRouter);
 app.use("/api/event", eventrouter);
 app.use("/api/restaurantEvent", restaurantEventRouter);
+app.use('/api/football', footballRouter);
 
 const PORT = process.env.PORT || 3000;
 
