@@ -1,14 +1,20 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
+const userController = require('../controller/userController');
 
-// const userController = require("../controller/userController");
+// GET /api/user - Récupérer tous les utilisateurs
+router.get('/', userController.selectAll);
 
-// router.get("/", userController.selectAll);
-// router.get("/:id", userController.selectOne);
-// router.post("/", userController.create);
-// router.put("/:id", userController.update);
-// router.delete("/:id", userController.delete);
+// GET /api/user/:id - Récupérer un utilisateur par ID
+router.get('/:id', userController.selectOne);
 
-// router.post("/login", userController.login);
+// POST /api/user - Créer un nouvel utilisateur
+router.post('/', userController.create);
 
-// module.exports = router;
+// PUT /api/user/:id - Mettre à jour un utilisateur
+router.put('/:id', userController.update);
+
+// DELETE /api/user/:id - Supprimer un utilisateur
+router.delete('/:id', userController.delete);
+
+module.exports = router;

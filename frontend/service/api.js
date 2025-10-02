@@ -109,3 +109,4 @@ const getAllInscription = async () => {
     return response;
 };
 export { getAllInscription };
+

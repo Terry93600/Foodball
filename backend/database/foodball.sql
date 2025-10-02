@@ -108,6 +108,8 @@ CREATE TABLE foodball.restaurant (
     FOREIGN KEY (utilisateur_id) REFERENCES foodball.utilisateur(id)
 );
 
+
+
 -- Insérer des données dans la table "restaurant"
 INSERT INTO foodball.restaurant (nom, description, localisation, menu, utilisateur_id) VALUES
 ('KFC', 'Succombez à l\authentique plaisir du poulet.', '176 Av. Gallieni, 93140 Bondy', 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246809/w4ubmnwkcj2ael14zxrc.png', 3),
@@ -128,3 +130,13 @@ INSERT INTO foodball.restaurantEvent (restaurant_id, event_id) VALUES
 (1, 1),
 (2, 2)
 ;
+
+
+CREATE TABLE restaurant_matches (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    restaurant_id INT UNSIGNED NOT NULL, -- Doit correspondre à INT UNSIGNED de la table restaurant
+    match_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id),
+    FOREIGN KEY (match_id) REFERENCES matches(id)
+);

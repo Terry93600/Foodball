@@ -6,6 +6,7 @@ const Connect = () => {
     return <>
         <Header />
         <Login />
+        <Footer />
     </>
 }
 

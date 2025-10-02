@@ -1,124 +1,113 @@
-// const pool = require("../service/dbConnection");
-// const argon2 = require("argon2");
+const Utilisateur = require("../models/Utilisateur");
+const argon2 = require('argon2');
 
-// const userController = {
-// 	selectAll: async (req, res) => {
-// 		try {
-// 			const [rows, fields] = await pool.query("select * from user");
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 			res.json({
-// 				state: "error",
-// 			});
-// 		}
-// 	},
-// 	selectOne: async (req, res) => {
-// 		try {
-// 			const { id } = req.params;
-// 			const [rows, fields] = await pool.query(
-// 				"select * from user WHERE id = ?",
-// 				[id],
-// 			);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-// 	create: async (req, res) => {
-// 		try {
-// 			const { email, nom, prenom, role_id } = req.body;
-// 			const sql =
-// 				"insert into user (email, nom, prenom, role_id) values (?,?,?,?)";
-// 			const [rows, fields] = await pool.query(sql, [
-// 				email,
-// 				nom,
-// 				prenom,
-// 				role_id,
-// 			]);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-// 	update: async (req, res) => {
-// 		try {
-// 			const { email, nom, prenom, role_id } = req.body;
-// 			const { id } = req.params;
-// 			const sql =
-// 				"update user set nom = ?, email=?, prenom=?, role_id = ? WHERE id =?";
-// 			const [rows, fields] = await pool.query(sql, [
-// 				email,
-// 				nom,
-// 				prenom,
-// 				role_id,
-// 				id,
-// 			]);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-// 	delete: async (req, res) => {
-// 		try {
-// 			const { id } = req.params;
-// 			const [rows, fields] = await pool.query(
-// 				"delete * from role WHERE id = ?",
-// 				[id],
-// 			);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-// 	login: async (req, res) => {
-// 		let rows;
-// 		try {
-// 			const { email, password } = req.body;
-// 			rows = await pool.query(
-// 				"SELECT utilisateur.*, role.nom FROM foodball.utilisateur JOIN foodball.role ON role.id = utilisateur.role_id WHERE utilisateur.email = ?",
-// 				[email, password],
-// 			);
+const userController = {
+    selectAll: async (req, res) => {
+        try {
+            const users = await Utilisateur.find()
+                .populate('role_id', 'nom')
+                .select('-password');
+            
+            const formattedUsers = users.map(user => ({
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                role_id: user.role_id._id,
+                role_nom: user.role_id.nom
+            }));
 
-// 			if (rows[0].length === 0) {
-// 				return res.status(403).json({
-// 					status: 403,
-// 					message: "Forbidden",
-// 				});
-// 			} else {
-// 				// vérifier le hash
-// 				const verifyHash = await argon2.verify(rows[0][0].password, password);
+            res.json({
+                data: formattedUsers
+            });
+        } catch (error) {
+            console.log(error);
+            res.json({
+                state: "error"
+            });
+        }
+    },
 
-// 				if (!verifyHash) {
-// 					return res.status(403).json({
-// 						status: 403,
-// 						message: "Forbidden",
-// 					});
-// 				}
+    selectOne: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const user = await Utilisateur.findById(id)
+                .populate('role_id')
+                .select('-password');
+            res.json({
+                data: user
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
+        }
+    },
 
-// 				return res.status(200).json({
-// 					status: 200,
-// 					message: "OK",
-// 					data: rows.shift().shift(),
-// 				});
-// 			}
-// 		} catch (error) {
-// 			return res.status(400).json({
-// 				status: 400,
-// 				message: "Error",
-// 			});
-// 		}
-// 	}
-// };
+    create: async (req, res) => {
+        try {
+            const { email, name, password, role_id } = req.body;
+            const hashedPassword = await argon2.hash(password);
+            
+            const newUser = new Utilisateur({
+                email,
+                name,
+                password: hashedPassword,
+                role_id
+            });
+            
+            const savedUser = await newUser.save();
+            const userResponse = { ...savedUser.toObject() };
+            delete userResponse.password;
+            
+            res.json({
+                data: userResponse
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
+        }
+    },
 
-// module.exports = userController;
+    update: async (req, res) => {
+        try {
+            const { email, name, role_id } = req.body;
+            const { id } = req.params;
+            
+            const updatedUser = await Utilisateur.findByIdAndUpdate(
+                id,
+                { email, name, role_id },
+                { new: true }
+            ).select('-password');
+            
+            res.json({
+                data: updatedUser
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
+        }
+    },
+
+    delete: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const deletedUser = await Utilisateur.findByIdAndDelete(id)
+                .select('-password');
+            res.json({
+                data: deletedUser
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
+        }
+    }
+};
+
+module.exports = userController;

@@ -1,66 +1,153 @@
-const pool = require("../service/dbConnection")
-const roleController = {
+// const pool = require("../service/dbConnection")
+// const roleController = {
 
-    selectAll: async (req,res) => {
+//     selectAll: async (req,res) => {
+//         try {
+//             const [rows, fields] = await pool.query("select * from role")
+//             res.json({
+//                 data: rows
+//             })
+//         } catch (error) {
+//             console.log(error);
+//             res.json({
+//                 state:"error"
+//             })
+//         }
+//     },
+//     selectOne: async (req,res) => {
+//         try {
+//             const { id } = req.params
+//             const [rows, fields] = await pool.query("select * from role WHERE id = ?", [id])
+//             res.json({
+//                 data: rows
+//             })
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     },
+//     create: async (req,res) => {
+//         try {
+//             const { name } = req.body
+//             const sql = "insert into role (name) values (?)"
+//             const [rows, fields] = await pool.query(sql, [name])
+//             res.json({
+//                 data: rows
+//             })
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     },
+//     update: async (req,res) => {
+//         try {
+//             const { name } = req.body
+//             const { id } = req .params
+//             const sql = "update role set name = ? WHERE id =?"
+//             const [rows, fields] = await pool.query(sql, [name, id])
+//             res.json({
+//                 data: rows
+//             })
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     },
+//     delete: async (req,res) => {
+//         try {
+//             const { id } = req.params
+//             const [rows, fields] = await pool.query("delete * from role WHERE id = ?", [id])
+//             res.json({
+//                 data: rows
+//             })
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+// }
+
+// module.exports = roleController
+
+
+const Role = require("../models/Role");
+
+const roleController = {
+    selectAll: async (req, res) => {
         try {
-            const [rows, fields] = await pool.query("select * from role")
+            const roles = await Role.find();
             res.json({
-                data: rows
-            })
+                data: roles
+            });
         } catch (error) {
             console.log(error);
             res.json({
-                state:"error"
-            })
+                state: "error"
+            });
         }
     },
-    selectOne: async (req,res) => {
+
+    selectOne: async (req, res) => {
         try {
-            const { id } = req.params
-            const [rows, fields] = await pool.query("select * from role WHERE id = ?", [id])
+            const { id } = req.params;
+            const role = await Role.findById(id);
             res.json({
-                data: rows
-            })
+                data: role
+            });
         } catch (error) {
             console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
         }
     },
-    create: async (req,res) => {
+
+    create: async (req, res) => {
         try {
-            const { name } = req.body
-            const sql = "insert into role (name) values (?)"
-            const [rows, fields] = await pool.query(sql, [name])
+            const { nom } = req.body;
+            const newRole = new Role({ nom });
+            const savedRole = await newRole.save();
             res.json({
-                data: rows
-            })
+                data: savedRole
+            });
         } catch (error) {
             console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
         }
     },
-    update: async (req,res) => {
+
+    update: async (req, res) => {
         try {
-            const { name } = req.body
-            const { id } = req .params
-            const sql = "update role set name = ? WHERE id =?"
-            const [rows, fields] = await pool.query(sql, [name, id])
+            const { nom } = req.body;
+            const { id } = req.params;
+            const updatedRole = await Role.findByIdAndUpdate(
+                id,
+                { nom },
+                { new: true }
+            );
             res.json({
-                data: rows
-            })
+                data: updatedRole
+            });
         } catch (error) {
             console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
         }
     },
-    delete: async (req,res) => {
+
+    delete: async (req, res) => {
         try {
-            const { id } = req.params
-            const [rows, fields] = await pool.query("delete * from role WHERE id = ?", [id])
+            const { id } = req.params;
+            const deletedRole = await Role.findByIdAndDelete(id);
             res.json({
-                data: rows
-            })
+                data: deletedRole
+            });
         } catch (error) {
             console.log(error);
+            res.status(500).json({
+                state: "error"
+            });
         }
     }
-}
+};
 
-module.exports = roleController
+module.exports = roleController;

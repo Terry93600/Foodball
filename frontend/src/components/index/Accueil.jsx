@@ -13,31 +13,67 @@ import client from "../../assets/humains/pexels-elif-tekkaya-5616321.jpg";
 import React, { useEffect } from "react";
 
 
-const Accueil = () => {
+// const Accueil = () => {
 
-    useEffect(() => {
-        const handleScroll = () => {
-          const articles = document.querySelectorAll("#index > section > section > article");
+//     useEffect(() => {
+//         const handleScroll = () => {
+//           const articles = document.querySelectorAll("#index > section > section > article");
     
-          articles.forEach((article) => {
-            const articleTop = article.getBoundingClientRect().top;
-            const articleBottom = article.getBoundingClientRect().bottom;
+//           articles.forEach((article) => {
+//             const articleTop = article.getBoundingClientRect().top;
+//             const articleBottom = article.getBoundingClientRect().bottom;
     
-            if (articleTop < window.innerHeight && articleBottom > 0) {
-              article.classList.add("visible");
-            } else {
-              article.classList.remove("visible");
-            }
-          });
-        };
+//             if (articleTop < window.innerHeight && articleBottom > 0) {
+//               article.classList.add("visible");
+//             } else {
+//               article.classList.remove("visible");
+//             }
+//           });
+//         };
     
-        window.addEventListener("scroll", handleScroll);
+//         window.addEventListener("scroll", handleScroll);
     
-        // Nettoyez l'écouteur d'événements lorsque le composant est démonté
-        return () => {
-          window.removeEventListener("scroll", handleScroll);
-        };
-      }, []);
+//         // Nettoyez l'écouteur d'événements lorsque le composant est démonté
+//         return () => {
+//           window.removeEventListener("scroll", handleScroll);
+//         };
+//       }, []);
+
+const Accueil = () => {
+  // const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Animation au défilement (code existant)
+    const handleScroll = () => {
+      const articles = document.querySelectorAll("#index > section > section > article");
+      
+      articles.forEach((article) => {
+        const articleTop = article.getBoundingClientRect().top;
+        const articleBottom = article.getBoundingClientRect().bottom;
+        
+        if (articleTop < window.innerHeight && articleBottom > 0) {
+          article.classList.add("visible");
+        } else {
+          article.classList.remove("visible");
+        }
+      });
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    
+    // Simulation de chargement pour améliorer la perception de vitesse
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // if (isLoading) {
+  //   return <div className="loading-spinner">Chargement...</div>;
+  // }
 
     return <>
         
@@ -99,7 +135,7 @@ const Accueil = () => {
                     </article>
                     <article>
                         <p>
-                            Vous décidez d'expliquez au joueur de votre nouvelle tactique de jeu, vous allez en format INSCRIPTION, c'est une formtion plutot sur axés sur la défense. Vous remplissez le formulaire. 
+                            Vous décidez d'expliquez au joueur de votre nouvelle tactique de jeu, vous allez en format INSCRIPTION, c'est une formtion plutot sur axés sur la défense. Vous remplissez le formulaire.
                         </p>
                         <figure>
                             <img src={equipe} alt="" />
