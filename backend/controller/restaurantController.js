@@ -293,16 +293,106 @@
 
 // module.exports = restaurantController;
 
+// const Restaurant = require("../models/Restaurant");
+
+// const restaurantController = {
+//     selectAll: async (req, res) => {
+//         try {
+//             const restaurants = await Restaurant.find()
+//                 .populate('utilisateur_id', 'name email')
+//                 .populate('team1', 'nom')
+//                 .populate('team2', 'nom')
+//                 .populate('typeEvent', 'nom');
+            
+//             res.json({ data: restaurants });
+//         } catch (error) {
+//             console.error('Erreur selectAll restaurants:', error);
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     selectOne: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const restaurant = await Restaurant.findById(id)
+//                 .populate('utilisateur_id', 'name email')
+//                 .populate('team1', 'nom')
+//                 .populate('team2', 'nom')
+//                 .populate('typeEvent', 'nom');
+            
+//             res.json({ data: restaurant });
+//         } catch (error) {
+//             console.error('Erreur selectOne restaurant:', error);
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     create: async (req, res) => {
+//         try {
+//             const { nom, description, localisation, menu, utilisateur_id, team1, team2, typeEvent } = req.body;
+            
+//             const newRestaurant = new Restaurant({
+//                 nom,
+//                 description,
+//                 localisation,
+//                 menu,
+//                 utilisateur_id,
+//                 team1,
+//                 team2,
+//                 typeEvent
+//             });
+            
+//             const savedRestaurant = await newRestaurant.save();
+//             const populatedRestaurant = await Restaurant.findById(savedRestaurant._id)
+//                 .populate('utilisateur_id', 'name email')
+//                 .populate('team1', 'nom')
+//                 .populate('team2', 'nom')
+//                 .populate('typeEvent', 'nom');
+            
+//             res.json({ data: populatedRestaurant });
+//         } catch (error) {
+//             console.error('Erreur create restaurant:', error);
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     update: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, { new: true })
+//                 .populate('utilisateur_id', 'name email')
+//                 .populate('team1', 'nom')
+//                 .populate('team2', 'nom')
+//                 .populate('typeEvent', 'nom');
+            
+//             res.json({ data: updatedRestaurant });
+//         } catch (error) {
+//             console.error('Erreur update restaurant:', error);
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     delete: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const deletedRestaurant = await Restaurant.findByIdAndDelete(id);
+//             res.json({ data: deletedRestaurant });
+//         } catch (error) {
+//             console.error('Erreur delete restaurant:', error);
+//             res.json({ state: "error" });
+//         }
+//     }
+// };
+
+// module.exports = restaurantController;
+
 const Restaurant = require("../models/Restaurant");
 
 const restaurantController = {
     selectAll: async (req, res) => {
         try {
             const restaurants = await Restaurant.find()
-                .populate('utilisateur_id', 'name email')
-                .populate('team1', 'nom')
-                .populate('team2', 'nom')
-                .populate('typeEvent', 'nom');
+                .populate('utilisateur_id', 'name email');
             
             res.json({ data: restaurants });
         } catch (error) {
@@ -315,10 +405,7 @@ const restaurantController = {
         try {
             const { id } = req.params;
             const restaurant = await Restaurant.findById(id)
-                .populate('utilisateur_id', 'name email')
-                .populate('team1', 'nom')
-                .populate('team2', 'nom')
-                .populate('typeEvent', 'nom');
+                .populate('utilisateur_id', 'name email');
             
             res.json({ data: restaurant });
         } catch (error) {
@@ -329,27 +416,10 @@ const restaurantController = {
 
     create: async (req, res) => {
         try {
-            const { nom, description, localisation, menu, utilisateur_id, team1, team2, typeEvent } = req.body;
-            
-            const newRestaurant = new Restaurant({
-                nom,
-                description,
-                localisation,
-                menu,
-                utilisateur_id,
-                team1,
-                team2,
-                typeEvent
-            });
-            
+            const newRestaurant = new Restaurant(req.body);
             const savedRestaurant = await newRestaurant.save();
-            const populatedRestaurant = await Restaurant.findById(savedRestaurant._id)
-                .populate('utilisateur_id', 'name email')
-                .populate('team1', 'nom')
-                .populate('team2', 'nom')
-                .populate('typeEvent', 'nom');
             
-            res.json({ data: populatedRestaurant });
+            res.json({ data: savedRestaurant });
         } catch (error) {
             console.error('Erreur create restaurant:', error);
             res.json({ state: "error" });
@@ -359,11 +429,7 @@ const restaurantController = {
     update: async (req, res) => {
         try {
             const { id } = req.params;
-            const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, { new: true })
-                .populate('utilisateur_id', 'name email')
-                .populate('team1', 'nom')
-                .populate('team2', 'nom')
-                .populate('typeEvent', 'nom');
+            const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, { new: true });
             
             res.json({ data: updatedRestaurant });
         } catch (error) {
