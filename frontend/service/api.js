@@ -12,7 +12,7 @@ const getAllRestaurant = async () => {
 export { getAllRestaurant };
 
 const getAllRestaurantFoodball = async () => {
-    const url = `${apiUrl}restaurant/foodball`;
+    const url = `${apiUrl}restaurant`; // Enlevez "/foodball"
     const requestInfos = new Request(url, {
         method: 'get',
     });

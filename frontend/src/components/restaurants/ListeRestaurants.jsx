@@ -11,14 +11,37 @@ const ListeRestaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]); // Nouvel état pour stocker les restaurants filtrés
 
-  useEffect(() => {
-    getAllRestaurantFoodball().then((result) => {
-      setRestaurants(result.data);
-      setFilteredRestaurants(result.data); 
-      console.log('result.data', result.data)
-    });
-  }, []);
+  // useEffect(() => {
+  //   getAllRestaurantFoodball().then((result) => {
+  //     setRestaurants(result.data);
+  //     setFilteredRestaurants(result.data); 
+  //     console.log('result.data', result.data)
+  //   });
+  // }, []);
 
+  useEffect(() => {
+  getAllRestaurantFoodball()
+    .then((result) => {
+      console.log('Réponse complète:', result); // Debug
+      console.log('result.data:', result.data); // Debug
+      
+      // Vérification de sécurité
+      if (result && result.data && Array.isArray(result.data)) {
+        setRestaurants(result.data);
+        setFilteredRestaurants(result.data);
+      } else {
+        console.error('Format de données inattendu:', result);
+        setRestaurants([]);
+        setFilteredRestaurants([]);
+      }
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la récupération des restaurants:', error);
+      setRestaurants([]);
+      setFilteredRestaurants([]);
+    });
+}, []);
+  
   const handleSearch = (searchTerm) => {
     const filtered = restaurants.filter((restau) => {
       return Object.values(restau).some((value) =>

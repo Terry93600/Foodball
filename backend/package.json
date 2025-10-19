@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles --forceExit",
     "dev": "node --watch index-mongodb.js",
     "start": "node index-mongodb.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 10000
   },
   "author": "",
   "license": "ISC",
@@ -29,5 +33,9 @@
     "node": "^20.5.1",
     "nodemailer": "^6.9.7",
     "sendmail": "^1.6.1"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
   }
 }
