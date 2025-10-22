@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Connexion_user.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,16 +7,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadImageWrapper from "../../restaurant/UploadImageListe";
 import connexionUser from "../../../assets/resto/connexionUser.jpg";
+import { UserContext } from "../../../context/UserProvider";
 
 const Connexion_user = ({ 
   nom, desc, team1, team2, event, localisation, idRestau, menu, 
   eventsData, utilisateur_id, email, restauId, codePostal, ville, 
   telephone, capacite, prixMoyen,
-  onDataUpdated // 🆕 NOUVELLE PROP REÇUE DU PARENT
+  onDataUpdated
 }) => {
   const Url = import.meta.env.VITE_API_URL;
   const { critere } = useParams();
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const [selectedEvents, setSelectedEvents] = useState([]);
 
@@ -42,6 +44,51 @@ const Connexion_user = ({
     utilisateur_id: utilisateur_id,
   });
 
+// 👇 useEffect : DÉCONNEXION AVEC AVERTISSEMENT
+// 👇 useEffect : DÉCONNEXION AVEC POPUP PERSONNALISÉ
+useEffect(() => {
+  const handleBeforeUnload = (event) => {
+    // Empêcher la fermeture immédiate
+    event.preventDefault();
+    event.returnValue = '';
+    
+    // Créer notre propre confirmation
+    const shouldDisconnect = window.confirm(
+      '🚪 Attention !\n\nVous allez quitter la page et être déconnecté automatiquement.\n\nÊtes-vous sûr de vouloir continuer ?'
+    );
+    
+    if (shouldDisconnect) {
+      console.log('🚪 Déconnexion confirmée par l\'utilisateur');
+      setUser(null);
+      localStorage.removeItem('user');
+      sessionStorage.removeItem('user');
+      return null; // Permet la fermeture
+    } else {
+      // Annuler la fermeture
+      return false;
+    }
+  };
+
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === 'hidden') {
+      // Déconnexion silencieuse quand l'onglet devient invisible
+      console.log('🚪 Déconnexion automatique (onglet caché)');
+      setUser(null);
+      localStorage.removeItem('user');
+      sessionStorage.removeItem('user');
+    }
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+  };
+}, [setUser, utilisateur_id]);
+
+  // 👇 DEUXIÈME useEffect : TON CODE EXISTANT
   useEffect(() => {
     if (critere) {
       axios
