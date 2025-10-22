@@ -2,7 +2,8 @@ import "./restaurant.css";
 import Carrousel from "../outils/carroussel/Carroussel";
 import Restaurant from "./Restaurant";
 import SearchBar from './searchbar/SearchBar';
-import { getAllRestaurantFoodball } from "../../../service/api";
+// import { getAllRestaurantFoodball } from "../../../service/api";
+import { getAllRestaurant } from "../../../service/api";
 import { useEffect, useState } from "react";
 import pageResto from "../../assets/pageResto.jpg"
 
@@ -19,13 +20,35 @@ const ListeRestaurant = () => {
   //   });
   // }, []);
 
-  useEffect(() => {
-  getAllRestaurantFoodball()
-    .then((result) => {
-      console.log('Réponse complète:', result); // Debug
-      console.log('result.data:', result.data); // Debug
+//   useEffect(() => {
+//   getAllRestaurantFoodball()
+//     .then((result) => {
+//       console.log('Réponse complète:', result); // Debug
+//       console.log('result.data:', result.data); // Debug
       
-      // Vérification de sécurité
+//       // Vérification de sécurité
+//       if (result && result.data && Array.isArray(result.data)) {
+//         setRestaurants(result.data);
+//         setFilteredRestaurants(result.data);
+//       } else {
+//         console.error('Format de données inattendu:', result);
+//         setRestaurants([]);
+//         setFilteredRestaurants([]);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error('Erreur lors de la récupération des restaurants:', error);
+//       setRestaurants([]);
+//       setFilteredRestaurants([]);
+//     });
+// }, []);
+
+useEffect(() => {
+  // getAllRestaurantFoodball()
+  getAllRestaurant()
+    .then((result) => {
+      console.log('🔍 STRUCTURE COMPLÈTE des restaurants:', JSON.stringify(result.data[0], null, 2)); // 👈 AJOUTE CETTE LIGNE
+      
       if (result && result.data && Array.isArray(result.data)) {
         setRestaurants(result.data);
         setFilteredRestaurants(result.data);

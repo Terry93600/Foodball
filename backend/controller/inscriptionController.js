@@ -1,204 +1,256 @@
-// const pool = require("../service/dbConnection");
-// const argon2 = require("argon2");
-// const jwt = require('jsonwebtoken');
-
+// const Utilisateur = require("../models/Utilisateur");
+// const Restaurant = require("../models/Restaurant");
+// const Event = require("../models/Event");
+// const argon2 = require('argon2');
 
 // const inscriptionController = {
-// 	selectAll: async (req, res) => {
-// 		try {
-// 			const [rows, fields] = await pool.query("select * from utilisateur");
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 			res.json({
-// 				state: "error",
-// 			});
-// 		}
-// 	},
-// 	selectOne: async (req, res) => {
-// 		try {
-// 			const { id } = req.params;
-// 			const [rows, fields] = await pool.query(
-// 				"select * from utilisateur WHERE id = ?",
-// 				[id],
-// 			);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-	
-// 	create: async (req, res) => {
-// 		try {
-// 		  const { email, name, password } = req.body;
-// 		  const hashedPassword = await argon2.hash(password);
-// 		  const userSql =
-// 			"INSERT INTO utilisateur (email, name, password, role_id) VALUES (?, ?, ?, 2)";
-// 		  const [userRows, userFields] = await pool.query(userSql, [
-// 			email,
-// 			name,
-// 			hashedPassword,
-// 		  ])
-// 		const utilisateur_id = userRows.insertId;
-// 		const restaurantSql =
-// 		"INSERT INTO restaurant (nom, description, localisation, menu, utilisateur_id) VALUES (?, ?, ?, ?, ?)";
-// 		const [restaurantRows, restaurantFields] = await pool.query(restaurantSql, [
-// 		"Nom du restaurant",
-// 		"Description du restaurant",
-// 		"Localisation du restaurant",
-// 		"Menu du restaurant",
-// 		utilisateur_id,
-// 		]);
-// 		const restaurantId = restaurantRows.insertId;
-// 		const selectedEventId = 1;
-// 		const restaurantEventSql =
-// 		"INSERT INTO restaurantEvent (restaurant_id, event_id) VALUES (?, ?)";
-// 		const [restaurantEventRows, restaurantEventFields] = await pool.query(
-// 		restaurantEventSql,
-// 		[restaurantId, selectedEventId]
-// 		);
-// 		res.json({
-// 			utilisateur_id: utilisateur_id,
-// 			utilisateur: userRows,
-// 			restaurant: restaurantRows,
-// 			restaurantEvent: restaurantEventRows,
-// 		});
-// 		} catch (error) {
-// 		console.error(error);
-// 		res.status(500).json({
-// 			error:
-// 			"Erreur lors de la création de l'utilisateur, du restaurant, de l'événement et de la relation restaurantEvent",
-// 		});
-// 		}
-// 	  },
-	  
-// 	update: async (req, res) => {
-// 		try {
-// 			const { email, name, password } = req.body;
-// 			const { id } = req.params;
-// 			const sql =
-// 				"update utilisateur set email = ?, name = ?, password = ?  WHERE id =?";
-// 			const [rows, fields] = await pool.query(sql, [email, name, password, id]);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	},
-// 	delete: async (req, res) => {
-// 		try {
-// 			const { id } = req.params;
-// 			const [rows, fields] = await pool.query(
-// 				"delete * from utilisateur WHERE id = ?",
-// 				[id],
-// 			);
-// 			res.json({
-// 				data: rows,
-// 			});
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
+//     // Méthode principale pour l'inscription
+
+// create: async (req, res) => {
+//     try {
+//         const { email, nom, prenom, telephone, password, role_id } = req.body;
+        
+//         // Vérifier si l'utilisateur existe déjà
+//         const existingUser = await Utilisateur.findOne({ email });
+//         if (existingUser) {
+//             return res.status(400).json({
+//                 state: "error",
+//                 message: "Un utilisateur avec cet email existe déjà"
+//             });
+//         }
+        
+//         // ✅ CRÉER D'ABORD avec le mot de passe en clair pour validation
+//         const newUser = new Utilisateur({
+//             email,
+//             nom,
+//             prenom,
+//             telephone,
+//             password, // ← Mot de passe en clair pour validation
+//             role_id
+//         });
+        
+//         // ✅ VALIDER avant de hasher
+//         await newUser.validate();
+        
+//         // ✅ MAINTENANT hasher le mot de passe
+//         newUser.password = await argon2.hash(password);
+        
+//         // ✅ SAUVEGARDER avec le mot de passe hashé
+//         const savedUser = await newUser.save({ validateBeforeSave: false });
+        
+//         res.status(201).json({
+//             state: "success",
+//             message: "Utilisateur créé avec succès",
+//             data: savedUser
+//         });
+//     } catch (error) {
+//         console.log(error);
+        
+//         // Gestion des erreurs de validation Mongoose
+//         if (error.name === 'ValidationError') {
+//             const errors = Object.values(error.errors).map(err => err.message);
+//             return res.status(400).json({
+//                 state: "error",
+//                 message: "Erreurs de validation",
+//                 errors: errors
+//             });
+//         }
+        
+//         res.status(500).json({
+//             state: "error",
+//             message: "Erreur lors de la création de l'utilisateur"
+//         });
+//     }
+// },
+//     // Méthodes supplémentaires pour les routes existantes
+//     selectAll: async (req, res) => {
+//         try {
+//             const users = await Utilisateur.find().populate('role_id');
+//             res.json({ data: users });
+//         } catch (error) {
+//             res.json({ state: "error" });
+//         }
 //     },
-// login: async (req, res) => {
-// 	let rows;
-// 	try {
-// 		const { email, password } = req.body;
-// 		rows = await pool.query(
-// 			"SELECT utilisateur.*, role.nom FROM foodball.utilisateur JOIN foodball.role ON role.id = utilisateur.role_id WHERE utilisateur.email = ?",
-// 			[email]
-// 		);
-// 		console.log('Rows:', rows);
-// 		if (rows[0].length === 0) {
-// 			console.log('User not found or invalid ID');
-// 			return res.status(403).json({
-// 				status: 403,
-// 				message: "Forbidden",
-// 			});
-// 			} else {
-// 			const verifyHash = await argon2.verify(rows[0][0].password, password);
-// 			if (!verifyHash) {
-// 				console.log('Password verification failed');
-// 				return res.status(403).json({
-// 					status: 403,
-// 					message: "Forbidden",
-// 				});
-// 			}
-// 			console.log('Utilisateur ID:', rows[0][0].id);
-// 			const token = jwt.sign(
-// 				{ utilisateur_id: rows[0][0].id },
-// 				"jwtSecretKey",
-// 				{ expiresIn: "1h" }
-// 			);
-// 			console.log('Login successful. Sending token.');
-// 			return res.status(200).json({
-// 				status: 200,
-// 				message: "OK",
-// 				userData: {
-// 					utilisateur_id: rows[0][0].id,
-// 					token: token,
-// 					role: rows[0][0].nom
-// 				}
-// 			});
-// 			}
-// 				} catch (error) {
-// 					console.error('Error during login:', error);
-// 					return res.status(400).json({
-// 						status: 400,
-// 						message: "Error",
-// 					});
-// 				}
-// 			}
+
+//     selectOne: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const user = await Utilisateur.findById(id).populate('role_id');
+//             res.json({ data: user });
+//         } catch (error) {
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     update: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const updatedUser = await Utilisateur.findByIdAndUpdate(id, req.body, { new: true });
+//             res.json({ data: updatedUser });
+//         } catch (error) {
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     delete: async (req, res) => {
+//         try {
+//             const { id } = req.params;
+//             const deletedUser = await Utilisateur.findByIdAndDelete(id);
+//             res.json({ data: deletedUser });
+//         } catch (error) {
+//             res.json({ state: "error" });
+//         }
+//     },
+
+//     login: async (req, res) => {
+//         try {
+//             const { email, password } = req.body;
+//             const user = await Utilisateur.findOne({ email }).populate('role_id');
+            
+//             if (!user) {
+//                 return res.json({ state: "error", message: "Utilisateur non trouvé" });
+//             }
+            
+//             const isValidPassword = await argon2.verify(user.password, password);
+//             if (!isValidPassword) {
+//                 return res.json({ state: "error", message: "Mot de passe incorrect" });
+//             }
+            
+//             res.json({ data: user });
+//         } catch (error) {
+//             res.json({ state: "error" });
+//         }
+//     }
 // };
 
 // module.exports = inscriptionController;
 
-
 const Utilisateur = require("../models/Utilisateur");
 const Restaurant = require("../models/Restaurant");
-const Event = require("../models/Event");
+const Team = require("../models/Team");
+const TypeEvent = require("../models/TypeEvent");
 const argon2 = require('argon2');
 
 const inscriptionController = {
-    // Méthode principale pour l'inscription
     create: async (req, res) => {
+        console.log('🚀 INSCRIPTION CONTROLLER APPELÉ !', req.body); // ← LOG DE DEBUG
+        
         try {
-            const { email, name, password, role_id, nom, description, localisation, menu, event_id } = req.body;
+            const { email, nom, prenom, telephone, password, role_id } = req.body;
             
-            const hashedPassword = await argon2.hash(password);
+            // Vérifier si l'utilisateur existe déjà
+            const existingUser = await Utilisateur.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({
+                    state: "error",
+                    message: "Un utilisateur avec cet email existe déjà"
+                });
+            }
             
+            // ✅ CRÉER D'ABORD avec le mot de passe en clair pour validation
             const newUser = new Utilisateur({
                 email,
-                name,
-                password: hashedPassword,
+                nom,
+                prenom,
+                telephone,
+                password, // ← Mot de passe en clair pour validation
                 role_id
             });
-            const savedUser = await newUser.save();
             
-            const newRestaurant = new Restaurant({
-                nom,
-                description,
-                localisation,
-                menu,
-                utilisateur_id: savedUser._id,
-                events: [event_id]
-            });
-            const savedRestaurant = await newRestaurant.save();
+            // ✅ VALIDER avant de hasher
+            await newUser.validate();
             
-            res.json({
-                data: {
-                    user: savedUser,
-                    restaurant: savedRestaurant
-                }
-            });
+            // ✅ MAINTENANT hasher le mot de passe
+            newUser.password = await argon2.hash(password);
+            
+            // ✅ SAUVEGARDER avec le mot de passe hashé
+            const savedUser = await newUser.save({ validateBeforeSave: false });
+            
+            // 🏪 CRÉER UN RESTAURANT PAR DÉFAUT
+            console.log('🔄 Début création restaurant pour utilisateur:', savedUser._id);
+            
+            try {
+                // Récupérer la première équipe et le premier type d'événement
+                const defaultTeam = await Team.findOne();
+                const defaultTypeEvent = await TypeEvent.findOne();
+                
+                console.log('📊 Données récupérées:', {
+                    defaultTeam: defaultTeam?._id,
+                    defaultTypeEvent: defaultTypeEvent?._id,
+                    userPrenom: prenom,
+                    userNom: nom
+                });
+                
+                const restaurantData = {
+    nom: `Restaurant de ${prenom} ${nom}`,
+    description: `Bienvenue dans le restaurant de ${prenom} ! Personnalisez votre établissement dans votre espace de gestion.`,
+    localisation: "Adresse à définir - Cliquez pour modifier",
+    codePostal: "00000",        // ← AJOUTÉ
+    ville: "Ville à définir",   // ← AJOUTÉ
+    telephone: telephone,       // ← AJOUTÉ
+    email: email,              // ← AJOUTÉ
+    capacite: 50,              // ← AJOUTÉ
+    prixMoyen: 20,             // ← AJOUTÉ
+    menu: "🍕 Menu en cours de création\n\n📝 Ajoutez vos spécialités ici !\n\n✨ Personnalisez votre carte dans votre espace de gestion.",
+    utilisateur_id: savedUser._id,
+    team1: defaultTeam?._id || null,
+    team2: defaultTeam?._id || null,
+    typeEvent: defaultTypeEvent?._id || null
+};
+                
+                console.log('🏪 Données restaurant à créer:', restaurantData);
+                
+                const defaultRestaurant = new Restaurant(restaurantData);
+                console.log('✅ Restaurant model créé, validation...');
+                
+                const savedRestaurant = await defaultRestaurant.save();
+                console.log('🎉 Restaurant sauvegardé avec succès:', savedRestaurant._id);
+                
+                res.status(201).json({
+                    state: "success",
+                    message: "Inscription réussie ! Votre restaurant a été créé automatiquement.",
+                    data: {
+                        user: savedUser,
+                        restaurant: savedRestaurant
+                    }
+                });
+                
+            } catch (restaurantError) {
+                console.error('❌ ERREUR DÉTAILLÉE création restaurant:', {
+                    message: restaurantError.message,
+                    name: restaurantError.name,
+                    errors: restaurantError.errors
+                });
+                
+                // Si la création du restaurant échoue, on garde l'utilisateur mais on informe
+                res.status(201).json({
+                    state: "success",
+                    message: "Inscription réussie ! Vous pourrez créer votre restaurant plus tard.",
+                    data: {
+                        user: savedUser,
+                        restaurant: null,
+                        warning: "Le restaurant par défaut n'a pas pu être créé.",
+                        error: restaurantError.message
+                    }
+                });
+            }
+            
         } catch (error) {
-            console.log(error);
+            console.log('❌ Erreur inscription:', error);
+            
+            // Gestion des erreurs de validation Mongoose
+            if (error.name === 'ValidationError') {
+                const errors = Object.values(error.errors).map(err => err.message);
+                return res.status(400).json({
+                    state: "error",
+                    message: "Erreurs de validation",
+                    errors: errors
+                });
+            }
+            
             res.status(500).json({
-                state: "error"
+                state: "error",
+                message: "Erreur lors de la création de l'utilisateur"
             });
         }
     },
