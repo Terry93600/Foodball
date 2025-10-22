@@ -1,123 +1,11 @@
-// const Utilisateur = require("../models/Utilisateur");
-// const argon2 = require('argon2');
-
-// const userController = {
-//     selectAll: async (req, res) => {
-//         try {
-//             const users = await Utilisateur.find()
-//                 .populate('role_id', 'nom')
-//                 .select('-password');
-            
-//             const formattedUsers = users.map(user => ({
-//                 id: user._id,
-//                 email: user.email,
-//                 name: user.name,
-//                 role_id: user.role_id._id,
-//                 role_nom: user.role_id.nom
-//             }));
-
-//             res.json({
-//                 data: formattedUsers
-//             });
-//         } catch (error) {
-//             console.log(error);
-//             res.json({
-//                 state: "error"
-//             });
-//         }
-//     },
-
-//     selectOne: async (req, res) => {
-//         try {
-//             const { id } = req.params;
-//             const user = await Utilisateur.findById(id)
-//                 .populate('role_id')
-//                 .select('-password');
-//             res.json({
-//                 data: user
-//             });
-//         } catch (error) {
-//             console.log(error);
-//             res.status(500).json({
-//                 state: "error"
-//             });
-//         }
-//     },
-
-//     create: async (req, res) => {
-//         try {
-//             const { email, name, password, role_id } = req.body;
-//             const hashedPassword = await argon2.hash(password);
-            
-//             const newUser = new Utilisateur({
-//                 email,
-//                 name,
-//                 password: hashedPassword,
-//                 role_id
-//             });
-            
-//             const savedUser = await newUser.save();
-//             const userResponse = { ...savedUser.toObject() };
-//             delete userResponse.password;
-            
-//             res.json({
-//                 data: userResponse
-//             });
-//         } catch (error) {
-//             console.log(error);
-//             res.status(500).json({
-//                 state: "error"
-//             });
-//         }
-//     },
-
-//     update: async (req, res) => {
-//         try {
-//             const { email, name, role_id } = req.body;
-//             const { id } = req.params;
-            
-//             const updatedUser = await Utilisateur.findByIdAndUpdate(
-//                 id,
-//                 { email, name, role_id },
-//                 { new: true }
-//             ).select('-password');
-            
-//             res.json({
-//                 data: updatedUser
-//             });
-//         } catch (error) {
-//             console.log(error);
-//             res.status(500).json({
-//                 state: "error"
-//             });
-//         }
-//     },
-
-//     delete: async (req, res) => {
-//         try {
-//             const { id } = req.params;
-//             const deletedUser = await Utilisateur.findByIdAndDelete(id)
-//                 .select('-password');
-//             res.json({
-//                 data: deletedUser
-//             });
-//         } catch (error) {
-//             console.log(error);
-//             res.status(500).json({
-//                 state: "error"
-//             });
-//         }
-//     }
-// };
-
-// module.exports = userController;
-
-
 const Utilisateur = require("../models/Utilisateur");
 const Restaurant = require("../models/Restaurant");
 const Team = require("../models/Team");
 const TypeEvent = require("../models/TypeEvent");
 const argon2 = require('argon2');
+const crypto = require('crypto');
+const { sendResetPasswordEmail } = require('../service/emailService');
+const bcrypt = require('bcrypt');
 
 const userController = {
     selectAll: async (req, res) => {
@@ -312,7 +200,119 @@ try {
                 state: "error"
             });
         }
+    },
+
+    // 🆕 NOUVELLE MÉTHODE : Demande de réinitialisation
+forgotPassword: async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email requis'
+            });
+        }
+
+        // Chercher l'utilisateur
+        const user = await Utilisateur.findOne({ email: email.toLowerCase() });
+        
+        if (!user) {
+            // Pour la sécurité, on renvoie toujours success même si l'email n'existe pas
+            return res.json({
+                success: true,
+                message: 'Si cet email existe, vous recevrez un lien de réinitialisation'
+            });
+        }
+
+        // Générer token de réinitialisation
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        
+        // Sauvegarder le token et l'expiration (1 heure)
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 heure
+        await user.save();
+
+        // Envoyer l'email
+        const emailSent = await sendResetPasswordEmail(user.email, resetToken);
+        
+        if (emailSent) {
+            res.json({
+                success: true,
+                message: 'Email de réinitialisation envoyé'
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: 'Erreur lors de l\'envoi de l\'email'
+            });
+        }
+
+    } catch (error) {
+        console.error('Erreur forgotPassword:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Erreur serveur'
+        });
     }
+},
+    // 🆕 NOUVELLE MÉTHODE : Réinitialisation du mot de passe
+resetPassword: async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Nouveau mot de passe requis'
+            });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({
+                success: false,
+                message: 'Le mot de passe doit contenir au moins 6 caractères'
+            });
+        }
+
+        // Chercher l'utilisateur avec le token valide
+        const user = await Utilisateur.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: 'Token invalide ou expiré'
+            });
+        }
+
+        // 👇 REMPLACE CES LIGNES
+        // Hasher le mot de passe manuellement
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Mettre à jour le mot de passe
+        user.password = hashedPassword;
+        user.resetPasswordToken = null;
+        user.resetPasswordExpires = null;
+        await user.save();
+
+        res.json({
+            success: true,
+            message: 'Mot de passe réinitialisé avec succès'
+        });
+
+    } catch (error) {
+        console.error('Erreur resetPassword:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Erreur serveur'
+        });
+    }
+}
 };
 
 module.exports = userController;

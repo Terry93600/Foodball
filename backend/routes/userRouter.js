@@ -17,4 +17,8 @@ router.put('/:id', userController.update);
 // DELETE /api/user/:id - Supprimer un utilisateur
 router.delete('/:id', userController.delete);
 
+// 🆕 NOUVELLES ROUTES POUR RESET PASSWORD
+router.post('/forgot-password', userController.forgotPassword);
+router.post('/reset-password/:token', userController.resetPassword);
+
 module.exports = router;

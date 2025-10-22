@@ -64,6 +64,16 @@ const utilisateurSchema = new mongoose.Schema({
             'Format de téléphone français invalide (ex: 06 12 34 56 78)'
         ]
     },
+
+    resetPasswordToken: {
+    type: String,
+    default: null
+},
+resetPasswordExpires: {
+    type: Date,
+    default: null
+},
+
     password: {
         type: String,
         required: [true, 'Le mot de passe est obligatoire'],

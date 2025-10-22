@@ -67,6 +67,7 @@
 
 const Utilisateur = require("../models/Utilisateur");
 const argon2 = require('argon2');
+const bcrypt = require('bcrypt');
 
 const connexionController = {
     // Méthode principale pour la connexion
@@ -84,7 +85,9 @@ const connexionController = {
                 });
             }
             
-            const isValidPassword = await argon2.verify(user.password, password);
+            // const isValidPassword = await argon2.verify(user.password, password);
+            const bcrypt = require('bcrypt');
+const isValidPassword = await bcrypt.compare(password, user.password);
             
             if (!isValidPassword) {
                 return res.json({

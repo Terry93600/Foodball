@@ -272,6 +272,8 @@ function Login() {
       const response = await axios.post(`${Url}connexion`, values);
       
       console.log('📡 Réponse du serveur:', response.data);
+
+      console.log('📡 Réponse COMPLÈTE:', JSON.stringify(response.data, null, 2));
       
       const userData = response.data.data;
 
@@ -347,6 +349,9 @@ function Login() {
           
           <button type="submit">Connexion</button>
           <ToastContainer />
+          <div className="forgot-password-link">
+    <a href="/forgot-password">Mot de passe oublié ?</a>
+</div>
           <a href="/inscription">Inscription</a>
         </form>
       </div>

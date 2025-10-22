@@ -108,5 +108,37 @@ const getAllInscription = async () => {
     const response = await request.json();
     return response;
 };
+
+// 🆕 FONCTIONS POUR RESET PASSWORD
+const forgotPassword = async (email) => {
+    const url = `${apiUrl}user/forgot-password`;
+    const requestInfos = new Request(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+
+const resetPassword = async (token, password) => {
+    const url = `${apiUrl}user/reset-password/${token}`;
+    const requestInfos = new Request(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password })
+    });
+    const request = await fetch(requestInfos);
+    const response = await request.json();
+    return response;
+};
+
+// N'oublie pas d'exporter les nouvelles fonctions
+export { forgotPassword, resetPassword };
 export { getAllInscription };
 

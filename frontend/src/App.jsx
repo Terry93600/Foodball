@@ -13,6 +13,9 @@ import User_connexion from '../Pages/Connexion_user';
 import Ajout_menu from '../Pages/Ajout_menu';
 import { UserProvider } from './context/UserProvider';
 
+import ForgotPasswordPage from '../Pages/ForgotPassword';
+import ResetPasswordPage from '../Pages/ResetPassword';
+
 function App() {
   return (
     <UserProvider>
@@ -31,6 +34,9 @@ function App() {
 
         {/* <Route path="/restaurants/réservation" element={<Reservation />} /> */}
         <Route path="/réservation/:critere" element={<Reservation />} />
+
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         
       </Routes>
     </UserProvider>
