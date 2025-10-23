@@ -10,41 +10,9 @@ import pageResto from "../../assets/pageResto.jpg"
 
 const ListeRestaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]); // Nouvel état pour stocker les restaurants filtrés
-
-  // useEffect(() => {
-  //   getAllRestaurantFoodball().then((result) => {
-  //     setRestaurants(result.data);
-  //     setFilteredRestaurants(result.data); 
-  //     console.log('result.data', result.data)
-  //   });
-  // }, []);
-
-//   useEffect(() => {
-//   getAllRestaurantFoodball()
-//     .then((result) => {
-//       console.log('Réponse complète:', result); // Debug
-//       console.log('result.data:', result.data); // Debug
-      
-//       // Vérification de sécurité
-//       if (result && result.data && Array.isArray(result.data)) {
-//         setRestaurants(result.data);
-//         setFilteredRestaurants(result.data);
-//       } else {
-//         console.error('Format de données inattendu:', result);
-//         setRestaurants([]);
-//         setFilteredRestaurants([]);
-//       }
-//     })
-//     .catch((error) => {
-//       console.error('Erreur lors de la récupération des restaurants:', error);
-//       setRestaurants([]);
-//       setFilteredRestaurants([]);
-//     });
-// }, []);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
 useEffect(() => {
-  // getAllRestaurantFoodball()
   getAllRestaurant()
     .then((result) => {
       console.log('🔍 STRUCTURE COMPLÈTE des restaurants:', JSON.stringify(result.data[0], null, 2)); // 👈 AJOUTE CETTE LIGNE
@@ -65,15 +33,34 @@ useEffect(() => {
     });
 }, []);
   
-  const handleSearch = (searchTerm) => {
-    const filtered = restaurants.filter((restau) => {
-      return Object.values(restau).some((value) =>
-        value !== null && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
+const handleSearch = (searchTerms) => {
+  // Si c'est un reset (tous les champs vides)
+  if (!searchTerms.nom && !searchTerms.team && !searchTerms.adresse && !searchTerms.championnat) {
+    setFilteredRestaurants(restaurants);
+    return;
+  }
+
+  const filtered = restaurants.filter((restau) => {
+    const matchNom = !searchTerms.nom || 
+      (restau.nom && restau.nom.toLowerCase().includes(searchTerms.nom.toLowerCase()));
     
-    setFilteredRestaurants(filtered); // Mettez à jour les restaurants filtrés
-  };
+    const matchTeam = !searchTerms.team || 
+      (restau.team1?.nom && restau.team1.nom.toLowerCase().includes(searchTerms.team.toLowerCase())) ||
+      (restau.team2?.nom && restau.team2.nom.toLowerCase().includes(searchTerms.team.toLowerCase()));
+    
+    const matchAdresse = !searchTerms.adresse || 
+      (restau.localisation && restau.localisation.toLowerCase().includes(searchTerms.adresse.toLowerCase())) ||
+      (restau.ville && restau.ville.toLowerCase().includes(searchTerms.adresse.toLowerCase()));
+    
+    const matchChampionnat = !searchTerms.championnat || 
+      (restau.typeEvent?.nom && restau.typeEvent.nom.toLowerCase().includes(searchTerms.championnat.toLowerCase()));
+
+    // TOUS les critères remplis doivent matcher
+    return matchNom && matchTeam && matchAdresse && matchChampionnat;
+  });
+  
+  setFilteredRestaurants(filtered);
+};
 
   return (
     <>
