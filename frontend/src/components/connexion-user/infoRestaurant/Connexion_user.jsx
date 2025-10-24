@@ -21,6 +21,10 @@ const Connexion_user = ({
   const { setUser } = useContext(UserContext);
 
   const [selectedEvents, setSelectedEvents] = useState([]);
+  
+  // 🆕 ÉTATS POUR LA GESTION DU MENU CLOUDINARY
+  const [imageSelected, setImageSelected] = useState("");
+  const [isUploadingMenu, setIsUploadingMenu] = useState(false);
 
   const handleCheckboxChange = (eventId) => {
     if (selectedEvents.includes(eventId)) {
@@ -44,49 +48,44 @@ const Connexion_user = ({
     utilisateur_id: utilisateur_id,
   });
 
-// 👇 useEffect : DÉCONNEXION AVEC AVERTISSEMENT
-// 👇 useEffect : DÉCONNEXION AVEC POPUP PERSONNALISÉ
-useEffect(() => {
-  const handleBeforeUnload = (event) => {
-    // Empêcher la fermeture immédiate
-    event.preventDefault();
-    event.returnValue = '';
-    
-    // Créer notre propre confirmation
-    const shouldDisconnect = window.confirm(
-      '🚪 Attention !\n\nVous allez quitter la page et être déconnecté automatiquement.\n\nÊtes-vous sûr de vouloir continuer ?'
-    );
-    
-    if (shouldDisconnect) {
-      console.log('🚪 Déconnexion confirmée par l\'utilisateur');
-      setUser(null);
-      localStorage.removeItem('user');
-      sessionStorage.removeItem('user');
-      return null; // Permet la fermeture
-    } else {
-      // Annuler la fermeture
-      return false;
-    }
-  };
+  // 👇 useEffect : DÉCONNEXION AVEC AVERTISSEMENT
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+      
+      const shouldDisconnect = window.confirm(
+        '🚪 Attention !\n\nVous allez quitter la page et être déconnecté automatiquement.\n\nÊtes-vous sûr de vouloir continuer ?'
+      );
+      
+      if (shouldDisconnect) {
+        console.log('🚪 Déconnexion confirmée par l\'utilisateur');
+        setUser(null);
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
+        return null;
+      } else {
+        return false;
+      }
+    };
 
-  const handleVisibilityChange = () => {
-    if (document.visibilityState === 'hidden') {
-      // Déconnexion silencieuse quand l'onglet devient invisible
-      console.log('🚪 Déconnexion automatique (onglet caché)');
-      setUser(null);
-      localStorage.removeItem('user');
-      sessionStorage.removeItem('user');
-    }
-  };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        console.log('🚪 Déconnexion automatique (onglet caché)');
+        setUser(null);
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
+      }
+    };
 
-  window.addEventListener('beforeunload', handleBeforeUnload);
-  document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
-  return () => {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
-    document.removeEventListener('visibilitychange', handleVisibilityChange);
-  };
-}, [setUser, utilisateur_id]);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [setUser, utilisateur_id]);
 
   // 👇 DEUXIÈME useEffect : TON CODE EXISTANT
   useEffect(() => {
@@ -127,51 +126,49 @@ useEffect(() => {
     }
   }, [critere, nom, desc, localisation, codePostal, ville, telephone, email, capacite, prixMoyen, menu, utilisateur_id]);
 
-
   const handleSubmit = async (event) => {
-  event.preventDefault();
-  console.log('🚀 Début de handleSubmit'); // 👈 AJOUTE
+    event.preventDefault();
+    console.log('🚀 Début de handleSubmit');
 
-  try {
-    const apiUrl = `${Url}restaurant/${restauId}`;
-    console.log('📡 URL API:', apiUrl); // 👈 AJOUTE
-    console.log('📦 Données envoyées:', values); // 👈 AJOUTE
+    try {
+      const apiUrl = `${Url}restaurant/${restauId}`;
+      console.log('📡 URL API:', apiUrl);
+      console.log('📦 Données envoyées:', values);
 
-    const response = await axios({
-      method: "put",
-      url: apiUrl,
-      data: values,
-    });
-
-    console.log('📨 Réponse complète:', response); // 👈 AJOUTE
-    console.log('📨 Réponse data:', response.data); // 👈 AJOUTE
-    console.log('📨 Status:', response.status); // 👈 AJOUTE
-
-    if (response.data.state === "success" || response.data.Status === "Success") {
-      console.log('✅ Données mises à jour à l\'API restaurant');
-      
-      toast.success('Donnée mise à jour avec succès !', {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+      const response = await axios({
+        method: "put",
+        url: apiUrl,
+        data: values,
       });
 
-      if (onDataUpdated) {
-        console.log('🔄 Demande de rechargement des données au parent...');
-        onDataUpdated();
-      }
-    } else {
-      console.log('❌ Condition non remplie:', response.data); // 👈 AJOUTE
-    }
-  } catch (error) {
-    console.error('💥 Erreur complète:', error); // 👈 AJOUTE
-    toast.error('Erreur lors de la mise à jour');
-  }
-};
+      console.log('📨 Réponse complète:', response);
+      console.log('📨 Réponse data:', response.data);
+      console.log('📨 Status:', response.status);
 
+      if (response.data.state === "success" || response.data.Status === "Success") {
+        console.log('✅ Données mises à jour à l\'API restaurant');
+        
+        toast.success('Donnée mise à jour avec succès !', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+
+        if (onDataUpdated) {
+          console.log('🔄 Demande de rechargement des données au parent...');
+          onDataUpdated();
+        }
+      } else {
+        console.log('❌ Condition non remplie:', response.data);
+      }
+    } catch (error) {
+      console.error('💥 Erreur complète:', error);
+      toast.error('Erreur lors de la mise à jour');
+    }
+  };
 
   const handleUpdateEvents = async () => {
     try {
@@ -190,7 +187,6 @@ useEffect(() => {
       if (response.data.Status === "Success") {
         toast.success('Événements mis à jour avec succès !');
         
-        // 🔄 RECHARGER LES DONNÉES APRÈS MISE À JOUR DES ÉVÉNEMENTS AUSSI
         if (onDataUpdated) {
           onDataUpdated();
         }
@@ -203,6 +199,177 @@ useEffect(() => {
     }
   };
 
+  // 🆕 FONCTION POUR GÉRER LE CHANGEMENT D'IMAGE
+  const handleImageChange = (event) => {
+    setImageSelected(event.target.files[0]);
+    const fileExtension = event.target.files[0].name.split('.').pop();
+    console.log('Format de l\'image :', fileExtension);
+  };
+
+  // 🆕 FONCTION POUR UPLOADER LE MENU VIA CLOUDINARY
+  // const uploadMenuImage = async () => {
+  //   if (!imageSelected) {
+  //     toast.warning("Veuillez sélectionner une image pour le menu.");
+  //     return;
+  //   }
+
+  //   setIsUploadingMenu(true);
+
+  //   try {
+  //     // 1️⃣ Upload vers Cloudinary
+  //     const formData = new FormData();
+  //     formData.append("file", imageSelected);
+  //     formData.append("upload_preset", "tl6hgyho");
+
+  //     const cloudinaryResponse = await axios.post(
+  //       "https://api.cloudinary.com/v1_1/dbswf4zf2/image/upload", 
+  //       formData
+  //     );
+
+  //     const publicId = cloudinaryResponse.data.public_id;
+  //     const cloudinaryUrl = `https://res.cloudinary.com/dbswf4zf2/image/upload/${publicId}.jpg`;
+
+  //     console.log('📸 Image uploadée sur Cloudinary:', cloudinaryUrl);
+
+  //     // 2️⃣ Mettre à jour le restaurant avec la nouvelle URL du menu
+  //     const updateResponse = await axios.put(
+  //       `${Url}restaurant/${restauId}`,
+  //       { 
+  //         ...values,
+  //         menu: cloudinaryUrl 
+  //       }
+  //     );
+
+  //     if (updateResponse.data.state === "success" || updateResponse.data.Status === "Success") {
+  //       // 3️⃣ Mettre à jour l'état local
+  //       setValues(prev => ({ ...prev, menu: cloudinaryUrl }));
+        
+  //       toast.success('🍽️ Menu mis à jour avec succès !', {
+  //         position: "top-right",
+  //         autoClose: 3000,
+  //       });
+
+  //       // 4️⃣ Recharger les données du parent
+  //       if (onDataUpdated) {
+  //         onDataUpdated();
+  //       }
+
+  //       // 5️⃣ Réinitialiser la sélection d'image
+  //       setImageSelected("");
+  //       // Réinitialiser l'input file
+  //       const fileInput = document.getElementById('menu-file-input');
+  //       if (fileInput) fileInput.value = '';
+
+  //     } else {
+  //       throw new Error('Erreur lors de la mise à jour du restaurant');
+  //     }
+
+  //   } catch (error) {
+  //     console.error('💥 Erreur lors de l\'upload du menu:', error);
+  //     toast.error('Erreur lors de la mise à jour du menu');
+  //   } finally {
+  //     setIsUploadingMenu(false);
+  //   }
+  // };
+  
+  // 🆕 FONCTION À AJOUTER DANS Connexion_user.jsx (pas dans UploadImage.jsx)
+const uploadMenuImage = async () => {
+  if (!imageSelected) {
+    toast.warning("Veuillez sélectionner une image pour le menu.");
+    return;
+  }
+
+  setIsUploadingMenu(true);
+
+  try {
+    // 1️⃣ Upload vers Cloudinary
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "tl6hgyho");
+
+    console.log('📤 Upload vers Cloudinary...');
+    const cloudinaryResponse = await axios.post(
+      "https://api.cloudinary.com/v1_1/dbswf4zf2/image/upload", 
+      formData
+    );
+
+    const publicId = cloudinaryResponse.data.public_id;
+    const originalFormat = cloudinaryResponse.data.format;
+    
+    // 🎯 UTILISE LE FORMAT ORIGINAL
+    const cloudinaryUrl = `https://res.cloudinary.com/dbswf4zf2/image/upload/${publicId}.${originalFormat}`;
+
+    console.log('📸 Image uploadée sur Cloudinary:', cloudinaryUrl);
+    console.log('🎨 Format détecté:', originalFormat);
+
+    // 2️⃣ Mettre à jour le restaurant
+    const updateData = {
+      ...values,
+      menu: cloudinaryUrl 
+    };
+
+    console.log('📦 Données à envoyer à l\'API:', updateData);
+    console.log('🎯 URL API:', `${Url}restaurant/${restauId}`);
+
+    const updateResponse = await axios.put(
+      `${Url}restaurant/${restauId}`,
+      updateData
+    );
+
+    console.log('📨 Réponse complète de l\'API:', updateResponse);
+    console.log('📨 Status:', updateResponse.status);
+    console.log('📨 Data:', updateResponse.data);
+
+    // 🎯 VÉRIFICATION PLUS FLEXIBLE
+    const isSuccess = 
+      updateResponse.status === 200 || 
+      updateResponse.status === 201 ||
+      updateResponse.data?.state === "success" || 
+      updateResponse.data?.Status === "Success" ||
+      updateResponse.data?.status === "success" ||
+      updateResponse.data?.message?.includes("success") ||
+      updateResponse.data?.message?.includes("updated");
+
+    if (isSuccess) {
+      setValues(prev => ({ ...prev, menu: cloudinaryUrl }));
+      
+      toast.success('🍽️ Menu mis à jour avec succès !', {
+        position: "top-right",
+        autoClose: 3000,
+      });
+
+      if (onDataUpdated) {
+        console.log('🔄 Rechargement des données parent...');
+        onDataUpdated();
+      }
+
+      setImageSelected("");
+      const fileInput = document.getElementById('menu-file-input');
+      if (fileInput) fileInput.value = '';
+
+    } else {
+      console.error('❌ Réponse API inattendue:', updateResponse.data);
+      throw new Error(`Réponse API inattendue: ${JSON.stringify(updateResponse.data)}`);
+    }
+
+  } catch (error) {
+    console.error('💥 Erreur détaillée:', error);
+    
+    if (error.response) {
+      console.error('📡 Erreur de réponse API:', error.response.status, error.response.data);
+      toast.error(`Erreur API (${error.response.status}): ${error.response.data?.message || 'Erreur inconnue'}`);
+    } else if (error.request) {
+      console.error('📡 Pas de réponse du serveur:', error.request);
+      toast.error('Pas de réponse du serveur. Vérifiez votre connexion.');
+    } else {
+      console.error('💥 Erreur:', error.message);
+      toast.error(`Erreur: ${error.message}`);
+    }
+  } finally {
+    setIsUploadingMenu(false);
+  }
+};
+
   return (
     <>
       <figure className="imgConnexionUser">
@@ -214,7 +381,7 @@ useEffect(() => {
         <p>Veuillez remplir ou modifier ce formulaire selon vos informations</p>
   
         <div>
-          <label htmlFor="nom">Nom du restaurant *</label>
+          <label htmlFor="nom">Nom du restaurant </label>
           <input
             type="text"
             placeholder="Nom du restaurant"
@@ -226,7 +393,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="description">Description de votre restaurant *</label>
+          <label htmlFor="description">Description de votre restaurant </label>
           <textarea
             placeholder="Description du restaurant"
             name="description"
@@ -237,7 +404,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="localisation">Adresse *</label>
+          <label htmlFor="localisation">Adresse </label>
           <input
             type="text"
             placeholder="Adresse complète du restaurant"
@@ -249,7 +416,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="codePostal">Code Postal *</label>
+          <label htmlFor="codePostal">Code Postal </label>
           <input
             type="text"
             placeholder="Code postal"
@@ -261,7 +428,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="ville">Ville *</label>
+          <label htmlFor="ville">Ville </label>
           <input
             type="text"
             placeholder="Ville"
@@ -273,7 +440,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="telephone">Téléphone *</label>
+          <label htmlFor="telephone">Téléphone </label>
           <input
             type="tel"
             placeholder="Numéro de téléphone"
@@ -285,7 +452,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="email">Email *</label>
+          <label htmlFor="email">Email </label>
           <input
             type="email"
             placeholder="Email du restaurant"
@@ -297,7 +464,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="capacite">Capacité *</label>
+          <label htmlFor="capacite">Capacité </label>
           <input
             type="number"
             placeholder="Nombre de places"
@@ -309,7 +476,7 @@ useEffect(() => {
         </div>
 
         <div>
-          <label htmlFor="prixMoyen">Prix moyen (€) *</label>
+          <label htmlFor="prixMoyen">Prix moyen (€) </label>
           <input
             type="number"
             placeholder="Prix moyen par personne"
@@ -324,17 +491,105 @@ useEffect(() => {
           {critere ? "Enregistrer les informations du restaurant" : "Ajouter le restaurant"}
         </button>
         
-        <div id="up">
-          <label>Menu actuel</label>
-          <textarea
-            placeholder="Décrivez votre menu"
-            name="menu"
-            value={values.menu}
-            onChange={(e) => setValues({ ...values, menu: e.target.value })}
-            rows="5"
-          />
-          <p>Nouveau menu</p>
-          <UploadImageWrapper/>
+        {/* 🆕 SECTION MENU AVEC BOUTON CLOUDINARY VISIBLE */}
+        <div id="up" className="menu-section">
+          <h3>🍽️ Gestion du Menu</h3>
+          
+          {/* Menu actuel (texte) */}
+          <div>
+            <label>Menu actuel (description)</label>
+            <textarea
+              placeholder="Décrivez votre menu"
+              name="menu"
+              value={typeof values.menu === 'string' && !values.menu.includes('cloudinary') ? values.menu : ''}
+              onChange={(e) => setValues({ ...values, menu: e.target.value })}
+              rows="3"
+            />
+          </div>
+
+          {/* Affichage du menu image actuel */}
+          {values.menu && values.menu.includes('cloudinary') && (
+            <div className="current-menu-image">
+              <label>Menu actuel (image)</label>
+              <img 
+                src={values.menu} 
+                alt="Menu actuel" 
+                style={{ 
+                  maxWidth: '300px', 
+                  maxHeight: '200px', 
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  border: '2px solid #61914a'
+                }} 
+              />
+            </div>
+          )}
+
+          {/* 🎯 SECTION UPLOAD NOUVEAU MENU */}
+          <div className="upload-menu-section" style={{ 
+            background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)', 
+            padding: '1.5rem', 
+            borderRadius: '12px',
+            border: '2px dashed #61914a',
+            marginTop: '1rem'
+          }}>
+            <label style={{ 
+              fontSize: '1.1rem', 
+              fontWeight: '600', 
+              color: '#61914a',
+              marginBottom: '1rem',
+              display: 'block'
+            }}>
+              📸 Nouveau menu (image)
+            </label>
+            
+            <input
+              id="menu-file-input"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ marginBottom: '1rem' }}
+            />
+            
+            {imageSelected && (
+              <p style={{ 
+                color: '#38761d', 
+                fontSize: '0.9rem',
+                marginBottom: '1rem'
+              }}>
+                ✅ Image sélectionnée: {imageSelected.name}
+              </p>
+            )}
+
+            {/* 🎯 BOUTON PRINCIPAL POUR UPLOADER LE MENU */}
+            <button 
+              type="button" 
+              onClick={uploadMenuImage}
+              disabled={!imageSelected || isUploadingMenu}
+              style={{
+                background: imageSelected ? 'linear-gradient(135deg, #61914a, #38761d)' : '#ccc',
+                color: 'white',
+                border: 'none',
+                padding: '0.8rem 1.5rem',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: imageSelected ? 'pointer' : 'not-allowed',
+                transition: 'all 0.3s ease',
+                width: '100%'
+              }}
+            >
+              {isUploadingMenu ? '📤 Upload en cours...' : '🍽️ Mettre à jour le menu'}
+            </button>
+          </div>
+
+          {/* Ancien composant (optionnel, pour compatibilité) */}
+          <div style={{ marginTop: '1rem', opacity: '0.7' }}>
+            <p style={{ fontSize: '0.8rem', color: '#666' }}>
+              Ou utilisez l'ancien système :
+            </p>
+            <UploadImageWrapper/>
+          </div>
         </div>
         
         <div className="eventSelect">
@@ -358,14 +613,27 @@ useEffect(() => {
           ) : (
             <p>Aucun événement disponible</p>
           )}
+          
+          {selectedEvents.length > 0 && (
+            <button 
+              type="button" 
+              onClick={handleUpdateEvents}
+              style={{
+                background: 'linear-gradient(135deg, #ff6b6b, #ee5a52)',
+                color: 'white',
+                border: 'none',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '6px',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                marginTop: '1rem'
+              }}
+            >
+              ⚽ Mettre à jour les événements
+            </button>
+          )}
         </div>
-
-        <button type="button" onClick={() => {
-  console.log('🧪 Test bouton cliqué !');
-  handleSubmit({ preventDefault: () => {} });
-}}>
-  TEST DIRECT
-</button>
       </form>
       <ToastContainer />
     </>

@@ -66,7 +66,6 @@ const Connexion_user_list = () => {
   return (
     <>
       <section id="restaurant">
-        <h2>Mes Restaurants</h2>
         
         {restaurantsFiltres.length === 0 ? (
           <div className="no-restaurant">
