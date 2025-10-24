@@ -1,0 +1,129 @@
+# Modèle Conceptuel de Données - Foodball
+# Fichier compatible Looping
+# Généré pour l'application Foodball
+
+# ENTITÉS
+
+UTILISATEUR: numUtilisateur, email, nom, prenom, telephone, password, resetPasswordToken, resetPasswordExpires, isActive, lastLogin
+ROLE: numRole, nom
+RESTAURANT: numRestaurant, nom, description, localisation, codePostal, ville, telephone, email, capacite, prixMoyen, menu
+TEAM: numTeam, nom, logo
+TYPEEVENT: numTypeEvent, nom
+EVENT: numEvent
+
+# ASSOCIATIONS
+
+A_POUR_ROLE, 11, UTILISATEUR, 01, ROLE
+POSSEDE, 1N, UTILISATEUR, 01, RESTAURANT: 
+SUPPORTE_TEAM1, 0N, RESTAURANT, 01, TEAM:
+SUPPORTE_TEAM2, 0N, RESTAURANT, 01, TEAM:
+ORGANISE, 0N, RESTAURANT, 01, TYPEEVENT:
+COMPOSE_TEAM1, 0N, EVENT, 11, TEAM:
+COMPOSE_TEAM2, 0N, EVENT, 11, TEAM:
+EST_DE_TYPE, 0N, EVENT, 11, TYPEEVENT:
+
+# CONTRAINTES D'INTÉGRITÉ
+
+# Clés primaires
+CLE(UTILISATEUR) = numUtilisateur
+CLE(ROLE) = numRole
+CLE(RESTAURANT) = numRestaurant
+CLE(TEAM) = numTeam
+CLE(TYPEEVENT) = numTypeEvent
+CLE(EVENT) = numEvent
+
+# Contraintes d'unicité
+UNIQUE(UTILISATEUR.email)
+UNIQUE(UTILISATEUR.telephone)
+
+# Contraintes de domaine
+DOMAINE(UTILISATEUR.email) = VARCHAR(255) NOT NULL
+DOMAINE(UTILISATEUR.nom) = VARCHAR(50) NOT NULL
+DOMAINE(UTILISATEUR.prenom) = VARCHAR(50) NOT NULL
+DOMAINE(UTILISATEUR.telephone) = VARCHAR(20) NOT NULL
+DOMAINE(UTILISATEUR.password) = VARCHAR(255) NOT NULL
+DOMAINE(UTILISATEUR.resetPasswordToken) = VARCHAR(255)
+DOMAINE(UTILISATEUR.resetPasswordExpires) = DATETIME
+DOMAINE(UTILISATEUR.isActive) = BOOLEAN DEFAULT TRUE
+DOMAINE(UTILISATEUR.lastLogin) = DATETIME
+
+DOMAINE(ROLE.nom) = VARCHAR(50) NOT NULL
+
+DOMAINE(RESTAURANT.nom) = VARCHAR(100) NOT NULL
+DOMAINE(RESTAURANT.description) = TEXT NOT NULL
+DOMAINE(RESTAURANT.localisation) = VARCHAR(255) NOT NULL
+DOMAINE(RESTAURANT.codePostal) = VARCHAR(5) NOT NULL
+DOMAINE(RESTAURANT.ville) = VARCHAR(100) NOT NULL
+DOMAINE(RESTAURANT.telephone) = VARCHAR(20) NOT NULL
+DOMAINE(RESTAURANT.email) = VARCHAR(255) NOT NULL
+DOMAINE(RESTAURANT.capacite) = INTEGER NOT NULL CHECK (capacite >= 1 AND capacite <= 1000)
+DOMAINE(RESTAURANT.prixMoyen) = DECIMAL(5,2) NOT NULL CHECK (prixMoyen >= 1 AND prixMoyen <= 500)
+DOMAINE(RESTAURANT.menu) = TEXT
+
+DOMAINE(TEAM.nom) = VARCHAR(100) NOT NULL
+DOMAINE(TEAM.logo) = VARCHAR(255) NOT NULL
+
+DOMAINE(TYPEEVENT.nom) = VARCHAR(100) NOT NULL
+
+# Règles de gestion
+RG1: Un utilisateur ne peut avoir qu'un seul rôle
+RG2: Un restaurant appartient à un seul utilisateur
+RG3: Un restaurant peut supporter 0, 1 ou 2 équipes
+RG4: Un restaurant peut organiser 0 ou 1 type d'événement
+RG5: Un événement implique exactement 2 équipes
+RG6: Un événement est d'un seul type
+RG7: L'email d'un utilisateur doit être unique
+RG8: Le téléphone d'un utilisateur doit être unique
+RG9: La capacité d'un restaurant doit être entre 1 et 1000
+RG10: Le prix moyen d'un restaurant doit être entre 1 et 500 euros
+
+# DICTIONNAIRE DES DONNÉES
+
+# UTILISATEUR
+numUtilisateur: Identifiant unique de l'utilisateur (clé primaire)
+email: Adresse email de l'utilisateur (unique, obligatoire)
+nom: Nom de famille de l'utilisateur (obligatoire)
+prenom: Prénom de l'utilisateur (obligatoire)
+telephone: Numéro de téléphone (unique, obligatoire)
+password: Mot de passe hashé (obligatoire)
+resetPasswordToken: Token pour la réinitialisation du mot de passe
+resetPasswordExpires: Date d'expiration du token de réinitialisation
+isActive: Statut actif/inactif du compte (défaut: true)
+lastLogin: Date de dernière connexion
+
+# ROLE
+numRole: Identifiant unique du rôle (clé primaire)
+nom: Nom du rôle (obligatoire)
+
+# RESTAURANT
+numRestaurant: Identifiant unique du restaurant (clé primaire)
+nom: Nom du restaurant (obligatoire)
+description: Description du restaurant (obligatoire)
+localisation: Adresse complète (obligatoire)
+codePostal: Code postal (obligatoire, 5 caractères)
+ville: Ville (obligatoire)
+telephone: Téléphone du restaurant (obligatoire)
+email: Email du restaurant (obligatoire)
+capacite: Nombre de places (obligatoire, 1-1000)
+prixMoyen: Prix moyen par personne (obligatoire, 1-500€)
+menu: Description du menu (optionnel)
+
+# TEAM
+numTeam: Identifiant unique de l'équipe (clé primaire)
+nom: Nom de l'équipe (obligatoire)
+logo: URL ou chemin vers le logo (obligatoire)
+
+# TYPEEVENT
+numTypeEvent: Identifiant unique du type d'événement (clé primaire)
+nom: Nom du type d'événement (obligatoire)
+
+# EVENT
+numEvent: Identifiant unique de l'événement (clé primaire)
+
+# NOTES TECHNIQUES
+# - Base de données: MongoDB
+# - ORM: Mongoose
+# - Authentification: JWT + bcrypt
+# - Validation: Mongoose validators
+# - API: REST avec Express.js
+# - Frontend: React.js
