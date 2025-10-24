@@ -53,7 +53,7 @@ const SearchBar = ({ onSearch }) => {
         
         <input
           type="text"
-          placeholder="⚽ Équipe (ex: PSG, OM)..."
+          placeholder="⚽ Équipe..."
           value={searchTerms.team}
           onChange={(e) => handleInputChange('team', e.target.value)}
           onKeyPress={handleKeyPress}
@@ -71,7 +71,7 @@ const SearchBar = ({ onSearch }) => {
         
         <input
           type="text"
-          placeholder="🏆 Championnat (ex: Ligue 1)..."
+          placeholder="🏆 Championnat..."
           value={searchTerms.championnat}
           onChange={(e) => handleInputChange('championnat', e.target.value)}
           onKeyPress={handleKeyPress}

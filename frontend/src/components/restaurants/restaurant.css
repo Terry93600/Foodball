@@ -27,18 +27,26 @@
 }
 
 .resto {
-    height: auto;
+    height: 350px;
     width: 300px;
     padding: 10px;
     margin: 20px 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 10px 5px 2px 2px rgba(0, 0, 0, 0.103);
+    box-shadow: 10px 5px 2px 2px rgba(0, 0, 0, 0.377);
     gap: 10px;
     border-radius: 20px;
-    border: 3px solid var(--VertPrincipal);
+    /* border-right: 3px solid var(--VertPrincipal); */
+    /* border-bottom: 5px solid var(--VertPrincipal); */
     position: relative;
+}
+
+.resto > .titre {
+    text-align: center;
+    font-size: 24px;
+    position: relative;
+    overflow: hidden;
 }
 
 .resto > div {
@@ -80,15 +88,19 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    background: rgba(128, 128, 128, 0.329);
+    border-radius: 5px;
+    height: 70px;
 }
 
 .team > h3 {
     text-align: center;
+    font-size: 17px;
 }
 
 .team + p {
 text-align: center;
-margin-bottom: 15px;
+/* margin-bottom: 15px; */
 }
 
 .googleMap > p {
@@ -98,24 +110,31 @@ margin-bottom: 15px;
 .googleMap > a {
     width: 70%;
 }
-.googleMap > p,
+
 .googleMap + a,
 .googleMap + a + a,
-.PopUpMenu{
+.PopUpMenu,
+.reservation-menu > a{
     text-decoration: underline 2px;
 }
 
-.PopUpMenu {
+.reservation-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.PopUpMenu,
+.PopUpMenu + a{
     text-transform: uppercase;
     width: max-content;
     transition-duration: 0.5s;
     letter-spacing: 1px;
     border: none;
     background: none;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .pop-up {
@@ -171,9 +190,11 @@ margin-bottom: 15px;
 /* animation */
 
 #resto > section > .resto:hover {
-    box-shadow: 0px 0px 5px 12px #61914a4b;
-    /* border: 5px solid var(--VertPrincipal); */
     border: none;
+    transition: 0.3s;
+    border-left: 3px solid var(--VertPrincipal);
+    border-top: 3px solid var(--VertPrincipal);
+    box-shadow: 10px 5px 2px 2px #61914acb
 }
 
 #resto > section > .resto:hover > a {
@@ -188,15 +209,32 @@ margin-bottom: 15px;
 }
 
 #resto > section > .resto:hover > .team {
-    border-top: 3px solid var(--VertPrincipal);
-    border-left: 3px solid var(--VertPrincipal);
-    border-right: 3px solid var(--VertPrincipal);
+    background: var(--VertPrincipal);
+}
+
+#resto > section > .resto:hover > .team > h3,
+#resto > section > .resto:hover > .team > p{
+    color: white;
 }
 
 #resto > section > .resto:hover > .team + p {
-    border-bottom: 3px solid var(--VertPrincipal);
-    border-left: 3px solid var(--VertPrincipal);
-    border-right: 3px solid var(--VertPrincipal);
+    border: 2px solid var(--VertPrincipal);
+}
+
+.resto > .titre::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--VertPrincipal);
+    transition: width 0.5s ease;
+    transform-origin: left; 
+}
+
+.resto:hover > .titre::after {
+    width: 100%; 
 }
 
 .resto:hover > .googleMap > p {
@@ -205,17 +243,18 @@ margin-bottom: 15px;
 
 .resto:hover > .googleMap > a {
     text-decoration: underline var(--VertPrincipal) solid 4px;
+    font-style: italic;
 }
 
-.resto:hover > .PopUpMenu{
-    background: var(--VertPrincipal);
-    color: white;
-    text-transform: uppercase;
-    width: max-content;
+.resto:hover > .reservation-menu > .PopUpMenu,
+.resto:hover > .reservation-menu > a{
     transition-duration: 0.5s;
     letter-spacing: 1px;
     padding: 5px 10px;
     border-radius: 5px;
+    font-style: italic;
+    background: var(--VertPrincipal);
+    color: white;
 }
 
 .menuMobile,
