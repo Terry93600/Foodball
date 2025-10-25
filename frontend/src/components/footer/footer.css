@@ -1,15 +1,22 @@
 footer {
     background: black;
     width: 100%;
-    min-height: 10vh;
+    height: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
     justify-content: space-between;
-    position: absolute;
-    
+    position: fixed;
+    bottom: 0px;
     padding: 10px;
+}
+
+.formReservation > img {
+    position: fixed;
+    z-index: -1;
+    max-width: 100%;
+    filter: blur(2.5px);
 }
 
 footer > p,
