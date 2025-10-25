@@ -254,72 +254,137 @@ function Login() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   if (!values.email || !values.password) {
+  //     toast.error('Veuillez remplir l\'email et le mot de passe.', {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       autoClose: 3000,
+  //     });
+  //     return;
+  //   }
+
+  //   setErrors({});
+
+  //   try {
+  //     console.log('🔄 Tentative de connexion...');
+  //     const response = await axios.post(`${Url}connexion`, values);
+      
+  //     console.log('📡 Réponse du serveur:', response.data);
+
+  //     console.log('📡 Réponse COMPLÈTE:', JSON.stringify(response.data, null, 2));
+      
+  //     const userData = response.data.data;
+
+  //     if (!userData) {
+  //       throw new Error('Données utilisateur non reçues');
+  //     }
+
+  //     console.log('👤 Données utilisateur:', userData);
+
+  //     // Stocker les données utilisateur avec un token fictif pour la compatibilité
+  //     setUser({ 
+  //       utilisateur_id: userData.id, 
+  //       email: userData.email,
+  //       name: userData.name,
+  //       role_id: userData.role_id,
+  //       role_nom: userData.role_nom,
+  //       token: 'connected' // Token fictif pour la vérification
+  //     });
+
+  //     console.log('💾 Utilisateur stocké dans le contexte');
+  //     console.log('🎭 Rôle utilisateur:', userData.role_nom);
+
+  //     // Redirection basée sur le rôle
+  //     if (userData.role_nom === 'admin') {
+  //       console.log('🔀 Redirection vers /admin');
+  //       navigate('/admin');
+  //     } else {
+  //       console.log(`🔀 Redirection vers /info-restaurant/${userData.id}`);
+  //       navigate(`/info-restaurant/${userData.id}`);
+  //     }
+
+  //     toast.success('Connexion réussie !', {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       autoClose: 2000,
+  //     });
+
+  //   } catch (error) {
+  //     console.error('❌ Erreur de connexion:', error);
+
+  //     toast.error('Échec de la connexion. Veuillez vérifier vos identifiants.', {
+  //       position: toast.POSITION.TOP_CENTER,
+  //       autoClose: 3000,
+  //     });
+  //   }
+  // };
+
   const handleSubmit = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!values.email || !values.password) {
-      toast.error('Veuillez remplir l\'email et le mot de passe.', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-      });
-      return;
+  if (!values.email || !values.password) {
+    toast.error('Veuillez remplir l\'email et le mot de passe.', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    });
+    return;
+  }
+
+  setErrors({});
+
+  try {
+    console.log('🔄 Tentative de connexion...');
+    const response = await axios.post(`${Url}connexion`, values);
+    
+    console.log('📡 Réponse du serveur:', response.data);
+    console.log('📡 Réponse COMPLÈTE:', JSON.stringify(response.data, null, 2));
+    
+    const userData = response.data.data;
+
+    if (!userData) {
+      throw new Error('Données utilisateur non reçues');
     }
 
-    setErrors({});
+    console.log('👤 Données utilisateur:', userData);
 
-    try {
-      console.log('🔄 Tentative de connexion...');
-      const response = await axios.post(`${Url}connexion`, values);
-      
-      console.log('📡 Réponse du serveur:', response.data);
+    // ✅ CORRECTION : Utiliser _id au lieu de id
+    setUser({ 
+      utilisateur_id: userData._id,  // ← Changé de userData.id à userData._id
+      email: userData.email,
+      name: `${userData.prenom} ${userData.nom}`,  // ← Combinaison prénom + nom
+      role_id: userData.role_id,
+      role_nom: userData.role_id?.nom,  // ← Récupérer le nom du rôle depuis role_id.nom
+      token: 'connected'
+    });
 
-      console.log('📡 Réponse COMPLÈTE:', JSON.stringify(response.data, null, 2));
-      
-      const userData = response.data.data;
+    console.log('💾 Utilisateur stocké dans le contexte');
+    console.log('🎭 Rôle utilisateur:', userData.role_id?.nom);
 
-      if (!userData) {
-        throw new Error('Données utilisateur non reçues');
-      }
-
-      console.log('👤 Données utilisateur:', userData);
-
-      // Stocker les données utilisateur avec un token fictif pour la compatibilité
-      setUser({ 
-        utilisateur_id: userData.id, 
-        email: userData.email,
-        name: userData.name,
-        role_id: userData.role_id,
-        role_nom: userData.role_nom,
-        token: 'connected' // Token fictif pour la vérification
-      });
-
-      console.log('💾 Utilisateur stocké dans le contexte');
-      console.log('🎭 Rôle utilisateur:', userData.role_nom);
-
-      // Redirection basée sur le rôle
-      if (userData.role_nom === 'admin') {
-        console.log('🔀 Redirection vers /admin');
-        navigate('/admin');
-      } else {
-        console.log(`🔀 Redirection vers /info-restaurant/${userData.id}`);
-        navigate(`/info-restaurant/${userData.id}`);
-      }
-
-      toast.success('Connexion réussie !', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
-
-    } catch (error) {
-      console.error('❌ Erreur de connexion:', error);
-
-      toast.error('Échec de la connexion. Veuillez vérifier vos identifiants.', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-      });
+    // Redirection basée sur le rôle
+    if (userData.role_id?.nom === 'admin') {
+      console.log('🔀 Redirection vers /admin');
+      navigate('/admin');
+    } else {
+      console.log(`🔀 Redirection vers /info-restaurant/${userData._id}`);
+      navigate(`/info-restaurant/${userData._id}`);  // ← Changé aussi ici
     }
-  };
 
+    toast.success('Connexion réussie !', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+
+  } catch (error) {
+    console.error('❌ Erreur de connexion:', error);
+
+    toast.error('Échec de la connexion. Veuillez vérifier vos identifiants.', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    });
+  }
+};
+  
   return (
     <div id="connexion">
       <div>

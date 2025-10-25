@@ -71,49 +71,100 @@ const bcrypt = require('bcrypt');
 
 const connexionController = {
     // Méthode principale pour la connexion
-    login: async (req, res) => {
-        try {
-            const { email, password } = req.body;
+//     login: async (req, res) => {
+//         try {
+//             const { email, password } = req.body;
             
-            const user = await Utilisateur.findOne({ email })
-                .populate('role_id', 'nom');
+//             const user = await Utilisateur.findOne({ email })
+//                 .populate('role_id', 'nom');
             
-            if (!user) {
-                return res.json({
-                    state: "error",
-                    message: "Utilisateur non trouvé"
+//             if (!user) {
+//                 return res.json({
+//                     state: "error",
+//                     message: "Utilisateur non trouvé"
+//                 });
+//             }
+            
+//             // const isValidPassword = await argon2.verify(user.password, password);
+//             const bcrypt = require('bcrypt');
+// const isValidPassword = await bcrypt.compare(password, user.password);
+            
+//             if (!isValidPassword) {
+//                 return res.json({
+//                     state: "error",
+//                     message: "Mot de passe incorrect"
+//                 });
+//             }
+            
+//             const userData = {
+//                 id: user._id,
+//                 email: user.email,
+//                 name: user.name,
+//                 role_id: user.role_id._id,
+//                 role_nom: user.role_id.nom
+//             };
+            
+//             res.json({
+//                 data: userData
+//             });
+//         } catch (error) {
+//             console.log(error);
+//             res.status(500).json({
+//                 state: "error"
+//             });
+//         }
+    //     },
+    
+        login: async (req, res) => {
+            try {
+                console.log('🔐 Tentative de connexion pour:', req.body.email);
+                
+                const { email, password } = req.body;
+                
+                // 1️⃣ Chercher l'utilisateur
+                const user = await Utilisateur.findOne({ email }).populate('role_id');
+                
+                if (!user) {
+                    console.log('❌ Utilisateur non trouvé:', email);
+                    return res.json({ 
+                        state: "error", 
+                        message: "Utilisateur non trouvé" 
+                    });
+                }
+                
+                console.log('✅ Utilisateur trouvé:', user.email);
+                console.log('🔐 Hash en BDD:', user.password);
+                console.log('🔐 Mot de passe reçu:', password);
+                
+                // 2️⃣ Vérifier le mot de passe
+                const isValidPassword = await argon2.verify(user.password, password);
+                console.log('🔐 Vérification argon2:', isValidPassword);
+                
+                if (!isValidPassword) {
+                    console.log('❌ Mot de passe incorrect pour:', email);
+                    return res.json({ 
+                        state: "error", 
+                        message: "Mot de passe incorrect" 
+                    });
+                }
+                
+                console.log('🎉 Connexion réussie pour:', user.email);
+                
+                // 3️⃣ ✅ STRUCTURE DE RÉPONSE CORRIGÉE
+                res.json({ 
+                    state: "success",
+                    message: "Connexion réussie",
+                    data: user  // ← Le frontend cherche response.data.data
+                });
+                
+            } catch (error) {
+                console.error('💥 Erreur de connexion:', error);
+                res.json({ 
+                    state: "error", 
+                    message: "Erreur serveur lors de la connexion" 
                 });
             }
-            
-            // const isValidPassword = await argon2.verify(user.password, password);
-            const bcrypt = require('bcrypt');
-const isValidPassword = await bcrypt.compare(password, user.password);
-            
-            if (!isValidPassword) {
-                return res.json({
-                    state: "error",
-                    message: "Mot de passe incorrect"
-                });
-            }
-            
-            const userData = {
-                id: user._id,
-                email: user.email,
-                name: user.name,
-                role_id: user.role_id._id,
-                role_nom: user.role_id.nom
-            };
-            
-            res.json({
-                data: userData
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                state: "error"
-            });
-        }
-    },
+        },
 
     // Méthodes supplémentaires pour les routes existantes
     selectAll: async (req, res) => {
