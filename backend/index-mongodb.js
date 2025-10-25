@@ -39,31 +39,97 @@ app.get('/info-restaurant/:utilisateur_id', authenticateToken, (req, res) => {
 });
 
 // Route email
+// app.post('/send-email', async (req, res) => {
+//   try {
+//     const { name, email, team1, team2, event, localisation } = req.body;
+//     const { additionalEmail } = req.query;
+
+//     const transporter = nodemailer.createTransporter({
+//       service: 'gmail',
+//       auth: {
+//         user: 'foodballofficiel@gmail.com',
+//         pass: 'iwdr smju ygfm lkpd',
+//       },
+//     });
+
+//     const mailOptions = {
+//       from: 'foodballofficiel@gmail.com',
+//       to: `${email},${additionalEmail}`,
+//       subject: 'Réservation',
+//       text: `La réservation sur le site Foodball : \nName: ${name}\nMatch: ${team1} - ${team2} ${event}\nAdresse : ${localisation} \n\n GARDEZ LE MAIL pour le montrer lors de votre arrivé au restaurant !!!`,
+//     };
+
+//     await transporter.sendMail(mailOptions);
+//     res.status(200).json({ success: true, message: "Email sent successfully." });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ success: false, error: error.toString() });
+//   }
+// });
+
+// Route email - AVANT les autres routes
 app.post('/send-email', async (req, res) => {
   try {
+    console.log('📧 Réception demande email');
+    console.log('Body:', req.body);
+    console.log('Query:', req.query);
+
     const { name, email, team1, team2, event, localisation } = req.body;
     const { additionalEmail } = req.query;
 
-    const transporter = nodemailer.createTransporter({
+    // Validation des données
+    if (!name || !additionalEmail) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Nom et email sont requis" 
+      });
+    }
+
+    console.log('📤 Envoi email à:', `${email || 'N/A'},${additionalEmail}`);
+
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'foodballofficiel@gmail.com',
-        pass: 'iwdr smju ygfm lkpd',
+        user: process.env.EMAIL_USER || 'foodballofficiel@gmail.com',
+        pass: process.env.EMAIL_PASS || 'iwdr smju ygfm lkpd',
       },
     });
 
+    // Vérifier la connexion
+    await transporter.verify();
+    console.log('✅ Connexion SMTP OK');
+
     const mailOptions = {
-      from: 'foodballofficiel@gmail.com',
-      to: `${email},${additionalEmail}`,
-      subject: 'Réservation',
-      text: `La réservation sur le site Foodball : \nName: ${name}\nMatch: ${team1} - ${team2} ${event}\nAdresse : ${localisation} \n\n GARDEZ LE MAIL pour le montrer lors de votre arrivé au restaurant !!!`,
+      from: process.env.EMAIL_USER || 'foodballofficiel@gmail.com',
+      to: email ? `${email},${additionalEmail}` : additionalEmail,
+      subject: 'Confirmation de réservation - Foodball',
+      html: `
+        <h2>Confirmation de réservation</h2>
+        <p><strong>Nom :</strong> ${name}</p>
+        <p><strong>Match :</strong> ${team1 || 'N/A'} - ${team2 || 'N/A'}</p>
+        <p><strong>Événement :</strong> ${event || 'N/A'}</p>
+        <p><strong>Adresse :</strong> ${localisation || 'N/A'}</p>
+        <br>
+        <p><strong>⚠️ IMPORTANT : Gardez ce mail pour le montrer lors de votre arrivée au restaurant !</strong></p>
+      `,
     };
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ success: true, message: "Email sent successfully." });
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email envoyé:', info.messageId);
+
+    res.status(200).json({ 
+      success: true, 
+      message: "Email envoyé avec succès",
+      messageId: info.messageId 
+    });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: error.toString() });
+    console.error('❌ Erreur envoi email:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message,
+      details: error.toString() 
+    });
   }
 });
 
