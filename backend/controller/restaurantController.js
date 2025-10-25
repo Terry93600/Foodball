@@ -28,18 +28,56 @@ const restaurantController = {
     }
 },
 
-    selectOne: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const restaurant = await Restaurant.findById(id)
-                .populate('utilisateur_id', 'name email');
+    // selectOne: async (req, res) => {
+    //     try {
+    //         const { id } = req.params;
+    //         const restaurant = await Restaurant.findById(id)
+    //             .populate('utilisateur_id', 'name email');
             
-            res.json({ data: restaurant });
-        } catch (error) {
-            console.error('Erreur selectOne restaurant:', error);
-            res.json({ state: "error" });
+    //         res.json({ data: restaurant });
+    //     } catch (error) {
+    //         console.error('Erreur selectOne restaurant:', error);
+    //         res.json({ state: "error" });
+    //     }
+    // },
+
+    selectOne: async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log('🔍 Recherche restaurant ID:', id);
+        
+        const restaurant = await Restaurant.findById(id)
+            .populate('team1')      // 👈 Populate team1
+            .populate('team2')      // 👈 Populate team2
+            .populate('typeEvent')  // 👈 Populate typeEvent
+            .populate('utilisateur_id');
+        
+        console.log('🏪 Restaurant trouvé:', restaurant);
+        console.log('🔍 Team1 après populate:', restaurant?.team1);
+        console.log('🔍 Team2 après populate:', restaurant?.team2);
+        console.log('🔍 TypeEvent après populate:', restaurant?.typeEvent);
+        
+        if (!restaurant) {
+            return res.status(404).json({
+                state: "error",
+                message: "Restaurant non trouvé",
+                data: null
+            });
         }
-    },
+        
+        res.json({
+            state: "success",
+            data: restaurant
+        });
+    } catch (error) {
+        console.error('❌ Erreur:', error);
+        res.status(500).json({
+            state: "error",
+            message: error.message,
+            data: null
+        });
+    }
+},
 
     create: async (req, res) => {
         try {

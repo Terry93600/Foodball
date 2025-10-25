@@ -21,7 +21,7 @@ import Header from "../src/components/header/Header";
 import ListeReservation from "../src/components/réservation/Reservation";
 
 const Reservation = () => {
-    const { critere } = useParams(); // Récupérer l'ID du restaurant depuis l'URL
+    const { critere } = useParams();
     const [restaurant, setRestaurant] = useState(null);
     const [loading, setLoading] = useState(true);
     const Url = import.meta.env.VITE_API_URL;
@@ -29,11 +29,21 @@ const Reservation = () => {
     useEffect(() => {
         console.log('🔍 ID Restaurant:', critere);
         
-        // Récupérer les infos du restaurant
         axios.get(`${Url}restaurant/${critere}`)
             .then(response => {
                 console.log('🏪 Restaurant récupéré:', response.data);
-                setRestaurant(response.data.data);
+                
+                // 👇 AJOUTER CE LOG POUR VOIR LA STRUCTURE
+                console.log('📦 Structure data:', response.data.data);
+                
+                // ✅ Adapter selon la structure de ta réponse
+                const restaurantData = response.data.data || response.data;
+                
+                console.log('🔍 Team1:', restaurantData.team1);
+                console.log('🔍 Team2:', restaurantData.team2);
+                console.log('🔍 TypeEvent:', restaurantData.typeEvent);
+                
+                setRestaurant(restaurantData);
                 setLoading(false);
             })
             .catch(error => {
@@ -71,10 +81,10 @@ const Reservation = () => {
             <Header />
             <ListeReservation
                 email={restaurant.email}
-                team1={restaurant.team1?.nom || 'Équipe 1'}
-                team2={restaurant.team2?.nom || 'Équipe 2'}
+                team1={restaurant.team1?.nom || restaurant.team1 || 'Équipe 1'}
+                team2={restaurant.team2?.nom || restaurant.team2 || 'Équipe 2'}
                 localisation={restaurant.localisation}
-                event={restaurant.typeEvent?.nom || 'Événement'}
+                event={restaurant.typeEvent?.nom || restaurant.typeEvent || 'Événement'}
                 nom={restaurant.nom}
                 desc={restaurant.description}
                 menu={restaurant.menu}
