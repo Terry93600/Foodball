@@ -14,7 +14,7 @@ const Index = () => {
     return (
       <>
         <Header />
-        <Carrousel images={images} />
+        {/* <Carrousel images={images} /> */}
         <Accueil />
         <Footer />
       </>

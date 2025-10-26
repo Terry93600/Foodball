@@ -204,7 +204,7 @@ text-align: center;
 .croix {
     position: absolute;
     top: -20px;
-    left: 20px;
+    right: 20px;
     font-size: 50px;
     color: white;
 }
@@ -286,20 +286,123 @@ text-align: center;
     display: none;
 } 
 
-@media screen and (max-width: 768px) {
-    #pageResto {
+/* @media screen and (max-width: 768px) {
+    #pageResto,
+    #resto > section > .resto:hover,
+    #resto > section > .resto:hover > a,
+    #resto > section > .resto:hover > p > a,
+    #resto > section > .resto:hover > .team,
+    #resto > section > .resto:hover > .team > h3,
+#resto > section > .resto:hover > .team > p,
+.resto:hover > .titre::after,
+.resto:hover > .googleMap > p,
+.resto:hover > .googleMap > a,
+.resto:hover > .reservation-menu > .PopUpMenu,
+.resto:hover > .reservation-menu > a ,
+.resto > .titre::after{
         display: none;
     }
 
     #resto {
          padding-top: 100px;
     }
+} */
+
+@media screen and (max-width: 768px) {
+    /* Désactiver toutes les animations et transitions */
+    #resto > section > .resto:hover {
+        border: none;
+        transition: none;
+        box-shadow: 10px 5px 2px 2px rgba(0, 0, 0, 0.377);
+    }
+
+    #resto > section > .resto:hover > a {
+        transition: none;
+        box-shadow: none;
+        text-transform: none;
+    }
+
+    #resto > section > .resto:hover > p > a {
+        text-decoration: underline 2px;
+    }
+
+    #resto > section > .resto:hover > .team {
+        background: rgba(128, 128, 128, 0.329);
+    }
+
+    #resto > section > .resto:hover > .team > h3,
+    #resto > section > .resto:hover > .team > p {
+        color: inherit;
+    }
+
+    #resto > section > .resto:hover > .team + p {
+        border: none;
+    }
+
+    .resto > .titre::after {
+        display: none;
+    }
+
+    .resto:hover > .titre::after {
+        width: 0;
+    }
+
+    .resto:hover > .googleMap > p {
+        text-decoration: none;
+    }
+
+    .resto:hover > .googleMap > a {
+        text-decoration: underline 2px;
+        font-style: normal;
+    }
+
+    .resto:hover > .reservation-menu > .PopUpMenu,
+    .resto:hover > .reservation-menu > a {
+        transition: none;
+        padding: 0;
+        border-radius: 0;
+        font-style: normal;
+        background: none;
+        color: inherit;
+    }
+
+    .PopUpMenu,
+    .PopUpMenu + a {
+        transition: none;
+    }
+
+    #pageResto {
+        display: none;
+    }
+
+    #resto {
+        padding-top: 100px;
+    }
+
+    .croix {
+        color: white;
+        z-index: 30;
+        top: 50px;
+    }
+
+    .croix + h3{
+    color: white;
+    position: relative;
+    z-index: 10;
+    top: 40px;
+    }
+
+    .croix + h3 + figure {
+    color: white;
+    position: relative;
+    top: 40px;
+    }
 }
 
 @media screen and (max-width: 700px) {
 
     .resto {
-        width: 100%;
+        width: 80%;
         margin: 10px 20px;
     } 
     .map {
@@ -350,13 +453,21 @@ text-align: center;
     .menuMobile {
         display: block;
     }
-    #resto > section > .resto:hover,
-    #resto > section > .resto:hover > a,
+
     .PopUpMenu + a,
     .PopUpMenu,
-
     .googleMap + a{
         display: block;
+    }
+
+    .PopUpMenu + a ,
+    .PopUpMenu,
+    .map {
+        background: var(--VertPrincipal);
+        padding: 10px 15px;
+        border-radius: 5px;
+        color: white;
+        font-style: italic;
     }
 }
 

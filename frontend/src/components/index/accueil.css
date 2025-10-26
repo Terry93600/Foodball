@@ -1,3 +1,11 @@
+#index {
+    margin-bottom: 130px;
+}
+
+#index > figure{
+    height: 60vh;
+}
+
 #index > section  {
     display: flex;
     flex-wrap: wrap;
@@ -51,22 +59,38 @@
 
 #index > section > section {
     display: flex;
-    width: 400px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    justify-content: space-around;
-    /* gap: 50px; */
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px 30px;
 }
 
 #index > section > section > article > p {
-    margin-bottom: 20px;
+    padding-top: 20px;
+    height: 30%;
+    text-align: center;
+    color: white;
+}
+
+#index > section > section > article > figure {
+    height: 70%;
 }
 
 #index > section > section > article {
     opacity: 0;
+    width: 300px;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-items: center;
+    background: var(--VertPrincipal);
     transform: translateY(20px);
     transition: opacity 1s, transform 2s;
+    border: var(--VertPrincipal) solid 3px;
 }
 
 #index > section > section > article.visible {
@@ -79,4 +103,8 @@
     #a-propos {
         padding-top: 100px;
     }
+
+    #index > figure{
+    display: none;
+}
 }

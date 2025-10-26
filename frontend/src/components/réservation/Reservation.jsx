@@ -99,10 +99,10 @@ const Reservation = ({ email, team1, team2, localisation, event, nom, desc, menu
           </figure>
 
           <div>
-            <label>Nom et prénom :</label>
+            <label>NOM et Prénom :</label>
             <input 
               type="text" 
-              placeholder='Nom et Prénom'
+              placeholder='NOM et Prénom'
               {...register("name", { 
                 required: "Le nom et prénom sont requis", 
                 maxLength: { 

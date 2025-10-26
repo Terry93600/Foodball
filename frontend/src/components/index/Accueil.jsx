@@ -11,36 +11,8 @@ import win from "../../assets/image index/win.jpg";
 import inscription from "../../assets/resto/inscription.jpg";
 import client from "../../assets/humains/pexels-elif-tekkaya-5616321.jpg";
 import React, { useEffect } from "react";
-
-
-// const Accueil = () => {
-
-//     useEffect(() => {
-//         const handleScroll = () => {
-//           const articles = document.querySelectorAll("#index > section > section > article");
-    
-//           articles.forEach((article) => {
-//             const articleTop = article.getBoundingClientRect().top;
-//             const articleBottom = article.getBoundingClientRect().bottom;
-    
-//             if (articleTop < window.innerHeight && articleBottom > 0) {
-//               article.classList.add("visible");
-//             } else {
-//               article.classList.remove("visible");
-//             }
-//           });
-//         };
-    
-//         window.addEventListener("scroll", handleScroll);
-    
-//         // Nettoyez l'écouteur d'événements lorsque le composant est démonté
-//         return () => {
-//           window.removeEventListener("scroll", handleScroll);
-//         };
-//       }, []);
-
+import PageIndex from "../../assets/pageIndex.jpg";
 const Accueil = () => {
-  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Animation au défilement (code existant)
@@ -71,13 +43,12 @@ const Accueil = () => {
     };
   }, []);
 
-  // if (isLoading) {
-  //   return <div className="loading-spinner">Chargement...</div>;
-  // }
-
     return <>
         
         <main id="index">
+            <figure>
+                <img src={PageIndex} alt="" />
+            </figure>
 
             <article id="a-propos">
                 <h2>A propos</h2>
@@ -89,11 +60,9 @@ const Accueil = () => {
                 <h2>Alors comme trouvrer le chemin du filet ?</h2>
                 <p>Il y aura 2 moyen de trouver le chemin du filet, si vous êtes plutôt une personne qui préfère être sur le terrain prenez le chemin de le role <span>client</span>  mais si vous êtes plutôt stratège prenais le role des <span>restaurateur</span></p>
 
-                <section>
                     <h2>Client</h2>
-                    <figure>
-                        <img src={client} alt="" />
-                    </figure>
+
+                <section>
                     <article>
                         <p>Il faut tous d'abors commencée à attaquer avec votre ailié qui se trouve en haut à droite qui fait un appel en profondeur, il se nomme RESTAURANTS</p>
                         <figure>
@@ -119,12 +88,11 @@ const Accueil = () => {
                         </figure>
                     </article>
                 </section>
+
+                    <h2>Restaurateur</h2>
+
                 
                 <section>
-                    <h2>Restaurateur</h2>
-                    <figure>
-                        <img src={inscription} alt="" />
-                    </figure>
                     <article>
                         <p>
                             Votre équipe est manque de victoire vous décidez de changer de tactique en cliquant sur le bouton CONNEXION

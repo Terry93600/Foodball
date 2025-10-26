@@ -26,10 +26,10 @@
     gap: 30px;
     flex-direction: column;
     width: 400px;
-    background: rgba(245, 245, 245, 0.116);
+    background: rgba(245, 245, 245, 0.26);
     border: 2px solid var(--VertPrincipal);
     border-radius: 10px;
-    height: 300px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -6,10 +6,9 @@
 #inscription > div {
     display: flex;
     justify-content: center;
-    padding-top: 100px;
-    /* position: relative; */
+    padding-top: 30px;
     align-items: center;
-    padding-bottom: 30px;
+    padding-bottom: 120px;
 }
 
 #inscription > div > img {
@@ -30,12 +29,10 @@
     background: rgba(255, 255, 255, 0.918);
     border: 2px solid var(--VertPrincipal);
     border-radius: 10px;
-    /* height: 400px; */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 15px;
-    margin-top: 80px;
 }
 
 #inscription > div > form > div {
@@ -53,7 +50,6 @@
 #inscription > div > form > a  {
     border: none;
     background: none;
-    color: white;
     font-size: 1.3rem;
     letter-spacing: 1px;
     text-decoration: underline var(--VertPrincipal) 5px;

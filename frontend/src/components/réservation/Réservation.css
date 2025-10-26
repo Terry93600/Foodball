@@ -23,8 +23,16 @@
     padding: 50px;
 }
 
+.formReservation > form > h2,
+.formReservation > form > p > a,
+.formReservation > form > p,
+.formReservation > form > div > label,
+.formReservation > form > button {
+    color: white;
+}
+
 .formReservation > form {
-    margin-top: 20px;
+    margin-top: 50px;
     padding: 20px;
     border-radius: 10px;
     border: 3px solid var(--VertPrincipal);
@@ -33,7 +41,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background: rgba(21, 150, 4, 0.171);
+    background: rgba(9, 58, 3, 0.644);
 }
 
 .formReservation > form > div {
@@ -45,9 +53,12 @@
 }
 
 .formReservation > form > button {
-    background: none;
+    background: white;
+    color: var(--VertPrincipal);
+    padding: 10px 20px;
+    border-radius: 10px;
+    letter-spacing: 1px;
     border: none;
-    text-decoration: underline var(--VertPrincipal);
     font-size: 1.2em;
 }
 
@@ -69,22 +80,12 @@
 }
 @media screen and (max-width: 700px) {
 
-    #terrain-vert {
-        display: none;
-    }
-
-    .formReservation > form > figure {
-        display: block;
-    }
-
-    .formReservation {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
     .formReservation > form {
         width: 100%;
-        background: none;
     }
 
+    .formReservation > form > h2 + h2 + p + p > a {
+        background: none;
+    }
+    
 }
