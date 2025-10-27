@@ -1,36 +1,80 @@
+const jwt = require('jsonwebtoken');
+
 const authMiddleware = {
     // Middleware pour vérifier si l'utilisateur est admin
     isAdmin: (req, res, next) => {
-        // Pour l'instant, on simule avec un header
-        // Plus tard, tu pourras utiliser JWT
-        const userRole = req.headers['x-user-role'];
-        
-        console.log('🔐 Vérification admin - Role:', userRole);
-        
-        if (userRole !== 'admin') {
-            return res.status(403).json({
+        try {
+            // 1️⃣ Récupérer le token depuis le header Authorization
+            const authHeader = req.headers.authorization;
+            
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                console.log('❌ Token manquant');
+                return res.status(401).json({
+                    state: "error",
+                    message: "Token manquant. Veuillez vous connecter."
+                });
+            }
+
+            const token = authHeader.split(' ')[1];
+            
+            // 2️⃣ Vérifier et décoder le token
+            const decoded = jwt.verify(token, 'jwtSecretKey'); // 👈 Utilise la même clé que dans authOrOwner
+            
+            console.log('🔐 Vérification admin - Token décodé:', decoded);
+            console.log('🎭 Rôle:', decoded.role_nom);
+            
+            // 3️⃣ Vérifier si l'utilisateur est admin
+            if (decoded.role_nom !== 'admin') {
+                console.log('❌ Accès refusé - Rôle:', decoded.role_nom);
+                return res.status(403).json({
+                    state: "error",
+                    message: "Accès refusé. Droits administrateur requis."
+                });
+            }
+            
+            // 4️⃣ Ajouter les infos utilisateur à la requête
+            req.user = decoded;
+            
+            console.log('✅ Admin vérifié');
+            next();
+            
+        } catch (error) {
+            console.error('💥 Erreur vérification admin:', error);
+            return res.status(401).json({
                 state: "error",
-                message: "Accès refusé. Droits administrateur requis."
+                message: "Token invalide ou expiré."
             });
         }
-        
-        next();
     },
 
     // Middleware pour vérifier si l'utilisateur est connecté
     isAuthenticated: (req, res, next) => {
-        const userId = req.headers['x-user-id'];
-        
-        console.log('🔐 Vérification authentification - User ID:', userId);
-        
-        if (!userId) {
+        try {
+            const authHeader = req.headers.authorization;
+            
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                console.log('❌ Token manquant');
+                return res.status(401).json({
+                    state: "error",
+                    message: "Non authentifié. Veuillez vous connecter."
+                });
+            }
+
+            const token = authHeader.split(' ')[1];
+            const decoded = jwt.verify(token, 'jwtSecretKey');
+            
+            console.log('🔐 Vérification authentification - User:', decoded.email);
+            
+            req.user = decoded;
+            next();
+            
+        } catch (error) {
+            console.error('💥 Erreur authentification:', error);
             return res.status(401).json({
                 state: "error",
-                message: "Non authentifié. Veuillez vous connecter."
+                message: "Token invalide ou expiré."
             });
         }
-        
-        next();
     }
 };
 
