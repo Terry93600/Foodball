@@ -1,18 +1,6 @@
 const Restaurant = require("../models/Restaurant");
 
 const restaurantController = {
-    // selectAll: async (req, res) => {
-    //     try {
-    //         const restaurants = await Restaurant.find()
-    //             .populate('utilisateur_id', 'name email');
-            
-    //         res.json({ data: restaurants });
-    //     } catch (error) {
-    //         console.error('Erreur selectAll restaurants:', error);
-    //         res.json({ state: "error" });
-    //     }
-    // },
-
     selectAll: async (req, res) => {
     try {
         const restaurants = await Restaurant.find()
@@ -27,19 +15,6 @@ const restaurantController = {
         res.json({ state: "error" });
     }
 },
-
-    // selectOne: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const restaurant = await Restaurant.findById(id)
-    //             .populate('utilisateur_id', 'name email');
-            
-    //         res.json({ data: restaurant });
-    //     } catch (error) {
-    //         console.error('Erreur selectOne restaurant:', error);
-    //         res.json({ state: "error" });
-    //     }
-    // },
 
     selectOne: async (req, res) => {
     try {
@@ -90,18 +65,6 @@ const restaurantController = {
             res.json({ state: "error" });
         }
     },
-
-    // update: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, { new: true });
-            
-    //         res.json({ data: updatedRestaurant });
-    //     } catch (error) {
-    //         console.error('Erreur update restaurant:', error);
-    //         res.json({ state: "error" });
-    //     }
-    // },
 
     update: async (req, res) => {
     try {

@@ -34,54 +34,7 @@ const inscriptionController = {
             });
         }
     },
-
-    // create: async (req, res) => {
-    //     try {
-    //         const { email, name, password } = req.body;
-    //         const hashedPassword = await argon2.hash(password);
-            
-    //         // Trouver le rôle "restaurateur"
-    //         const restaurateurRole = await Role.findOne({ nom: "restaurateur" });
-            
-    //         // Créer l'utilisateur
-    //         const newUser = new Utilisateur({
-    //             email,
-    //             name,
-    //             password: hashedPassword,
-    //             role_id: restaurateurRole._id
-    //         });
-    //         const savedUser = await newUser.save();
-
-    //         // Créer le restaurant
-    //         const newRestaurant = new Restaurant({
-    //             nom: "Nom du restaurant",
-    //             description: "Description du restaurant",
-    //             localisation: "Localisation du restaurant",
-    //             menu: "Menu du restaurant",
-    //             utilisateur_id: savedUser._id
-    //         });
-    //         const savedRestaurant = await newRestaurant.save();
-
-    //         // Associer à un événement par défaut
-    //         const defaultEvent = await Event.findOne();
-    //         if (defaultEvent) {
-    //             savedRestaurant.events.push(defaultEvent._id);
-    //             await savedRestaurant.save();
-    //         }
-
-    //         res.json({
-    //             utilisateur_id: savedUser._id,
-    //             utilisateur: savedUser,
-    //             restaurant: savedRestaurant,
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).json({
-    //             error: "Erreur lors de la création de l'utilisateur et du restaurant",
-    //         });
-    //     }
-    // },
-
+    
     create: async (req, res) => {
     try {
         const { email, nom, prenom, telephone, password, role_id } = req.body;

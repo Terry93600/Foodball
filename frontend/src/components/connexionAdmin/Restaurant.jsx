@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './restaurant.css'; 
 
 const Restaurant = ({ titre, desc, team1, team2, event, localisation, menu, restauId, utilisateur_id, onEdit, onDelete }) => {
   const Url = import.meta.env.VITE_API_URL;
@@ -16,45 +17,6 @@ const Restaurant = ({ titre, desc, team1, team2, event, localisation, menu, rest
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  // const handleDelete = async () => {
-  //   if (!confirm("Êtes-vous sûr de vouloir supprimer ce restaurant ?")) {
-  //     return;
-  //   }
-
-  //   // 👇 CORRECTION DE L'URL
-  //   const apiUrl = `${Url}restaurant/${restauId}`;
-    
-  //   console.log('Suppression du restaurant:', restauId); // 👈 DEBUG
-  //   console.log('URL:', apiUrl); // 👈 DEBUG
-
-  //   try {
-  //     const response = await fetch(apiUrl, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     const data = await response.json();
-  //     console.log('Réponse suppression:', data); // 👈 DEBUG
-
-  //     if (data.data) {
-  //       alert('Restaurant supprimé avec succès !');
-  //       // 👇 Appeler la fonction de callback pour recharger la liste
-  //       if (onDelete) {
-  //         onDelete();
-  //       } else {
-  //         window.location.reload(); // Fallback si pas de callback
-  //       }
-  //     } else {
-  //       alert('Erreur lors de la suppression');
-  //     }
-  //   } catch (error) {
-  //     console.error('Erreur:', error);
-  //     alert('Erreur lors de la suppression');
-  //   }
-  // };
 
 const handleDelete = async (restaurantId) => {
   try {
@@ -148,15 +110,12 @@ const handleDelete = async (restaurantId) => {
           {localisation}
         </a>
       </div>
-      <figure>
+      <figure className="menuResto">
         <img src={menu} alt="" />
       </figure>
       
       <div className="actions">
         {onEdit && <button onClick={() => onEdit(restauId)} className="btn-edit">✏️ Modifier</button>}
-        {/* <button onClick={handleDelete} className="btn-delete">🗑️ Supprimer</button> */}
-        {/* ✅ BON */}
-        {/* ✅ BON */}
 <button 
   className="btn-delete"
   onClick={() => handleDelete(restauId)}

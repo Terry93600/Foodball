@@ -9,7 +9,8 @@
     position: relative;
     width: 60%;
     /* height: 80vh; */
-    margin: 10px auto;
+    margin: 50px auto;
+    margin-bottom: 150px;
     justify-content: space-between;
     border: 1px solid var(--VertPrincipal);
     padding: 10px 20px;

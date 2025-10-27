@@ -41,36 +41,6 @@ const ModifierRestaurant = ({ restaurant, onClose, onUpdate }) => {
       [e.target.name]: e.target.value,
     });
   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-    
-//     console.log('Envoi de la modification:', formData); // 👈 DEBUG
-//     console.log('URL:', `${Url}restaurant/${restaurant._id}`); // 👈 DEBUG
-    
-//     try {
-//       const response = await fetch(`${Url}restaurant/${restaurant._id}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData),
-//       });
-      
-//       const data = await response.json();
-//       console.log('Réponse du serveur:', data); // 👈 DEBUG
-      
-//       if (data.data) {
-//         alert("Restaurant modifié avec succès !");
-//         onUpdate(); // 👈 Recharger la liste
-//         onClose(); // 👈 Fermer le modal
-//       } else {
-//         alert("Erreur lors de la modification");
-//       }
-//     } catch (error) {
-//       console.error("Erreur:", error);
-//       alert("Erreur lors de la modification");
-//     }
-//   };
-
     const handleSubmit = async (e) => {
     e.preventDefault();
     

@@ -1,18 +1,3 @@
-// import Footer from "../src/components/footer/Footer";
-// import Header from "../src/components/header/Header";
-// import ListeReservation from "../src/components/réservation/Reservation"
-
-
-// const Reservation = () => {
-//     return <>
-//         <Header />
-//         <ListeReservation />
-//         <Footer/>
-//     </>
-// }
-
-// export default Reservation;
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
