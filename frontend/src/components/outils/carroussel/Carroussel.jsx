@@ -1,6 +1,6 @@
 import React from "react";
 import "./carroussel.css"
-import "../../js/carrou.js"
+// import "../../js/carrou.js"
 
 const Carroussel = () => {
     return <>

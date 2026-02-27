@@ -55,6 +55,26 @@ function App() {
           } 
         />
 
+        // Route client protégée ✅
+<Route 
+  path="/restaurants" 
+  element={
+    <ProtectedRoute requiredRole="client">
+      <Restaurants />
+    </ProtectedRoute>
+  } 
+/>
+
+// Route restaurateur protégée ✅
+<Route 
+  path="/info-restaurant/:critere" 
+  element={
+    <ProtectedRoute requiredRole="restaurateur">
+      <User_connexion />
+    </ProtectedRoute>
+  } 
+/>
+
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/réservation/:critere" element={<Reservation />} />
 

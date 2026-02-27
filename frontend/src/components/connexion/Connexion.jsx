@@ -79,13 +79,21 @@ function Login() {
     console.log('🎭 Rôle utilisateur:', userData.role_id?.nom);
 
     // Redirection basée sur le rôle
+    // if (userData.role_id?.nom === 'admin') {
+    //   console.log('🔀 Redirection vers /admin');
+    //   navigate('/admin');
+    // } else {
+    //   console.log(`🔀 Redirection vers /info-restaurant/${userData._id}`);
+    //   navigate(`/info-restaurant/${userData._id}`);
+    // }
+
     if (userData.role_id?.nom === 'admin') {
-      console.log('🔀 Redirection vers /admin');
-      navigate('/admin');
-    } else {
-      console.log(`🔀 Redirection vers /info-restaurant/${userData._id}`);
-      navigate(`/info-restaurant/${userData._id}`);
-    }
+  navigate('/admin');
+} else if (userData.role_id?.nom === 'restaurateur') {
+  navigate(`/info-restaurant/${userData._id}`);
+} else {
+  navigate('/restaurants'); // 👈 Les clients vont ici
+}
 
     toast.success('Connexion réussie !', {
       position: toast.POSITION.TOP_CENTER,

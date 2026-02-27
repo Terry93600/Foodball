@@ -1,5 +1,6 @@
 const Utilisateur = require("../models/Utilisateur");
 const Restaurant = require("../models/Restaurant");
+const Role = require("../models/Role");
 const Team = require("../models/Team");
 const TypeEvent = require("../models/TypeEvent");
 const argon2 = require('argon2');
@@ -185,6 +186,84 @@ const inscriptionController = {
             res.json({ data: user });
         } catch (error) {
             res.json({ state: "error" });
+        }
+    },
+
+    createRestaurateur: async (req, res) => {
+        try {
+            const { email, nom, prenom, telephone, password } = req.body;
+
+            const existingUser = await Utilisateur.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ state: "error", message: "Email déjà utilisé" });
+            }
+
+            const role = await Role.findOne({ nom: 'restaurateur' });
+            if (!role) return res.status(500).json({ state: "error", message: "Rôle non trouvé" });
+
+            const newUser = new Utilisateur({ email, nom, prenom, telephone, password, role_id: role._id });
+            await newUser.validate();
+            newUser.password = await argon2.hash(password);
+            const savedUser = await newUser.save({ validateBeforeSave: false });
+
+            const defaultRestaurant = new Restaurant({
+                nom: `Restaurant de ${prenom} ${nom}`,
+                description: `Bienvenue ! Personnalisez votre établissement.`,
+                localisation: "Adresse à définir",
+                codePostal: "00000",
+                ville: "Ville à définir",
+                telephone,
+                email,
+                capacite: 50,
+                prixMoyen: 20,
+                utilisateur_id: savedUser._id
+            });
+            const savedRestaurant = await defaultRestaurant.save();
+
+            res.status(201).json({
+                state: "success",
+                message: "Inscription restaurateur réussie !",
+                data: { user: savedUser, restaurant: savedRestaurant }
+            });
+
+        } catch (error) {
+            if (error.name === 'ValidationError') {
+                const errors = Object.values(error.errors).map(e => e.message);
+                return res.status(400).json({ state: "error", message: "Erreurs de validation", errors });
+            }
+            res.status(500).json({ state: "error", message: "Erreur serveur" });
+        }
+    },
+
+    createClient: async (req, res) => {
+        try {
+            const { email, nom, prenom, telephone, password } = req.body;
+
+            const existingUser = await Utilisateur.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ state: "error", message: "Email déjà utilisé" });
+            }
+
+            const role = await Role.findOne({ nom: 'client' });
+            if (!role) return res.status(500).json({ state: "error", message: "Rôle non trouvé" });
+
+            const newUser = new Utilisateur({ email, nom, prenom, telephone, password, role_id: role._id });
+            await newUser.validate();
+            newUser.password = await argon2.hash(password);
+            const savedUser = await newUser.save({ validateBeforeSave: false });
+
+            res.status(201).json({
+                state: "success",
+                message: "Inscription client réussie !",
+                data: { user: savedUser }
+            });
+
+        } catch (error) {
+            if (error.name === 'ValidationError') {
+                const errors = Object.values(error.errors).map(e => e.message);
+                return res.status(400).json({ state: "error", message: "Erreurs de validation", errors });
+            }
+            res.status(500).json({ state: "error", message: "Erreur serveur" });
         }
     }
 };
