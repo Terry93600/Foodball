@@ -117,10 +117,12 @@ const connexionController = {
             }
         });
         
-    } catch (error) {
-        console.error('💥 Erreur de connexion:', error);
-        res.json({ state: "error", message: "Erreur serveur" });
-    }
+    // Dans le catch de login()
+} catch (error) {
+    console.error('❌ ERREUR CONNEXION DÉTAILLÉE:', error.message); // 👈 AJOUTER
+    console.error('❌ STACK:', error.stack); // 👈 AJOUTER
+    res.status(500).json({ state: "error", message: "Erreur serveur" });
+}
 },
 
     selectAll: async (req, res) => {
