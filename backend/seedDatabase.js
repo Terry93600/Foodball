@@ -35,7 +35,8 @@ const seedDatabase = async () => {
         // 1. Insérer les rôles
         const roles = await Role.insertMany([
             { nom: 'admin' },
-            { nom: 'restaurateur' }
+            { nom: 'restaurateur' },
+            { nom: 'client' }
         ]);
         console.log('Rôles créés:', roles.length);
 
@@ -71,25 +72,40 @@ const seedDatabase = async () => {
         const hashedPassword1 = await argon2.hash('ter');
         const hashedPassword2 = await argon2.hash('123');
 
-        const users = await Utilisateur.insertMany([
-            {
-                email: 'alphavladitore@gmail.com',
-                name: 'terry',
-                password: hashedPassword1,
-                role_id: roles[0]._id
-            },
-            {
-                email: 'burgerking@gmail.com',
-                name: '123',
-                password: hashedPassword2,
-                role_id: roles[1]._id
-            },
-            {
-                email: 'Kfc@gmail.com',
-                name: 'terry',
-                password: hashedPassword1,
-                role_id: roles[1]._id
-            }
+const users = await Utilisateur.insertMany([
+    {
+        email: 'alphavladitore@gmail.com',
+        nom: 'Genly',
+        prenom: 'Terry',
+        telephone: '0612345678',
+        password: hashedPassword1,
+        role_id: roles[0]._id  // admin
+    },
+    {
+        email: 'burgerking@gmail.com',
+        nom: 'King',
+        prenom: 'Burger',
+        telephone: '0612345679',
+        password: hashedPassword2,
+        role_id: roles[1]._id  // restaurateur
+    },
+    {
+        email: 'kfc@gmail.com',
+        nom: 'Fried',
+        prenom: 'Kentucky',
+        telephone: '0612345680',
+        password: hashedPassword1,
+        role_id: roles[1]._id  // restaurateur
+    },
+    // 👇 Ajouter un client test
+    {
+        email: 'client@test.com',
+        nom: 'Martin',
+        prenom: 'Marie',
+        telephone: '0612345681',
+        password: hashedPassword1,
+        role_id: roles[2]._id  // client
+    }
         ]);
         console.log('Utilisateurs créés:', users.length);
 
@@ -120,23 +136,35 @@ const seedDatabase = async () => {
 
         // 6. Insérer les restaurants
         const restaurants = await Restaurant.insertMany([
-            {
-                nom: 'KFC',
-                description: 'Succombez à l\'authentique plaisir du poulet.',
-                localisation: '176 Av. Gallieni, 93140 Bondy',
-                menu: 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246809/w4ubmnwkcj2ael14zxrc.png',
-                utilisateur_id: users[2]._id,
-                events: [events[0]._id]
-            },
-            {
-                nom: 'Burger King',
-                description: 'Goûtez la flamme, savourez le Whopper ! Burger King, là où les flammes rencontrent la saveur.',
-                localisation: 'Rond-Point Du 6 Juin 1944, 77270 Villeparisis',
-                menu: 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246787/fxv8viqcnlbykdgvw5iv.png',
-                utilisateur_id: users[1]._id,
-                events: [events[1]._id]
-            }
-        ]);
+    {
+        nom: 'KFC',
+        description: 'Succombez à l\'authentique plaisir du poulet.',
+        localisation: '176 Av. Gallieni, 93140 Bondy',
+        codePostal: '93140',
+        ville: 'Bondy',
+        telephone: '0123456789',
+        email: 'kfc@gmail.com',
+        capacite: 80,
+        prixMoyen: 15,
+        menu: 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246809/w4ubmnwkcj2ael14zxrc.png',
+        utilisateur_id: users[2]._id,
+        events: [events[0]._id]
+    },
+    {
+        nom: 'Burger King',
+        description: 'Goûtez la flamme, savourez le Whopper !',
+        localisation: 'Rond-Point Du 6 Juin 1944, 77270 Villeparisis',
+        codePostal: '77270',
+        ville: 'Villeparisis',
+        telephone: '0987654321',
+        email: 'burgerking@gmail.com',
+        capacite: 100,
+        prixMoyen: 12,
+        menu: 'https://res.cloudinary.com/dbswf4zf2/image/upload/v1705246787/fxv8viqcnlbykdgvw5iv.png',
+        utilisateur_id: users[1]._id,
+        events: [events[1]._id]
+    }
+]);
         console.log('Restaurants créés:', restaurants.length);
 
         console.log('🎉 Base de données seedée avec succès !');
