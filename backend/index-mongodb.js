@@ -167,6 +167,7 @@ app.use("/api/event", eventrouter);
 app.use("/api/restaurantEvent", restaurantEventRouter);
 app.use('/api/football', footballRouter);
 app.use("/api/user", userRouter);
+app.use("/api/inscription", inscriptionRouter);
 
 const PORT = process.env.PORT || 3000;
 

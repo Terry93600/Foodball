@@ -11,8 +11,11 @@ router.delete("/:id", inscriptionController.delete)
 
 router.post("/login", inscriptionController.login);
 
-router.post('/inscription/restaurateur', inscriptionController.createRestaurateur);
-router.post('/inscription/client', inscriptionController.createClient);
+// router.post('/inscription/restaurateur', inscriptionController.createRestaurateur);
+// router.post('/inscription/client', inscriptionController.createClient);
+
+router.post('/restaurateur', inscriptionController.createRestaurateur);
+router.post('/client', inscriptionController.createClient);
 
 // router.post('/logout', inscriptionController.logout);
 

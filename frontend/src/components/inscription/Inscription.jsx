@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./inscription.css";
 import axios from "axios";
@@ -8,39 +8,21 @@ import 'react-toastify/dist/ReactToastify.css';
 function Inscription() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-  const [values, setValues] = useState({
-    nom: "",
-    prenom: "",
-    telephone: "",
-    email: "",
-    password: "",
-    role_id: ""
-  });
-  const [roles, setRoles] = useState([]);
+  // const [values, setValues] = useState({
+  //   nom: "",
+  //   prenom: "",
+  //   telephone: "",
+  //   email: "",
+  //   password: "",
+  //   role_id: ""
+  // });
+  // APRÈS ✅
+const [values, setValues] = useState({
+    nom: "", prenom: "", telephone: "", email: "", password: ""
+});
+const [selectedRole, setSelectedRole] = useState(null); // null = aucun rôle sélectionné
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
-  // Charger les rôles au montage du composant
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}role`);
-        setRoles(response.data.data || []);
-        
-        // Sélectionner automatiquement le rôle "client"
-        const clientRole = response.data.data?.find(role => role.nom === 'client');
-        if (clientRole) {
-          setValues(prev => ({ ...prev, role_id: clientRole._id }));
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des rôles:', error);
-        toast.error('Erreur lors du chargement des rôles');
-      }
-    };
-
-    fetchRoles();
-  }, [apiUrl]);
-
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
     // Effacer l'erreur du champ modifié
@@ -84,6 +66,11 @@ function Inscription() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
+    if (!selectedRole) {
+      toast.error('Veuillez sélectionner un rôle : Client ou Restaurateur');
+      return;
+    }
+
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
@@ -95,10 +82,17 @@ function Inscription() {
     setErrors({});
 
     try {
-      const response = await axios.post(`${apiUrl}utilisateur`, values);
+      const endpoint = selectedRole === 'restaurateur'
+        ? `${apiUrl}inscription/restaurateur`
+        : `${apiUrl}inscription/client`;
+
+      const response = await axios.post(endpoint, values);
       
       if (response.data.state === 'success') {
-        toast.success('Inscription réussie ! Votre restaurant a été créé automatiquement.');
+        const message = selectedRole === 'restaurateur'
+          ? 'Inscription réussie ! Votre restaurant a été créé automatiquement.'
+          : 'Inscription réussie ! Bienvenue sur Foodball !';
+        toast.success(message);
         setTimeout(() => {
           navigate("/connexion");
         }, 2000);
@@ -128,6 +122,26 @@ function Inscription() {
       <div>
         <form onSubmit={handleSubmit}>
           <h2>Inscription</h2>
+          
+          <div className="role-selector">
+    <p>Je suis :</p>
+    <div className="role-buttons">
+        <button
+            type="button"
+            className={selectedRole === 'client' ? 'active' : ''}
+            onClick={() => setSelectedRole('client')}
+        >
+            👤 Client
+        </button>
+        <button
+            type="button"
+            className={selectedRole === 'restaurateur' ? 'active' : ''}
+            onClick={() => setSelectedRole('restaurateur')}
+        >
+            🍽️ Restaurateur
+        </button>
+    </div>
+</div>
           
           <div>
             <label htmlFor="nom">Nom *</label>
@@ -196,7 +210,11 @@ function Inscription() {
 
           <ToastContainer />
           
-          <button type="submit" disabled={loading}>
+          {!selectedRole && (
+            <p className="error-message">⚠️ Veuillez sélectionner un rôle pour vous inscrire</p>
+          )}
+
+          <button type="submit" disabled={loading || !selectedRole}>
             {loading ? 'Inscription en cours...' : 'S\'inscrire'}
           </button>
           
