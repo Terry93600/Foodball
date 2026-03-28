@@ -146,6 +146,8 @@ const menuRouter = require("./routes/menuRouter");
 const platRouter = require("./routes/platRouter");
 const footballRouter = require('./routes/footballRouter');
 const userRouter = require("./routes/userRouter");
+const favoriRouter = require('./routes/favoriRouter');
+const reservationRouter = require('./routes/reservationRouter');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -168,6 +170,8 @@ app.use("/api/restaurantEvent", restaurantEventRouter);
 app.use('/api/football', footballRouter);
 app.use("/api/user", userRouter);
 app.use("/api/inscription", inscriptionRouter);
+app.use('/api/favoris', favoriRouter);
+app.use('/api/reservations', reservationRouter);
 
 const PORT = process.env.PORT || 3000;
 

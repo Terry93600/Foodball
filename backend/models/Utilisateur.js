@@ -1,30 +1,3 @@
-// const mongoose = require('mongoose');
-
-// const utilisateurSchema = new mongoose.Schema({
-//     email: {
-//         type: String,
-//         required: true,
-//         unique: true
-//     },
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     password: {
-//         type: String,
-//         required: true
-//     },
-//     role_id: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: 'Role',
-//         required: true
-//     }
-// }, {
-//     timestamps: true
-// });
-
-// module.exports = mongoose.model('Utilisateur', utilisateurSchema);
-
 const mongoose = require('mongoose');
 
 const utilisateurSchema = new mongoose.Schema({
@@ -39,6 +12,11 @@ const utilisateurSchema = new mongoose.Schema({
             'Format d\'email invalide'
         ]
     },
+    favoris: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Restaurant',
+    default: []
+}],
     nom: {
         type: String,
         required: [true, 'Le nom est obligatoire'],

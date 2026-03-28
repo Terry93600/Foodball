@@ -16,7 +16,8 @@ import { UserProvider } from './context/UserProvider';
 import ForgotPasswordPage from '../Pages/ForgotPassword';
 import ResetPasswordPage from '../Pages/ResetPassword';
 
-import ProtectedRoute from '../src/components/protectedRoute'; // 👈 IMPORTER
+import ProtectedRoute from '../src/components/protectedRoute'; 
+import ProfilClient from './components/profil/ProfilClient';
 
 function App() {
   return (
@@ -74,6 +75,12 @@ function App() {
     </ProtectedRoute>
   } 
 />
+
+<Route path="/profil" element={
+    <ProtectedRoute requiredRole="client">
+        <ProfilClient />
+    </ProtectedRoute>
+} />
 
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/réservation/:critere" element={<Reservation />} />
